@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GameDev Survival Guide — Configurable</title>
+    <meta name="description" content="A configurable matrix for the GameDev Survival Guide with JS-defined cell and detail content." />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #0b0c10;
+        --panel: #111318;
+        --text: #e6e8eb;
+        --muted: #9aa3ad;
+        --primary: #7bc4ff;
+        --border: #2a2e35;
+        --shadow: 0 10px 30px rgba(0,0,0,.35);
+        --radius: 14px;
+      }
+      @media (prefers-color-scheme: light) {
+        :root { --bg: #f7f8fb; --panel: #ffffff; --text: #17212b; --muted: #5a6872; --border: #e5e9ef; --shadow: 0 8px 24px rgba(16,24,40,.08); }
+      }
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial;
+        background: var(--bg);
+        color: var(--text);
+      }
+      .container { max-width: none; width: 100%; margin: 0; padding: 32px 0 80px; position: relative; }
+      header.hero { background: linear-gradient(135deg, rgba(123,196,255,.16), rgba(165,255,214,.12)); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: var(--radius); padding: 28px; margin: 32px 0 22px; }
+      header.hero h1 { margin: 0 0 6px; font-size: 2rem; letter-spacing: .4px; text-transform: uppercase; }
+      header.hero p { margin: 0; color: var(--muted); max-width: 70ch; }
+      section { margin-top: 28px; }
+      section h2 { font-size: 1.35rem; margin: 0 0 8px; }
+      section p.lead { margin: 0 0 18px; color: var(--muted); }
+      .panel { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
+      /* New button-based layout */
+      .layout { display: flex; gap: 16px; align-items: flex-start; }
+      .controls { flex: 0 0 auto; width: max-content; }
+      .detail { flex: 1 1 auto; min-width: 360px; }
+      .group { padding: 12px 14px; border-bottom: 1px solid var(--border); }
+      .group h3 { margin: 0 0 10px; font-size: 1rem; color: var(--muted); font-weight: 600; }
+      .pill-group { display: flex; flex-wrap: wrap; gap: 8px; }
+      .pill { appearance: none; border: 1px solid var(--border); background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.03)); color: var(--text); padding: 10px 12px; border-radius: 999px; font: inherit; cursor: pointer; }
+      .pill:hover { border-color: rgba(123,196,255,.65); box-shadow: inset 0 0 0 1px rgba(123,196,255,.35); }
+      .pill[aria-pressed="true"] { box-shadow: inset 0 0 0 2px rgba(0,229,255,.5); }
+      .topic-pill { font-size: 1rem; line-height: 1.1; padding: 8px 12px; }
+      .level-pill { font-size: .95rem; }
+      .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+      .toolbar .hint { color: var(--muted); font-size: .92rem; }
+      .table-wrap { overflow: auto; -webkit-overflow-scrolling: touch; }
+      table.matrix { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 860px; }
+      table.matrix th, table.matrix td { padding: 0; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border); }
+      table.matrix thead th { position: sticky; top: 0; background: var(--panel); z-index: 2; font-weight: 650; }
+      table.matrix tbody th[scope="row"] { position: sticky; left: 0; background: var(--panel); z-index: 1; font-weight: 600; padding: 12px 14px; }
+      table.matrix thead th:first-child { border-top-left-radius: calc(var(--radius) - 1px); }
+      table.matrix thead th:last-child { border-top-right-radius: calc(var(--radius) - 1px); }
+      table.matrix tbody tr:last-child th:first-child { border-bottom-left-radius: calc(var(--radius) - 1px); }
+      table.matrix tbody tr:last-child td:last-child { border-bottom-right-radius: calc(var(--radius) - 1px); }
+      td { min-width: 140px; }
+      .cell-btn { width: 100%; text-align: left; background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.03)); color: var(--text); padding: 14px; border: none; cursor: pointer; font: inherit; display: block; }
+      .cell-btn:hover { box-shadow: inset 0 0 0 1px rgba(123,196,255,.35); background: linear-gradient(180deg, rgba(0,229,255,.08), rgba(255,75,209,.06)); }
+      tbody tr.selected td, tbody tr.selected th { background: linear-gradient(0deg, rgba(123,196,255,.06), rgba(123,196,255,.06)); }
+      td.selected .cell-btn { box-shadow: inset 0 0 0 2px rgba(0,229,255,.45); }
+      .detail .detail-body { padding: 14px; }
+      .detail .detail-title { margin: 8px 14px 8px; font-size: 1.35rem; letter-spacing: .2px; }
+      .section-grid { display: grid; gap: 12px; padding: 0 14px 14px; }
+      .card { border: 1px solid var(--border); border-radius: 10px; padding: 12px; background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.03)); }
+      .card h4 { margin: 0 0 6px; font-size: 1.05rem; }
+      .card h4 small { color: var(--muted); font-weight: 500; }
+      footer { margin-top: 28px; color: var(--muted); font-size: .92rem; }
+      @media (max-width: 720px) { header.hero h1 { font-size: 1.6rem; } .layout { flex-direction: column; } }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="hero">
+        <h1>Gamedev Character Quest</h1>
+        <p>Create your character</p>
+      </header>
+
+      <section>
+
+        <div class="layout">
+          <div class="controls panel">
+            <div class="toolbar"><div class="hint">Pick a Class, Skill, and Level.</div></div>
+            <div class="group" id="classes-group">
+              <h3>Classes</h3>
+              <div class="pill-group" id="classes-pills"><!-- class pills --></div>
+            </div>
+            <div class="group" id="topics-group">
+              <h3>Skills</h3>
+              <div class="pill-group" id="topics-pills"><!-- topic pills --></div>
+            </div>
+            <div class="group" id="levels-group">
+              <h3>Levels</h3>
+              <div class="pill-group" id="levels-pills"><!-- level pills --></div>
+            </div>
+          </div>
+
+          <aside class="detail panel" id="topic-detail" aria-live="polite">
+            <div class="toolbar">
+              <div class="hint"><strong id="detail-topic">Select a Skill and Level</strong></div>
+            </div>
+            <div class="detail-body">
+              <h3 class="detail-title" id="detail-title"></h3>
+              <div id="detail-content">Use the buttons on the left to display details here.</div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <footer>
+        <span>© GameDev Survival Guide</span>
+      </footer>
+    </div>
+
+    <script>
+      // CONFIG: Edit levels, topics, and content in one place.
+      // Each cell defines a short label (button text) and detail HTML for the right pane.
+      const CONFIG = {
+        classes: [
+          { name: 'Software Engineer' },
+        ],
+        levels: [
+          'Associate',
+          'Regular',
+          'Senior',
+          'Principal',
+          'Distinguished',
+        ],
+        topics: [
+          {
+            name: 'Communication', emoji: '💬',
+            cells: {
+              'Associate': {
+                title: 'A voice eager to learn',
+                main: {
+                  tagline: 'Main character energy',
+                  body: `
+                    <p>Many start the career in the associate/junior role. The people you will communicate to mostly is your immediate team (8-10 people) and it’s expected you give status updates on your tasks and work. You are comfortable with receiving and giving feedback and you actively seek out knowledge from senior team members.</p>
+                  `,
+                },
+                side: {
+                  tagline: 'Free Bonus XP',
+                  body: `
+                    <ul>
+                      <li>Don’t be afraid to speak up and challenge the status quo.</li>
+                      <li>Be curious. Ask others to explain their domains and approaches.</li>
+                      <li>Practice technical writing and documentation early and often.</li>
+                    </ul>
+                  `,
+                },
+                tales: {
+                  tagline: 'Once upon a time…',
+                  body: `
+                    <p>I have been both an associate engineer and worked with many. Your most valuable skill is communication, so practice it as much as you can. I was very quiet when I started and found it hard to speak up in larger meetings or email bigger groups. Over time I learned to use my voice.</p>
+                    <p>In one of my first developer meetings, everyone was quiet. Awkward silence set in. I spoke up. Your voice matters as much as anyone with 10 years’ experience. You bring fresh perspective—share it.</p>
+                  `,
+                },
+              },
+            },
+          },
+          { name: 'Ways of Working', emoji: '🧭', cells: {} },
+          { name: 'Craft Expertise', emoji: '🛠️', cells: {} },
+          { name: 'Business', emoji: '📈', cells: {} },
+          { name: 'Mentorship', emoji: '🤝', cells: {} },
+          { name: 'Collaboration', emoji: '🎯', cells: {} },
+        ],
+        // Default text used when a cell is not defined above
+        defaults: {
+          title: (topic, level) => `${topic} · ${level}`,
+          section: (heading, tagline, body) => `
+            <div class="card">
+              <h4>${heading} <small>— ${tagline}</small></h4>
+              ${body}
+            </div>
+          `,
+          emptyBody: (topic, level) => `<p><em>No details yet.</em> Add ${topic} · ${level} in the CONFIG.</p>`,
+        },
+      };
+
+      (function(){
+        const classesWrap = document.getElementById('classes-pills');
+        const topicsWrap = document.getElementById('topics-pills');
+        const levelsWrap = document.getElementById('levels-pills');
+        const detailTopic = document.getElementById('detail-topic');
+        const detailTitle = document.getElementById('detail-title');
+        const detailContent = document.getElementById('detail-content');
+
+        let activeClass = null;
+        let activeTopic = null;
+        let activeLevel = null;
+
+        function renderDetail(){
+          if(!activeClass || !activeTopic || !activeLevel){
+            detailTopic.textContent = 'Select a Class, Skill and Level';
+            detailTitle.textContent = '';
+            detailContent.innerHTML = 'Use the buttons on the left to display details here.';
+            return;
+          }
+          const cell = (activeTopic.cells && activeTopic.cells[activeLevel]) || null;
+          const title = cell?.title || CONFIG.defaults.title(activeTopic.name, activeLevel);
+          detailTopic.textContent = `${activeClass.name} · ${activeTopic.name} · ${activeLevel}`;
+          detailTitle.textContent = `${activeClass.name} · ${activeTopic.emoji || ''} ${activeTopic.name} · ${activeLevel} — ${title}`.trim();
+
+          const mainHtml = CONFIG.defaults.section('Main Quest', cell?.main?.tagline || 'The expectations', cell?.main?.body || CONFIG.defaults.emptyBody(activeTopic.name, activeLevel));
+          const sideHtml = CONFIG.defaults.section('Side Quest', cell?.side?.tagline || 'Level up faster', cell?.side?.body || CONFIG.defaults.emptyBody(activeTopic.name, activeLevel));
+          const talesHtml = CONFIG.defaults.section('Tales from the Crypt', cell?.tales?.tagline || 'Once upon a time…', cell?.tales?.body || CONFIG.defaults.emptyBody(activeTopic.name, activeLevel));
+          detailContent.innerHTML = `<div class="section-grid">${mainHtml}${sideHtml}${talesHtml}</div>`;
+        }
+
+        function setActiveTopic(topic, btn){
+          activeTopic = topic;
+          topicsWrap.querySelectorAll('.pill').forEach(b => b.setAttribute('aria-pressed','false'));
+          btn.setAttribute('aria-pressed','true');
+          renderDetail();
+        }
+        function setActiveLevel(level, btn){
+          activeLevel = level;
+          levelsWrap.querySelectorAll('.pill').forEach(b => b.setAttribute('aria-pressed','false'));
+          btn.setAttribute('aria-pressed','true');
+          renderDetail();
+        }
+
+        // Build class pills
+        CONFIG.classes.forEach(cls => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'pill level-pill';
+          btn.textContent = cls.name;
+          btn.setAttribute('aria-pressed','false');
+          btn.addEventListener('click', () => {
+            activeClass = cls;
+            classesWrap.querySelectorAll('.pill').forEach(b => b.setAttribute('aria-pressed','false'));
+            btn.setAttribute('aria-pressed','true');
+            renderDetail();
+          });
+          classesWrap.appendChild(btn);
+        });
+
+        // Build skill pills (emoji + text, accessible label)
+        CONFIG.topics.forEach(topic => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'pill topic-pill';
+          btn.textContent = `${topic.emoji || '❓'} ${topic.name}`;
+          btn.title = topic.name;
+          btn.setAttribute('aria-label', topic.name);
+          btn.setAttribute('aria-pressed','false');
+          btn.addEventListener('click', () => setActiveTopic(topic, btn));
+          topicsWrap.appendChild(btn);
+        });
+
+        // Build level pills
+        CONFIG.levels.forEach(level => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'pill level-pill';
+          btn.textContent = level;
+          btn.setAttribute('aria-pressed','false');
+          btn.addEventListener('click', () => setActiveLevel(level, btn));
+          levelsWrap.appendChild(btn);
+        });
+
+        // Initialize defaults: first topic and first level active
+        const firstClassBtn = classesWrap.querySelector('.pill');
+        const firstTopicBtn = topicsWrap.querySelector('.pill');
+        const firstLevelBtn = levelsWrap.querySelector('.pill');
+        if(firstClassBtn) firstClassBtn.click();
+        if(firstTopicBtn) firstTopicBtn.click();
+        if(firstLevelBtn) firstLevelBtn.click();
+      })();
+    </script>
+  </body>
+</html>
