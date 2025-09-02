@@ -6,151 +6,679 @@
     <title>GameDev Survival Guide</title>
     <meta name="description" content="A concise guide on surviving in the video game industry, featuring how software engineers work across levels." />
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;600;700;900&display=swap');
+      
       :root {
-        color-scheme: light dark;
-        --bg: #0b0c10;
-        --panel: #111318;
-        --text: #e6e8eb;
-        --muted: #9aa3ad;
-        --primary: #7bc4ff;
-        --accent: #a5ffd6;
-        --border: #2a2e35;
-        --shadow: 0 10px 30px rgba(0,0,0,.35);
-        --radius: 14px;
-        --neon-cyan: #00e5ff;
-        --neon-magenta: #ff4bd1;
-        --neon-yellow: #ffe066;
+        /* Gaming color palette */
+        --bg-primary: #0a0614;
+        --bg-secondary: #1a0b2e;
+        --bg-accent: #2b1055;
+        
+        /* Neon gaming colors */
+        --neon-pink: #ff006e;
+        --neon-blue: #3a86ff;
+        --neon-cyan: #00f5ff;
+        --neon-green: #00ff88;
+        --neon-yellow: #ffbe0b;
+        --neon-purple: #c77dff;
+        --neon-orange: #fb5607;
+        
+        /* Text colors */
+        --text-primary: #ffffff;
+        --text-secondary: #e4c1ff;
+        --text-muted: #9d79bc;
+        
+        /* UI elements */
+        --border: rgba(255, 0, 110, 0.3);
+        --border-hover: rgba(0, 245, 255, 0.6);
+        
+        /* Gradients */
+        --gradient-pink: linear-gradient(135deg, #ff006e, #c77dff);
+        --gradient-blue: linear-gradient(135deg, #3a86ff, #00f5ff);
+        --gradient-green: linear-gradient(135deg, #00ff88, #00f5ff);
+        --gradient-rainbow: linear-gradient(135deg, #ff006e, #ffbe0b, #00ff88, #00f5ff, #3a86ff, #c77dff);
+        
+        /* Effects */
+        --shadow-neon-pink: 0 0 20px rgba(255, 0, 110, 0.5);
+        --shadow-neon-blue: 0 0 20px rgba(58, 134, 255, 0.5);
+        --shadow-neon-cyan: 0 0 20px rgba(0, 245, 255, 0.5);
+        --shadow-lg: 0 20px 40px rgba(0,0,0,0.5);
+        
+        /* Sizing */
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 20px;
+        
+        /* Animation */
+        --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
       }
-      @media (prefers-color-scheme: light) {
-        :root {
-          --bg: #f7f8fb;
-          --panel: #ffffff;
-          --text: #17212b;
-          --muted: #5a6872;
-          --border: #e5e9ef;
-          --shadow: 0 8px 24px rgba(16,24,40,.08);
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 16px;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        font-family: 'Orbitron', monospace;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* Animated starfield background */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+          radial-gradient(2px 2px at 20% 30%, white, transparent),
+          radial-gradient(2px 2px at 60% 70%, white, transparent),
+          radial-gradient(1px 1px at 50% 50%, white, transparent),
+          radial-gradient(1px 1px at 80% 10%, white, transparent),
+          radial-gradient(2px 2px at 90% 60%, white, transparent);
+        background-size: 200% 200%;
+        background-repeat: repeat;
+        animation: stars 120s linear infinite;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Grid overlay effect */
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+          linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+        background-size: 50px 50px;
+        pointer-events: none;
+        z-index: 0;
+        animation: grid 20s linear infinite;
+      }
+
+      @keyframes stars {
+        from { transform: translateY(0); }
+        to { transform: translateY(-100%); }
+      }
+
+      @keyframes grid {
+        from { transform: translate(0, 0); }
+        to { transform: translate(50px, 50px); }
+      }
+
+
+
+
+      .container {
+        position: relative;
+        z-index: 1;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem 4rem;
+      }
+
+      /* Header with retro gaming style */
+      .hero {
+        background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(0, 245, 255, 0.1)),
+                    var(--bg-secondary);
+        border: 2px solid var(--neon-pink);
+        border-radius: var(--radius-lg);
+        padding: 3rem 2rem;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 
+          inset 0 0 50px rgba(255, 0, 110, 0.1),
+          0 0 30px rgba(255, 0, 110, 0.3);
+      }
+
+      .hero::before {
+        content: "🎮";
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 3rem;
+        opacity: 0.3;
+      }
+
+      .hero::after {
+        content: "🕹️";
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        font-size: 3rem;
+        opacity: 0.3;
+      }
+
+      .hero h1 {
+        font-family: 'Press Start 2P', cursive;
+        font-size: 2rem;
+        background: var(--gradient-rainbow);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        position: relative;
+      }
+
+      @media (min-width: 768px) {
+        .hero h1 {
+          font-size: 2.5rem;
         }
       }
 
-      html, body { height: 100%; }
-      body {
-        margin: 0;
-        font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-        background: radial-gradient(1200px 500px at 50% -10%, rgba(123,196,255,.15), transparent 60%),
-                    radial-gradient(800px 400px at 90% 10%, rgba(165,255,214,.18), transparent 55%),
-                    radial-gradient(900px 300px at 10% 20%, rgba(255,75,209,.12), transparent 55%),
-                    var(--bg);
-        color: var(--text);
-      }
-
-      /* Subtle CRT scanlines + grid for a game aesthetic */
-      body::before {
-        content: "";
-        position: fixed; inset: 0; pointer-events: none; z-index: 0;
-        background:
-          repeating-linear-gradient(0deg, rgba(255,255,255,.04), rgba(255,255,255,.04) 1px, transparent 2px, transparent 3px),
-          linear-gradient(135deg, rgba(0,229,255,.08), transparent 60%);
-        mix-blend-mode: soft-light;
-      }
-
-      .container {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 32px 20px 80px;
+      .hero p {
+        color: var(--text-secondary);
+        font-size: 1.125rem;
+        max-width: 65ch;
         position: relative;
-        z-index: 1;
+        font-weight: 400;
       }
 
-      header.hero {
-        background: linear-gradient(135deg, rgba(123,196,255,.16), rgba(165,255,214,.12));
-        border: 1px solid var(--border);
-        box-shadow: var(--shadow);
-        border-radius: var(--radius);
-        padding: 28px 28px;
-        margin: 32px 0 22px;
+      /* Section */
+      section {
+        margin-top: 2rem;
+      }
+
+      section h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--neon-cyan);
+        text-shadow: 0 0 10px var(--neon-cyan);
+      }
+
+      .lead {
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        font-weight: 400;
+      }
+
+      /* Panel with gaming aesthetic */
+      .panel {
+        background: linear-gradient(135deg, rgba(43, 16, 85, 0.8), rgba(26, 11, 46, 0.9));
+        backdrop-filter: blur(10px);
+        border: 2px solid;
+        border-image: var(--gradient-blue) 1;
+        border-radius: var(--radius-md);
+        box-shadow: 
+          inset 0 0 30px rgba(58, 134, 255, 0.1),
+          0 0 40px rgba(58, 134, 255, 0.2);
+        overflow: visible;
+        transition: all var(--transition-base);
+        position: relative;
+      }
+
+      .panel:hover {
+        box-shadow: 
+          inset 0 0 40px rgba(58, 134, 255, 0.2),
+          0 0 60px rgba(58, 134, 255, 0.3);
+        transform: translateY(-2px);
+      }
+
+      /* Matrix Layout */
+      .matrix-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      @media (min-width: 1280px) {
+        .matrix-container {
+          grid-template-columns: 1fr 420px;
+        }
+      }
+
+      /* Toolbar */
+      .toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.25rem;
+        border-bottom: 2px solid rgba(0, 245, 255, 0.3);
+        background: linear-gradient(90deg, rgba(255, 0, 110, 0.1), rgba(0, 245, 255, 0.1));
+      }
+
+      .toolbar-title {
+        font-weight: 700;
+        color: var(--neon-yellow);
+        text-shadow: 0 0 10px var(--neon-yellow);
+        font-size: 1.125rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      /* Table */
+      .table-wrap {
+        overflow: visible;
+        padding: 0.5rem;
+      }
+
+      .matrix {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 4px;
+      }
+
+      .matrix th,
+      .matrix td {
+        padding: 0;
+        text-align: left;
+        vertical-align: top;
+        background: rgba(26, 11, 46, 0.6);
+        border: 1px solid rgba(0, 245, 255, 0.2);
+        position: relative;
+      }
+
+      .matrix thead th {
+        background: linear-gradient(135deg, rgba(255, 0, 110, 0.2), rgba(58, 134, 255, 0.2));
+        font-weight: 700;
+        font-size: 0.875rem;
+        text-shadow: 0 0 5px currentColor;
+        color: var(--neon-cyan);
+        padding: 1rem;
+        white-space: nowrap;
+      }
+
+      .matrix tbody th {
+        background: linear-gradient(90deg, rgba(199, 125, 255, 0.2), rgba(0, 245, 255, 0.1));
+        font-weight: 600;
+        min-width: 180px;
+      }
+
+      /* Topic icons and descriptions */
+      .topic-btn {
+        width: 100%;
+        text-align: left;
+        background: transparent;
+        color: var(--text-primary);
+        padding: 1rem;
+        border: none;
+        cursor: pointer;
+        font: inherit;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        transition: all var(--transition-fast);
         position: relative;
         overflow: hidden;
       }
-      header.hero::after { content:""; position:absolute; inset: -2px; border-radius: inherit; pointer-events: none;
-        box-shadow: 0 0 0 1px rgba(255,255,255,.03), 0 0 24px rgba(0,229,255,.18), 0 0 48px rgba(255,75,209,.12);
-      }
-      header.hero h1 { margin: 0 0 6px; font-size: 2.1rem; letter-spacing: .6px; text-transform: uppercase;
-        text-shadow: 0 0 0 rgba(0,0,0,0), 0 2px 18px rgba(0,229,255,.35), 0 -2px 18px rgba(255,75,209,.25);
-      }
-      header.hero p { margin: 0; color: var(--muted); max-width: 70ch; }
 
-      section { margin-top: 28px; }
-      section h2 { font-size: 1.35rem; margin: 0 0 8px; }
-      section p.lead { margin: 0 0 18px; color: var(--muted); }
-
-      .panel {
-        background: var(--panel);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
+      .topic-btn:hover {
+        background: rgba(255, 0, 110, 0.1);
+        text-shadow: 0 0 10px var(--neon-pink);
       }
 
-      .matrix-layout { display: grid; grid-template-columns: 1fr 360px; gap: 16px; align-items: start; }
-      .detail .detail-body { padding: 14px; }
-
-      .toolbar {
-        display: flex; align-items: center; justify-content: space-between;
-        gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--border);
+      .topic-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 0, 110, 0.3), transparent);
+        transition: left 0.5s;
       }
-      .toolbar .hint { color: var(--muted); font-size: .92rem; }
-      .toolbar .actions { display: flex; gap: 8px; }
-      .btn {
-        appearance: none; border: 1px solid var(--border); background: transparent; color: var(--text);
-        padding: 8px 12px; border-radius: 10px; font: inherit; cursor: pointer;
+
+      .topic-btn:hover::before {
+        left: 100%;
       }
-      .btn:hover { border-color: rgba(123,196,255,.65); box-shadow: inset 0 0 0 1px rgba(123,196,255,.35), 0 0 18px rgba(0,229,255,.2); }
 
-      .table-wrap { overflow: auto; -webkit-overflow-scrolling: touch; }
-      table.matrix { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 860px; }
-      table.matrix th, table.matrix td { padding: 0; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border); }
-      table.matrix thead th { position: sticky; top: 0; background: var(--panel); z-index: 2; font-weight: 650; }
-      table.matrix tbody th[scope="row"] { position: sticky; left: 0; background: var(--panel); z-index: 1; font-weight: 600; }
-
-      table.matrix thead th:first-child { border-top-left-radius: calc(var(--radius) - 1px); }
-      table.matrix thead th:last-child { border-top-right-radius: calc(var(--radius) - 1px); }
-      table.matrix tbody tr:last-child th:first-child { border-bottom-left-radius: calc(var(--radius) - 1px); }
-      table.matrix tbody tr:last-child td:last-child { border-bottom-right-radius: calc(var(--radius) - 1px); }
-
-      .topic { white-space: nowrap; }
-      .placeholder { color: var(--muted); font-size: .96rem; }
-      .small { font-size: .92rem; color: var(--muted); }
-
-      .row-btn {
-        width: 100%; text-align: left; background: transparent; color: var(--text);
-        padding: 14px; border-radius: 0; border: none; cursor: pointer; font: inherit;
+      .topic-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.25rem;
       }
-      .row-btn:hover { background: rgba(123,196,255,.08); }
 
+      .topic-name {
+        font-weight: 700;
+        color: var(--neon-green);
+        text-shadow: 0 0 5px var(--neon-green);
+        font-size: 0.9rem;
+      }
+
+      .topic-desc {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        font-weight: 400;
+      }
+
+      /* Cell Button */
       .cell-btn {
-        width: 100%; text-align: left; background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.03)); color: var(--text);
-        padding: 14px; border: none; cursor: pointer; font: inherit; display: block;
+        width: 100%;
+        text-align: left;
+        background: rgba(26, 11, 46, 0.4);
+        color: var(--text-primary);
+        padding: 0.75rem;
+        border: none;
+        cursor: pointer;
+        font: inherit;
+        display: block;
+        transition: all var(--transition-fast);
+        position: relative;
+        overflow: hidden;
+        font-size: 0.8rem;
+        min-width: 140px;
+        word-wrap: break-word;
       }
-      .cell-btn:hover { box-shadow: inset 0 0 0 1px rgba(0,229,255,.35); background: linear-gradient(180deg, rgba(0,229,255,.08), rgba(255,75,209,.06)); }
-      .cell-btn:focus-visible { outline: 2px solid var(--neon-cyan); outline-offset: -2px; }
 
-      tbody tr.selected td, tbody tr.selected th { background: linear-gradient(0deg, rgba(123,196,255,.06), rgba(123,196,255,.06)); }
-      td.selected .cell-btn { box-shadow: inset 0 0 0 2px rgba(0,229,255,.5); }
-      ul.sample { margin: 0; padding-left: 18px; }
-
-      footer { margin-top: 28px; color: var(--muted); font-size: .92rem; }
-
-      @media (max-width: 720px) {
-        header.hero h1 { font-size: 1.6rem; }
-        .toolbar .hint { display: none; }
-        .matrix-layout { grid-template-columns: 1fr; }
+      .cell-btn:hover {
+        background: linear-gradient(135deg, rgba(255, 0, 110, 0.2), rgba(0, 245, 255, 0.2));
+        transform: scale(1.02);
+        z-index: 2;
+        box-shadow: 0 0 20px rgba(0, 245, 255, 0.4);
       }
 
-      @media print {
-        body { background: #fff; }
-        body::before { display: none; }
-        .panel, header.hero { box-shadow: none; }
-        .btn, .toolbar { display: none !important; }
-        table.matrix thead th, table.matrix tbody th[scope="row"] { position: static; }
+      .cell-btn.has-content {
+        color: var(--neon-yellow);
+        font-weight: 600;
+        background: linear-gradient(135deg, rgba(255, 190, 11, 0.1), rgba(0, 255, 136, 0.1));
+        border: 1px solid rgba(255, 190, 11, 0.3);
+      }
+
+      .cell-btn.placeholder {
+        color: var(--text-muted);
+        font-style: italic;
+        border: 1px dashed rgba(157, 121, 188, 0.3);
+      }
+
+      .cell-btn.placeholder::before {
+        content: "➕ ";
+        color: var(--neon-green);
+      }
+
+      /* Selected states */
+      .matrix tbody tr.selected {
+        background: linear-gradient(90deg, rgba(255, 0, 110, 0.15), transparent);
+      }
+
+      .matrix td.selected .cell-btn {
+        background: linear-gradient(135deg, rgba(255, 0, 110, 0.3), rgba(0, 245, 255, 0.3));
+        box-shadow: 
+          inset 0 0 0 2px var(--neon-pink),
+          0 0 30px rgba(255, 0, 110, 0.5);
+      }
+
+      /* Detail Panel */
+      .detail-panel {
+        animation: slideIn var(--transition-base) ease-out;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .detail-content {
+        padding: 1.5rem;
+        min-height: 200px;
+      }
+
+      .detail-empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 200px;
+        color: var(--text-muted);
+        font-style: italic;
+        text-align: center;
+        padding: 2rem;
+      }
+
+      .detail-empty::before {
+        content: "👾 ";
+        font-size: 2rem;
+        margin-right: 0.5rem;
+      }
+
+      .detail-header {
+        font-size: 1.125rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--neon-cyan);
+        text-shadow: 0 0 10px var(--neon-cyan);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .detail-header::before {
+        content: "📊";
+      }
+
+      .level-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .level-item {
+        padding: 1rem;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(135deg, rgba(58, 134, 255, 0.1), rgba(199, 125, 255, 0.1));
+        border: 1px solid rgba(58, 134, 255, 0.3);
+        border-radius: var(--radius-sm);
+        animation: fadeIn var(--transition-base) ease-out;
+        transition: all var(--transition-fast);
+      }
+
+      .level-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 0 20px rgba(58, 134, 255, 0.3);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateX(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .level-name {
+        font-weight: 700;
+        color: var(--neon-green);
+        display: block;
+        margin-bottom: 0.25rem;
+        text-shadow: 0 0 5px var(--neon-green);
+        font-size: 0.9rem;
+      }
+
+      .level-name::before {
+        content: "🎯 ";
+      }
+
+      .level-description {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+      }
+
+      /* Tales section */
+      .tales-content {
+        animation: fadeIn var(--transition-base) ease-out;
+      }
+
+      .tales-content .detail-header::before {
+        content: "📝";
+      }
+
+      /* Textarea styling */
+      textarea {
+        width: 100%;
+        padding: 0.75rem;
+        background: rgba(26, 11, 46, 0.6);
+        border: 2px solid rgba(0, 245, 255, 0.3);
+        border-radius: var(--radius-sm);
+        color: var(--text-primary);
+        font-family: 'Orbitron', monospace;
+        font-size: 0.875rem;
+        resize: vertical;
+        transition: all var(--transition-fast);
+      }
+
+      textarea:focus {
+        outline: none;
+        border-color: var(--neon-cyan);
+        box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+        background: rgba(26, 11, 46, 0.8);
+      }
+
+      textarea::placeholder {
+        color: var(--text-muted);
+        font-style: italic;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--neon-yellow);
+        text-shadow: 0 0 5px var(--neon-yellow);
+        font-size: 0.9rem;
+      }
+
+      .input-group {
+        margin-bottom: 1.25rem;
+      }
+
+      .tales-prompts {
+        background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(0, 245, 255, 0.1));
+        border: 1px solid rgba(255, 0, 110, 0.3);
+        border-radius: var(--radius-sm);
+        padding: 1rem;
+        margin-top: 1rem;
+      }
+
+      .tales-prompts h4 {
+        font-size: 0.875rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--neon-pink);
+        text-shadow: 0 0 5px var(--neon-pink);
+      }
+
+      .tales-prompts h4::before {
+        content: "💡 ";
+      }
+
+      .tales-prompts ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .tales-prompts li {
+        padding: 0.25rem 0;
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+      }
+
+      .tales-prompts li::before {
+        content: "▸ ";
+        color: var(--neon-green);
+        font-weight: bold;
+      }
+
+      /* Mobile Detail Panel */
+      @media (max-width: 1023px) {
+        .detail-panel {
+          margin-top: 1.5rem;
+        }
+        
+        .matrix thead th {
+          font-size: 0.75rem;
+          padding: 0.75rem;
+        }
+        
+        .topic-btn {
+          padding: 0.75rem;
+        }
+        
+        .topic-icon {
+          font-size: 1.25rem;
+        }
+        
+        .topic-name {
+          font-size: 0.8rem;
+        }
+        
+        .topic-desc {
+          font-size: 0.7rem;
+        }
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 2rem 0;
+        color: var(--text-muted);
+        font-size: 0.875rem;
+      }
+
+      footer::before {
+        content: "🚀 ";
+      }
+
+      footer a {
+        color: var(--neon-purple);
+        text-decoration: none;
+        transition: all var(--transition-fast);
+      }
+
+      footer a:hover {
+        color: var(--neon-pink);
+        text-shadow: 0 0 10px currentColor;
+      }
+
+      /* Accessibility */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+
+      /* Loading animation */
+      @keyframes arcade-blink {
+        0%, 49% { opacity: 1; }
+        50%, 100% { opacity: 0; }
+      }
+
+      .blink {
+        animation: arcade-blink 1s infinite;
       }
     </style>
   </head>
@@ -158,200 +686,483 @@
     <div class="container">
       <header class="hero">
         <h1>GameDev Survival Guide</h1>
-        <p>Practical notes on surviving and thriving in the video game industry. This page outlines how software engineers work across levels.</p>
+        <p>Level up your career in the video game industry! Master the skills, unlock achievements, and become a legendary game developer. 🎮✨</p>
       </header>
 
-      <section aria-labelledby="how-se-work">
-        <h2 id="how-se-work">How Software Engineers Work</h2>
-        <p class="lead">Use this matrix to capture expectations by topic and level. Replace the placeholders with concrete behaviors and examples specific to your studio or team.</p>
+      <section aria-labelledby="matrix-heading">
+        <h2 id="matrix-heading">🎯 Engineer Evolution Matrix</h2>
+        <p class="lead">Track your progression through the ranks! Click cells to unlock knowledge and share your epic dev stories.</p>
 
-        <div class="matrix-layout">
-        <div class="panel">
-          <div class="toolbar">
-            <div class="hint">Scroll horizontally on small screens.</div>
-            <div class="actions">
-              <button class="btn" onclick="window.print()" title="Print or save as PDF">Print</button>
+        <div class="matrix-container">
+          <!-- Main Matrix Panel -->
+          <div class="panel" id="matrix-panel">
+            <div class="toolbar">
+              <div class="toolbar-title">
+                <span>⚡</span>
+                <span>Skills & Expectations</span>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="matrix" role="table" aria-label="Software engineering expectations by level and topic">
+                <thead>
+                  <tr id="matrix-header">
+                    <!-- Generated by JavaScript -->
+                  </tr>
+                </thead>
+                <tbody id="matrix-body">
+                  <!-- Generated by JavaScript -->
+                </tbody>
+              </table>
             </div>
           </div>
-          <div class="table-wrap">
-            <table class="matrix" role="table" aria-label="Software engineering expectations by level and topic">
-              <thead>
-                <tr>
-                  <th scope="col">Topic</th>
-                  <th scope="col">Associate/Junior Software Engineer</th>
-                  <th scope="col">Software Engineer</th>
-                  <th scope="col">Senior Software Engineer</th>
-                  <th scope="col">Principal Software Engineer</th>
-                  <th scope="col">Distinguished Software Engineer</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row" class="topic"><button type="button" class="row-btn" data-topic="Communication" aria-controls="topic-detail">Communication</button></th>
-                  <td>
-                    <button type="button" class="cell-btn" data-topic="Communication" data-level="Associate/Junior Software Engineer" data-summary="Shares daily status; asks clarifying questions; writes concise PRs; adapts tone.">Shares daily status; asks clarifying questions; writes concise PRs; adapts tone.</button>
-                  </td>
-                  <td><button type="button" class="cell-btn" data-topic="Communication" data-level="Software Engineer" data-summary="Click to add Communication expectations/experience for Software Engineer.">Click to add: Communication — Software Engineer</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Communication" data-level="Senior Software Engineer" data-summary="Click to add Communication expectations/experience for Senior.">Click to add: Communication — Senior</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Communication" data-level="Principal Software Engineer" data-summary="Click to add Communication expectations/experience for Principal.">Click to add: Communication — Principal</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Communication" data-level="Distinguished Software Engineer" data-summary="Click to add Communication expectations/experience for Distinguished.">Click to add: Communication — Distinguished</button></td>
-                </tr>
-                <tr>
-                  <th scope="row" class="topic"><button type="button" class="row-btn" data-topic="Ways of Working" aria-controls="topic-detail">Ways of Working</button></th>
-                  <td><button type="button" class="cell-btn" data-topic="Ways of Working" data-level="Associate/Junior Software Engineer" data-summary="Click to add Ways of Working for Associate/Junior.">Click to add: Ways of Working — Associate/Junior</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Ways of Working" data-level="Software Engineer" data-summary="Click to add Ways of Working for Software Engineer.">Click to add: Ways of Working — Software Engineer</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Ways of Working" data-level="Senior Software Engineer" data-summary="Click to add Ways of Working for Senior.">Click to add: Ways of Working — Senior</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Ways of Working" data-level="Principal Software Engineer" data-summary="Click to add Ways of Working for Principal.">Click to add: Ways of Working — Principal</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Ways of Working" data-level="Distinguished Software Engineer" data-summary="Click to add Ways of Working for Distinguished.">Click to add: Ways of Working — Distinguished</button></td>
-                </tr>
-                <tr>
-                  <th scope="row" class="topic"><button type="button" class="row-btn" data-topic="Craft Expertise" aria-controls="topic-detail">Craft Expertise</button></th>
-                  <td><button type="button" class="cell-btn" data-topic="Craft Expertise" data-level="Associate/Junior Software Engineer" data-summary="Click to add Craft Expertise for Associate/Junior.">Click to add: Craft Expertise — Associate/Junior</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Craft Expertise" data-level="Software Engineer" data-summary="Click to add Craft Expertise for Software Engineer.">Click to add: Craft Expertise — Software Engineer</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Craft Expertise" data-level="Senior Software Engineer" data-summary="Click to add Craft Expertise for Senior.">Click to add: Craft Expertise — Senior</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Craft Expertise" data-level="Principal Software Engineer" data-summary="Click to add Craft Expertise for Principal.">Click to add: Craft Expertise — Principal</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Craft Expertise" data-level="Distinguished Software Engineer" data-summary="Click to add Craft Expertise for Distinguished.">Click to add: Craft Expertise — Distinguished</button></td>
-                </tr>
-                <tr>
-                  <th scope="row" class="topic"><button type="button" class="row-btn" data-topic="Business" aria-controls="topic-detail">Business</button></th>
-                  <td><button type="button" class="cell-btn" data-topic="Business" data-level="Associate/Junior Software Engineer" data-summary="Click to add Business impact for Associate/Junior.">Click to add: Business — Associate/Junior</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Business" data-level="Software Engineer" data-summary="Click to add Business impact for Software Engineer.">Click to add: Business — Software Engineer</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Business" data-level="Senior Software Engineer" data-summary="Click to add Business impact for Senior.">Click to add: Business — Senior</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Business" data-level="Principal Software Engineer" data-summary="Click to add Business impact for Principal.">Click to add: Business — Principal</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Business" data-level="Distinguished Software Engineer" data-summary="Click to add Business impact for Distinguished.">Click to add: Business — Distinguished</button></td>
-                </tr>
-                <tr>
-                  <th scope="row" class="topic"><button type="button" class="row-btn" data-topic="Mentorship" aria-controls="topic-detail">Mentorship</button></th>
-                  <td><button type="button" class="cell-btn" data-topic="Mentorship" data-level="Associate/Junior Software Engineer" data-summary="Click to add Mentorship for Associate/Junior.">Click to add: Mentorship — Associate/Junior</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Mentorship" data-level="Software Engineer" data-summary="Click to add Mentorship for Software Engineer.">Click to add: Mentorship — Software Engineer</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Mentorship" data-level="Senior Software Engineer" data-summary="Click to add Mentorship for Senior.">Click to add: Mentorship — Senior</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Mentorship" data-level="Principal Software Engineer" data-summary="Click to add Mentorship for Principal.">Click to add: Mentorship — Principal</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Mentorship" data-level="Distinguished Software Engineer" data-summary="Click to add Mentorship for Distinguished.">Click to add: Mentorship — Distinguished</button></td>
-                </tr>
-                <tr>
-                  <th scope="row" class="topic"><button type="button" class="row-btn" data-topic="Collaboration" aria-controls="topic-detail">Collaboration</button></th>
-                  <td><button type="button" class="cell-btn" data-topic="Collaboration" data-level="Associate/Junior Software Engineer" data-summary="Click to add Collaboration for Associate/Junior.">Click to add: Collaboration — Associate/Junior</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Collaboration" data-level="Software Engineer" data-summary="Click to add Collaboration for Software Engineer.">Click to add: Collaboration — Software Engineer</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Collaboration" data-level="Senior Software Engineer" data-summary="Click to add Collaboration for Senior.">Click to add: Collaboration — Senior</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Collaboration" data-level="Principal Software Engineer" data-summary="Click to add Collaboration for Principal.">Click to add: Collaboration — Principal</button></td>
-                  <td><button type="button" class="cell-btn" data-topic="Collaboration" data-level="Distinguished Software Engineer" data-summary="Click to add Collaboration for Distinguished.">Click to add: Collaboration — Distinguished</button></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <aside class="detail panel" id="topic-detail" aria-live="polite">
-          <div class="toolbar">
-            <div class="hint"><strong id="detail-topic">Select a topic</strong></div>
-            <div class="actions">
-              <button class="btn" id="tab-overview" aria-pressed="true" aria-controls="detail-overview">Overview</button>
-              <button class="btn" id="tab-tales" aria-pressed="false" aria-controls="detail-tales">Tales from the Crypt</button>
+
+          <!-- Detail Panel -->
+          <aside class="panel detail-panel" id="detail-panel" aria-live="polite">
+            <div class="toolbar">
+              <div class="toolbar-title" id="detail-title">
+                <span>🎯</span>
+                <span>Select Your Quest</span>
+              </div>
             </div>
-          </div>
-          <div class="detail-body">
-            <div id="detail-overview">Pick a row to see a summarized view across levels for that topic.</div>
-            <div id="detail-tales" hidden>Add your war stories, postmortems, or “what I wish I knew” anecdotes here for the selected topic.</div>
-          </div>
-        </aside>
+            <div class="detail-content" id="detail-content">
+              <div class="detail-empty">
+                Choose your path! Click on a skill category to see the full progression tree, or select a specific cell to unlock detailed requirements and share your war stories.
+              </div>
+            </div>
+          </aside>
         </div>
-        <p class="small" aria-hidden="true">Tip: Replace placeholders with concise, behavior-focused statements. Add concrete examples (meetings, artifacts, KPIs, or game features) where helpful.</p>
       </section>
 
       <footer>
-        <span>© GameDev Survival Guide</span>
+        <p>GameDev Survival Guide | Power Level: <span class="blink">∞</span> | <a href="#" onclick="resetData(); return false;">Reset Save Game</a></p>
       </footer>
     </div>
 
     <script>
-      (function(){
-        const levels = [
-          'Associate/Junior Software Engineer',
-          'Software Engineer',
-          'Senior Software Engineer',
-          'Principal Software Engineer',
-          'Distinguished Software Engineer'
-        ];
-
-        const table = document.querySelector('table.matrix');
-        const detailTopic = document.getElementById('detail-topic');
-        const overview = document.getElementById('detail-overview');
-        const tales = document.getElementById('detail-tales');
-        const tabOverview = document.getElementById('tab-overview');
-        const tabTales = document.getElementById('tab-tales');
-
-        function selectRow(tr, topic){
-          table.querySelectorAll('tbody tr').forEach(r => r.classList.remove('selected'));
-          tr.classList.add('selected');
-          detailTopic.textContent = topic;
-          // Build a summarized view across levels based on this row
-          const cells = Array.from(tr.querySelectorAll('td'));
-          const items = cells.map((td, i) => {
-            const btn = td.querySelector('.cell-btn');
-            const txt = (btn && (btn.dataset.summary || btn.textContent)).trim() || '—';
-            return `<li><strong>${levels[i]}:</strong> ${txt}</li>`;
-          }).join('');
-          overview.innerHTML = `<ul class="level-summary">${items}</ul>`;
-          // Default to overview when selecting a row
-          showOverview();
-        }
-
-        function selectCell(td){
-          table.querySelectorAll('td').forEach(c => c.classList.remove('selected'));
-          td.classList.add('selected');
-        }
-
-        function showOverview(){
-          overview.hidden = false;
-          tales.hidden = true;
-          tabOverview.setAttribute('aria-pressed', 'true');
-          tabTales.setAttribute('aria-pressed', 'false');
-        }
-        function showTales(){
-          overview.hidden = true;
-          tales.hidden = false;
-          tabOverview.setAttribute('aria-pressed', 'false');
-          tabTales.setAttribute('aria-pressed', 'true');
-        }
-
-        table.addEventListener('click', (e) => {
-          const rowBtn = e.target.closest('.row-btn');
-          const cellBtn = e.target.closest('.cell-btn');
-          if(rowBtn){
-            const tr = rowBtn.closest('tr');
-            const topic = rowBtn.dataset.topic || rowBtn.textContent.trim();
-            selectRow(tr, topic);
-            return;
+      // Data structure for the matrix with gaming-themed content
+      const matrixData = {
+        levels: [
+          'Junior Engineer',
+          'Software Engineer', 
+          'Senior Engineer',
+          'Principal Engineer',
+          'Distinguished Engineer'
+        ],
+        topics: [
+          {
+            id: 'Communication',
+            icon: '💬',
+            name: 'Communication',
+            description: 'Team sync & player feedback'
+          },
+          {
+            id: 'WaysOfWorking',
+            icon: '⚙️',
+            name: 'Ways of Working',
+            description: 'Dev processes & workflows'
+          },
+          {
+            id: 'CraftExpertise',
+            icon: '🛠️',
+            name: 'Craft Expertise',
+            description: 'Technical mastery & skills'
+          },
+          {
+            id: 'Business',
+            icon: '📈',
+            name: 'Business Impact',
+            description: 'Studio goals & KPIs'
+          },
+          {
+            id: 'Mentorship',
+            icon: '🧙',
+            name: 'Mentorship',
+            description: 'Leveling up teammates'
+          },
+          {
+            id: 'Collaboration',
+            icon: '🤝',
+            name: 'Collaboration',
+            description: 'Cross-team quests'
           }
-          if(cellBtn){
-            const td = cellBtn.closest('td');
-            const tr = cellBtn.closest('tr');
-            const topic = cellBtn.dataset.topic;
-            const level = cellBtn.dataset.level;
-            selectRow(tr, topic);
-            selectCell(td);
-            const summary = cellBtn.dataset.summary || cellBtn.textContent.trim();
-            document.getElementById('detail-topic').textContent = `${topic} · ${level}`;
-            tales.innerHTML = `
-              <div class="tales">
-                <p><em>"Tales from the Crypt"</em> — your experience for <strong>${topic}</strong> at <strong>${level}</strong>.</p>
-                <p>Suggested prompts to fill in later:</p>
-                <ul>
-                  <li>Context: team, milestone, constraints.</li>
-                  <li>What happened: decision, trade-off, or incident.</li>
-                  <li>Outcome: impact on players, schedule, or quality.</li>
-                  <li>Lesson: what you'd repeat or avoid.</li>
-                </ul>
-                <p class="small">Cell summary: ${summary}</p>
+        ],
+        expectations: {
+          'Communication': {
+            'Junior Engineer': {
+              summary: 'Daily standups, PR comments, asks for help when stuck',
+              details: 'Participates actively in daily standups, writes clear PR descriptions, communicates blockers early.',
+              tales: ''
+            },
+            'Software Engineer': {
+              summary: '',
+              details: '',
+              tales: ''
+            },
+            'Senior Engineer': {
+              summary: '',
+              details: '',
+              tales: ''
+            },
+            'Principal Engineer': {
+              summary: '',
+              details: '',
+              tales: ''
+            },
+            'Distinguished Engineer': {
+              summary: '',
+              details: '',
+              tales: ''
+            }
+          },
+          'WaysOfWorking': {
+            'Junior Engineer': { summary: '', details: '', tales: '' },
+            'Software Engineer': { summary: '', details: '', tales: '' },
+            'Senior Engineer': { summary: '', details: '', tales: '' },
+            'Principal Engineer': { summary: '', details: '', tales: '' },
+            'Distinguished Engineer': { summary: '', details: '', tales: '' }
+          },
+          'CraftExpertise': {
+            'Junior Engineer': { summary: '', details: '', tales: '' },
+            'Software Engineer': { summary: '', details: '', tales: '' },
+            'Senior Engineer': { summary: '', details: '', tales: '' },
+            'Principal Engineer': { summary: '', details: '', tales: '' },
+            'Distinguished Engineer': { summary: '', details: '', tales: '' }
+          },
+          'Business': {
+            'Junior Engineer': { summary: '', details: '', tales: '' },
+            'Software Engineer': { summary: '', details: '', tales: '' },
+            'Senior Engineer': { summary: '', details: '', tales: '' },
+            'Principal Engineer': { summary: '', details: '', tales: '' },
+            'Distinguished Engineer': { summary: '', details: '', tales: '' }
+          },
+          'Mentorship': {
+            'Junior Engineer': { summary: '', details: '', tales: '' },
+            'Software Engineer': { summary: '', details: '', tales: '' },
+            'Senior Engineer': { summary: '', details: '', tales: '' },
+            'Principal Engineer': { summary: '', details: '', tales: '' },
+            'Distinguished Engineer': { summary: '', details: '', tales: '' }
+          },
+          'Collaboration': {
+            'Junior Engineer': { summary: '', details: '', tales: '' },
+            'Software Engineer': { summary: '', details: '', tales: '' },
+            'Senior Engineer': { summary: '', details: '', tales: '' },
+            'Principal Engineer': { summary: '', details: '', tales: '' },
+            'Distinguished Engineer': { summary: '', details: '', tales: '' }
+          }
+        }
+      };
+
+      // State management
+      let currentSelection = {
+        type: null, // 'row' or 'cell'
+        topic: null,
+        level: null
+      };
+
+      // Initialize the application
+      function init() {
+        loadData();
+        renderMatrix();
+        setupEventListeners();
+        checkMobileLayout();
+      }
+
+      // Load data from localStorage
+      function loadData() {
+        const saved = localStorage.getItem('gamedevMatrix');
+        if (saved) {
+          try {
+            const parsed = JSON.parse(saved);
+            // Merge saved expectations with current structure
+            if (parsed.expectations) {
+              Object.keys(parsed.expectations).forEach(topic => {
+                if (matrixData.expectations[topic]) {
+                  Object.keys(parsed.expectations[topic]).forEach(level => {
+                    if (matrixData.expectations[topic][level]) {
+                      matrixData.expectations[topic][level] = parsed.expectations[topic][level];
+                    }
+                  });
+                }
+              });
+            }
+          } catch (e) {
+            console.error('Failed to load saved data:', e);
+          }
+        }
+      }
+
+      // Save data to localStorage
+      function saveData() {
+        try {
+          localStorage.setItem('gamedevMatrix', JSON.stringify({
+            expectations: matrixData.expectations
+          }));
+        } catch (e) {
+          console.error('Failed to save data:', e);
+        }
+      }
+
+      // Render the matrix table
+      function renderMatrix() {
+        const header = document.getElementById('matrix-header');
+        const body = document.getElementById('matrix-body');
+
+        // Render header with level icons
+        header.innerHTML = `
+          <th scope="col">Skill Tree</th>
+          ${matrixData.levels.map((level, index) => {
+            const levelIcons = ['👶', '💪', '⭐', '👑', '🏆'];
+            return `<th scope="col">${levelIcons[index]} ${level}</th>`;
+          }).join('')}
+        `;
+
+        // Render body with topic details
+        body.innerHTML = matrixData.topics.map(topic => `
+          <tr>
+            <th scope="row">
+              <button type="button" class="topic-btn" onclick="selectRow('${topic.id}')">
+                <span class="topic-icon">${topic.icon}</span>
+                <span class="topic-name">${topic.name}</span>
+                <span class="topic-desc">${topic.description}</span>
+              </button>
+            </th>
+            ${matrixData.levels.map(level => {
+              const data = matrixData.expectations[topic.id][level];
+              const hasContent = data.summary || data.details;
+              const buttonClass = hasContent ? 'cell-btn has-content' : 'cell-btn placeholder';
+              const buttonText = data.summary || `Click to add`;
+              
+              return `
+                <td>
+                  <button type="button" class="${buttonClass}" 
+                          onclick="selectCell('${topic.id}', '${level}')"
+                          data-topic="${topic.id}"
+                          data-level="${level}">
+                    ${buttonText}
+                  </button>
+                </td>
+              `;
+            }).join('')}
+          </tr>
+        `).join('');
+      }
+
+      // Select a row (topic overview)
+      function selectRow(topicId) {
+        const topic = matrixData.topics.find(t => t.id === topicId);
+        
+        // Update selection state
+        currentSelection = {
+          type: 'row',
+          topic: topicId,
+          level: null
+        };
+
+        // Update visual selection
+        updateSelection();
+
+        // Update detail panel
+        const detailTitle = document.getElementById('detail-title');
+        const detailContent = document.getElementById('detail-content');
+
+        detailTitle.innerHTML = `
+          <span>${topic.icon}</span>
+          <span>${topic.name} Progression</span>
+        `;
+
+        const levelItems = matrixData.levels.map((level, index) => {
+          const levelIcons = ['👶', '💪', '⭐', '👑', '🏆'];
+          const data = matrixData.expectations[topicId][level];
+          const text = data.summary || data.details || 'Awaiting definition...';
+          
+          return `
+            <li class="level-item">
+              <span class="level-name">${levelIcons[index]} ${level}</span>
+              <span class="level-description">${text}</span>
+            </li>
+          `;
+        }).join('');
+
+        detailContent.innerHTML = `
+          <div class="detail-header">Level Progression Path</div>
+          <ul class="level-list">
+            ${levelItems}
+          </ul>
+        `;
+
+        // Scroll to detail on mobile
+        if (window.innerWidth < 1024) {
+          document.getElementById('detail-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+
+      // Select a cell
+      function selectCell(topicId, level) {
+        const topic = matrixData.topics.find(t => t.id === topicId);
+        
+        // Update selection state
+        currentSelection = {
+          type: 'cell',
+          topic: topicId,
+          level: level
+        };
+
+        // Update visual selection
+        updateSelection();
+
+        // Update detail panel
+        const detailTitle = document.getElementById('detail-title');
+        const detailContent = document.getElementById('detail-content');
+        const data = matrixData.expectations[topicId][level];
+
+        const levelIndex = matrixData.levels.indexOf(level);
+        const levelIcons = ['👶', '💪', '⭐', '👑', '🏆'];
+
+        detailTitle.innerHTML = `
+          <span>${topic.icon}</span>
+          <span>${topic.name}</span>
+          <span style="color: var(--neon-green);">•</span>
+          <span>${levelIcons[levelIndex]} ${level}</span>
+        `;
+
+        detailContent.innerHTML = `
+          <div class="tales-content">
+            <div class="detail-header">Quest Details & War Stories</div>
+            
+            <div class="input-group">
+              <label for="summary-input">
+                ⚡ Quick Summary
+              </label>
+              <textarea id="summary-input" 
+                       placeholder="Core expectations in a nutshell..."
+                       onchange="updateCellData('${topicId}', '${level}', 'summary', this.value)"
+                       rows="3">${data.summary || ''}</textarea>
+            </div>
+
+            <div class="input-group">
+              <label for="details-input">
+                📋 Detailed Requirements
+              </label>
+              <textarea id="details-input" 
+                       placeholder="Specific skills, behaviors, and deliverables expected..."
+                       onchange="updateCellData('${topicId}', '${level}', 'details', this.value)"
+                       rows="5">${data.details || ''}</textarea>
+            </div>
+
+            <div class="input-group">
+              <label for="tales-input">
+                🎮 Tales from the Crypt
+              </label>
+              <textarea id="tales-input" 
+                       placeholder="Share your epic fails, legendary wins, and lessons learned from the trenches..."
+                       onchange="updateCellData('${topicId}', '${level}', 'tales', this.value)"
+                       rows="6">${data.tales || ''}</textarea>
+            </div>
+
+            <div class="tales-prompts">
+              <h4>Story Prompts</h4>
+              <ul>
+                <li>The bug that taught you humility</li>
+                <li>That crunch time miracle (or disaster)</li>
+                <li>When the players broke everything</li>
+                <li>The feature that shipped vs. what was designed</li>
+                <li>Your "it works on my machine" moment</li>
+              </ul>
+            </div>
+          </div>
+        `;
+
+        // Scroll to detail on mobile
+        if (window.innerWidth < 1024) {
+          document.getElementById('detail-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+
+      // Update visual selection in the table
+      function updateSelection() {
+        // Clear all selections
+        document.querySelectorAll('.matrix tbody tr').forEach(tr => tr.classList.remove('selected'));
+        document.querySelectorAll('.matrix td').forEach(td => td.classList.remove('selected'));
+
+        if (currentSelection.type === 'row') {
+          // Highlight the row
+          const rows = document.querySelectorAll('.matrix tbody tr');
+          const topicIndex = matrixData.topics.findIndex(t => t.id === currentSelection.topic);
+          if (topicIndex >= 0 && rows[topicIndex]) {
+            rows[topicIndex].classList.add('selected');
+          }
+        } else if (currentSelection.type === 'cell') {
+          // Highlight the specific cell
+          const button = document.querySelector(
+            `button[data-topic="${currentSelection.topic}"][data-level="${currentSelection.level}"]`
+          );
+          if (button) {
+            button.closest('td').classList.add('selected');
+          }
+        }
+      }
+
+      // Update cell data
+      function updateCellData(topicId, level, field, value) {
+        matrixData.expectations[topicId][level][field] = value;
+        saveData();
+        
+        // Update the cell button if summary changed
+        if (field === 'summary') {
+          const button = document.querySelector(
+            `button[data-topic="${topicId}"][data-level="${level}"]`
+          );
+          if (button) {
+            button.textContent = value || 'Click to add';
+            button.className = value ? 'cell-btn has-content' : 'cell-btn placeholder';
+          }
+        }
+      }
+
+      // Reset data to defaults
+      function resetData() {
+        if (confirm('⚠️ This will wipe your save game! All your data will be reset to factory defaults. Continue?')) {
+          localStorage.removeItem('gamedevMatrix');
+          location.reload();
+        }
+      }
+
+      // Check for mobile layout
+      function checkMobileLayout() {
+        const detailPanel = document.getElementById('detail-panel');
+        
+        if (window.innerWidth < 1024) {
+          detailPanel.setAttribute('aria-label', 'Details (shown below matrix on mobile)');
+        } else {
+          detailPanel.setAttribute('aria-label', 'Details panel');
+        }
+      }
+
+      // Setup event listeners
+      function setupEventListeners() {
+        // Window resize
+        window.addEventListener('resize', checkMobileLayout);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            currentSelection = { type: null, topic: null, level: null };
+            updateSelection();
+            document.getElementById('detail-content').innerHTML = `
+              <div class="detail-empty">
+                Choose your path! Click on a skill category to see the full progression tree, or select a specific cell to unlock detailed requirements and share your war stories.
               </div>
             `;
-            showTales();
+            document.getElementById('detail-title').innerHTML = `
+              <span>🎯</span>
+              <span>Select Your Quest</span>
+            `;
           }
         });
+      }
 
-        tabOverview.addEventListener('click', showOverview);
-        tabTales.addEventListener('click', showTales);
-      })();
+      // Initialize on load
+      document.addEventListener('DOMContentLoaded', init);
     </script>
-    <!-- You can keep everything in this single file. Fill in the placeholders and tweak the CSS palette above if you want a different look. -->
   </body>
-  </html>
+</html>
