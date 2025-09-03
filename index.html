@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>GameDev Survival Guide</title>
-    <meta name="description" content="A concise guide on surviving in the video game industry, featuring how software engineers work across levels." />
+    <title>GameDev Survival Guide - My Journey</title>
+    <meta name="description" content="A personal journey through the video game industry, documenting the path from Junior to Mastery." />
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;600;700;900&display=swap');
       
@@ -125,13 +125,10 @@
         to { transform: translate(50px, 50px); }
       }
 
-
-
-
       .container {
         position: relative;
         z-index: 1;
-        max-width: 1280px;
+        max-width: 1440px;
         margin: 0 auto;
         padding: 2rem 1.5rem 4rem;
       }
@@ -196,27 +193,128 @@
         font-weight: 400;
       }
 
-      /* Section */
-      section {
-        margin-top: 2rem;
+      /* Character Section */
+      .character-section {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        margin-bottom: 2rem;
       }
 
-      section h2 {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
+      @media (min-width: 768px) {
+        .character-section {
+          flex-direction: row;
+        }
+      }
+
+      /* Character Card */
+      .character-card {
+        background: linear-gradient(135deg, rgba(43, 16, 85, 0.8), rgba(26, 11, 46, 0.9));
+        backdrop-filter: blur(10px);
+        border: 2px solid;
+        border-image: var(--gradient-blue) 1;
+        border-radius: var(--radius-md);
+        padding: 1.5rem;
+        box-shadow: 
+          inset 0 0 30px rgba(58, 134, 255, 0.1),
+          0 0 40px rgba(58, 134, 255, 0.2);
+        width: 300px;
+        flex-shrink: 0;
+      }
+
+      .character-avatar {
+        font-size: 4rem;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+
+      .character-name {
+        font-family: 'Press Start 2P', cursive;
+        font-size: 1rem;
         color: var(--neon-cyan);
+        text-align: center;
+        margin-bottom: 0.5rem;
         text-shadow: 0 0 10px var(--neon-cyan);
       }
 
-      .lead {
+      .character-class {
+        text-align: center;
         color: var(--text-secondary);
-        margin-bottom: 1.5rem;
-        font-weight: 400;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
       }
 
-      /* Panel with gaming aesthetic */
-      .panel {
+      .character-level {
+        text-align: center;
+        font-size: 1.5rem;
+        color: var(--neon-yellow);
+        text-shadow: 0 0 10px var(--neon-yellow);
+        margin-bottom: 1rem;
+      }
+
+      .traits-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .trait-item {
+        background: rgba(0, 245, 255, 0.1);
+        border: 1px solid rgba(0, 245, 255, 0.3);
+        border-radius: var(--radius-sm);
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .trait-icon {
+        font-size: 1.2rem;
+      }
+
+      /* Stats Section */
+      .stats-panel {
+        background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(0, 245, 255, 0.1));
+        border: 1px solid rgba(255, 0, 110, 0.3);
+        border-radius: var(--radius-sm);
+        padding: 1rem;
+        margin-top: 1rem;
+      }
+
+      .stat-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+      }
+
+      .stat-label {
+        color: var(--text-secondary);
+      }
+
+      .stat-value {
+        color: var(--neon-green);
+        font-weight: 700;
+        text-shadow: 0 0 5px var(--neon-green);
+      }
+
+      /* Quest Board Container */
+      .quest-board-container {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        flex: 1;
+      }
+
+      @media (min-width: 1280px) {
+        .quest-board-container {
+          flex-direction: row;
+        }
+      }
+
+      /* Quest Map Panel */
+      .quest-map-panel {
         background: linear-gradient(135deg, rgba(43, 16, 85, 0.8), rgba(26, 11, 46, 0.9));
         backdrop-filter: blur(10px);
         border: 2px solid;
@@ -225,33 +323,13 @@
         box-shadow: 
           inset 0 0 30px rgba(58, 134, 255, 0.1),
           0 0 40px rgba(58, 134, 255, 0.2);
-        overflow: visible;
-        transition: all var(--transition-base);
+        overflow: hidden;
         position: relative;
+        width: 500px;
+        flex-shrink: 0;
       }
 
-      .panel:hover {
-        box-shadow: 
-          inset 0 0 40px rgba(58, 134, 255, 0.2),
-          0 0 60px rgba(58, 134, 255, 0.3);
-        transform: translateY(-2px);
-      }
-
-      /* Matrix Layout */
-      .matrix-container {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-
-      @media (min-width: 1280px) {
-        .matrix-container {
-          grid-template-columns: 1fr 420px;
-        }
-      }
-
-      /* Toolbar */
-      .toolbar {
+      .map-toolbar {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -260,7 +338,7 @@
         background: linear-gradient(90deg, rgba(255, 0, 110, 0.1), rgba(0, 245, 255, 0.1));
       }
 
-      .toolbar-title {
+      .map-title {
         font-weight: 700;
         color: var(--neon-yellow);
         text-shadow: 0 0 10px var(--neon-yellow);
@@ -270,369 +348,400 @@
         gap: 0.5rem;
       }
 
-      /* Table */
-      .table-wrap {
-        overflow: visible;
-        padding: 0.5rem;
-      }
-
-      .matrix {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 4px;
-      }
-
-      .matrix th,
-      .matrix td {
-        padding: 0;
-        text-align: left;
-        vertical-align: top;
-        background: rgba(26, 11, 46, 0.6);
-        border: 1px solid rgba(0, 245, 255, 0.2);
-        position: relative;
-      }
-
-      .matrix thead th {
-        background: linear-gradient(135deg, rgba(255, 0, 110, 0.2), rgba(58, 134, 255, 0.2));
-        font-weight: 700;
-        font-size: 0.875rem;
-        text-shadow: 0 0 5px currentColor;
-        color: var(--neon-cyan);
-        padding: 1rem;
-        white-space: nowrap;
-      }
-
-      .matrix tbody th {
-        background: linear-gradient(90deg, rgba(199, 125, 255, 0.2), rgba(0, 245, 255, 0.1));
-        font-weight: 600;
-        min-width: 180px;
-      }
-
-      /* Topic icons and descriptions */
-      .topic-btn {
-        width: 100%;
-        text-align: left;
-        background: transparent;
-        color: var(--text-primary);
-        padding: 1rem;
-        border: none;
-        cursor: pointer;
-        font: inherit;
+      .map-controls {
         display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-        transition: all var(--transition-fast);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .topic-btn:hover {
-        background: rgba(255, 0, 110, 0.1);
-        text-shadow: 0 0 10px var(--neon-pink);
-      }
-
-      .topic-btn::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 0, 110, 0.3), transparent);
-        transition: left 0.5s;
-      }
-
-      .topic-btn:hover::before {
-        left: 100%;
-      }
-
-      .topic-icon {
-        font-size: 1.5rem;
-        margin-bottom: 0.25rem;
-      }
-
-      .topic-name {
-        font-weight: 700;
-        color: var(--neon-green);
-        text-shadow: 0 0 5px var(--neon-green);
-        font-size: 0.9rem;
-      }
-
-      .topic-desc {
-        font-size: 0.75rem;
-        color: var(--text-muted);
-        font-weight: 400;
-      }
-
-      /* Cell Button */
-      .cell-btn {
-        width: 100%;
-        text-align: left;
-        background: rgba(26, 11, 46, 0.4);
-        color: var(--text-primary);
-        padding: 0.75rem;
-        border: none;
-        cursor: pointer;
-        font: inherit;
-        display: block;
-        transition: all var(--transition-fast);
-        position: relative;
-        overflow: hidden;
-        font-size: 0.8rem;
-        min-width: 140px;
-        word-wrap: break-word;
-      }
-
-      .cell-btn:hover {
-        background: linear-gradient(135deg, rgba(255, 0, 110, 0.2), rgba(0, 245, 255, 0.2));
-        transform: scale(1.02);
-        z-index: 2;
-        box-shadow: 0 0 20px rgba(0, 245, 255, 0.4);
-      }
-
-      .cell-btn.has-content {
-        color: var(--neon-yellow);
-        font-weight: 600;
-        background: linear-gradient(135deg, rgba(255, 190, 11, 0.1), rgba(0, 255, 136, 0.1));
-        border: 1px solid rgba(255, 190, 11, 0.3);
-      }
-
-      .cell-btn.placeholder {
-        color: var(--text-muted);
-        font-style: italic;
-        border: 1px dashed rgba(157, 121, 188, 0.3);
-      }
-
-      .cell-btn.placeholder::before {
-        content: "➕ ";
-        color: var(--neon-green);
-      }
-
-      /* Selected states */
-      .matrix tbody tr.selected {
-        background: linear-gradient(90deg, rgba(255, 0, 110, 0.15), transparent);
-      }
-
-      .matrix td.selected .cell-btn {
-        background: linear-gradient(135deg, rgba(255, 0, 110, 0.3), rgba(0, 245, 255, 0.3));
-        box-shadow: 
-          inset 0 0 0 2px var(--neon-pink),
-          0 0 30px rgba(255, 0, 110, 0.5);
-      }
-
-      /* Detail Panel */
-      .detail-panel {
-        animation: slideIn var(--transition-base) ease-out;
-      }
-
-      @keyframes slideIn {
-        from {
-          opacity: 0;
-          transform: translateX(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
-
-      .detail-content {
-        padding: 1.5rem;
-        min-height: 200px;
-      }
-
-      .detail-empty {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 200px;
-        color: var(--text-muted);
-        font-style: italic;
-        text-align: center;
-        padding: 2rem;
-      }
-
-      .detail-empty::before {
-        content: "👾 ";
-        font-size: 2rem;
-        margin-right: 0.5rem;
-      }
-
-      .detail-header {
-        font-size: 1.125rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        color: var(--neon-cyan);
-        text-shadow: 0 0 10px var(--neon-cyan);
-        display: flex;
-        align-items: center;
         gap: 0.5rem;
       }
 
-      .detail-header::before {
-        content: "📊";
-      }
-
-      .level-list {
-        list-style: none;
-        padding: 0;
-      }
-
-      .level-item {
-        padding: 1rem;
-        margin-bottom: 0.5rem;
-        background: linear-gradient(135deg, rgba(58, 134, 255, 0.1), rgba(199, 125, 255, 0.1));
-        border: 1px solid rgba(58, 134, 255, 0.3);
+      .map-btn {
+        background: rgba(0, 245, 255, 0.1);
+        border: 1px solid rgba(0, 245, 255, 0.3);
+        color: var(--text-primary);
+        padding: 0.5rem 1rem;
         border-radius: var(--radius-sm);
-        animation: fadeIn var(--transition-base) ease-out;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 0.875rem;
         transition: all var(--transition-fast);
       }
 
-      .level-item:hover {
-        transform: translateX(5px);
-        box-shadow: 0 0 20px rgba(58, 134, 255, 0.3);
+      .map-btn:hover {
+        background: rgba(0, 245, 255, 0.2);
+        box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
       }
 
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateX(-10px);
+      /* Quest Map SVG Container */
+      .quest-map {
+        padding: 0.5rem;
+        height: 600px;
+        position: relative;
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: 100%;
+      }
+
+      #questBoard {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .level-icon-badge {
+        font-size: 12px;
+        pointer-events: none;
+      }
+
+      /* SVG Styles */
+      .level-rect {
+        cursor: pointer;
+        transition: all var(--transition-fast);
+        stroke-width: 2;
+        rx: 8;
+        ry: 8;
+      }
+
+      .level-rect:hover {
+        filter: brightness(1.2);
+        stroke-width: 3;
+      }
+
+      .level-rect.completed {
+        stroke: var(--neon-green);
+        stroke-width: 3;
+        filter: drop-shadow(0 0 10px var(--neon-green));
+      }
+
+      .level-rect.current {
+        stroke: var(--neon-yellow);
+        stroke-width: 3;
+        filter: drop-shadow(0 0 15px var(--neon-yellow));
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      .level-rect.locked {
+        fill: #2c3e50 !important;
+        opacity: 0.6;
+        stroke: rgba(157, 121, 188, 0.3);
+        stroke-dasharray: 5, 5;
+      }
+
+      .arrow-path {
+        stroke: var(--neon-cyan);
+        stroke-width: 2;
+        fill: none;
+        opacity: 0.5;
+      }
+
+      .arrow-head {
+        fill: var(--neon-cyan);
+        opacity: 0.5;
+      }
+
+      .level-group {
+        cursor: pointer;
+      }
+
+      @keyframes pulse {
+        0%, 100% { 
+          stroke-width: 3;
+          filter: drop-shadow(0 0 15px var(--neon-yellow));
         }
-        to {
-          opacity: 1;
-          transform: translateX(0);
+        50% { 
+          stroke-width: 5;
+          filter: drop-shadow(0 0 25px var(--neon-yellow));
         }
+      }
+
+      .level-text {
+        fill: var(--text-primary);
+        font-family: 'Orbitron', monospace;
+        pointer-events: none;
+      }
+
+      .level-number {
+        font-size: 24px;
+        font-weight: 900;
+        fill: rgba(255, 255, 255, 0.9);
       }
 
       .level-name {
+        font-size: 12px;
         font-weight: 700;
-        color: var(--neon-green);
-        display: block;
-        margin-bottom: 0.25rem;
-        text-shadow: 0 0 5px var(--neon-green);
-        font-size: 0.9rem;
+        fill: var(--text-primary);
       }
 
-      .level-name::before {
-        content: "🎯 ";
+      .level-year {
+        font-size: 10px;
+        fill: rgba(255, 255, 255, 0.7);
       }
 
-      .level-description {
+      .level-role {
+        font-size: 10px;
+        fill: rgba(255, 255, 255, 0.8);
+        font-weight: 600;
+      }
+
+      .level-emoji {
+        font-size: 20px;
+      }
+
+      #questBoard {
+        width: 100%;
+        height: 100%;
+        min-height: 600px;
+      }
+
+      /* Quest Details Panel */
+      .quest-details-panel {
+        background: linear-gradient(135deg, rgba(43, 16, 85, 0.8), rgba(26, 11, 46, 0.9));
+        backdrop-filter: blur(10px);
+        border: 2px solid;
+        border-image: var(--gradient-pink) 1;
+        border-radius: var(--radius-md);
+        box-shadow: 
+          inset 0 0 30px rgba(255, 0, 110, 0.1),
+          0 0 40px rgba(255, 0, 110, 0.2);
+        flex: 1;
+        min-width: 0;
+      }
+
+      .details-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.25rem;
+        border-bottom: 2px solid rgba(255, 0, 110, 0.3);
+        background: linear-gradient(90deg, rgba(255, 0, 110, 0.1), rgba(0, 245, 255, 0.1));
+      }
+
+      .details-title {
+        font-weight: 700;
+        color: var(--neon-pink);
+        text-shadow: 0 0 10px var(--neon-pink);
+        font-size: 1.125rem;
+      }
+
+      .quest-content {
+        padding: 1.5rem;
+        min-height: 400px;
+      }
+
+      .quest-header {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--neon-cyan);
+        text-shadow: 0 0 10px var(--neon-cyan);
+        margin-bottom: 0.5rem;
+      }
+
+      .quest-year {
         color: var(--text-secondary);
         font-size: 0.875rem;
+        margin-bottom: 1rem;
       }
 
-      /* Tales section */
-      .tales-content {
-        animation: fadeIn var(--transition-base) ease-out;
-      }
-
-      .tales-content .detail-header::before {
-        content: "📝";
-      }
-
-      /* Textarea styling */
-      textarea {
-        width: 100%;
-        padding: 0.75rem;
-        background: rgba(26, 11, 46, 0.6);
-        border: 2px solid rgba(0, 245, 255, 0.3);
-        border-radius: var(--radius-sm);
+      .quest-description {
         color: var(--text-primary);
-        font-family: 'Orbitron', monospace;
-        font-size: 0.875rem;
-        resize: vertical;
-        transition: all var(--transition-fast);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
       }
 
-      textarea:focus {
-        outline: none;
-        border-color: var(--neon-cyan);
-        box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
-        background: rgba(26, 11, 46, 0.8);
-      }
-
-      textarea::placeholder {
-        color: var(--text-muted);
-        font-style: italic;
-      }
-
-      label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
-        color: var(--neon-yellow);
-        text-shadow: 0 0 5px var(--neon-yellow);
-        font-size: 0.9rem;
-      }
-
-      .input-group {
-        margin-bottom: 1.25rem;
-      }
-
-      .tales-prompts {
-        background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(0, 245, 255, 0.1));
-        border: 1px solid rgba(255, 0, 110, 0.3);
+      .quest-objectives {
+        background: rgba(0, 245, 255, 0.1);
+        border: 1px solid rgba(0, 245, 255, 0.3);
         border-radius: var(--radius-sm);
         padding: 1rem;
-        margin-top: 1rem;
+        margin-bottom: 1rem;
       }
 
-      .tales-prompts h4 {
-        font-size: 0.875rem;
+      .objectives-title {
+        color: var(--neon-green);
         font-weight: 700;
         margin-bottom: 0.5rem;
-        color: var(--neon-pink);
-        text-shadow: 0 0 5px var(--neon-pink);
+        text-shadow: 0 0 5px var(--neon-green);
       }
 
-      .tales-prompts h4::before {
-        content: "💡 ";
-      }
-
-      .tales-prompts ul {
-        list-style: none;
-        padding: 0;
-      }
-
-      .tales-prompts li {
-        padding: 0.25rem 0;
+      .objective-item {
         color: var(--text-secondary);
+        padding: 0.25rem 0;
         font-size: 0.875rem;
       }
 
-      .tales-prompts li::before {
+      .objective-item::before {
         content: "▸ ";
         color: var(--neon-green);
         font-weight: bold;
       }
 
-      /* Mobile Detail Panel */
-      @media (max-width: 1023px) {
-        .detail-panel {
-          margin-top: 1.5rem;
+      .quest-skills {
+        background: rgba(255, 0, 110, 0.1);
+        border: 1px solid rgba(255, 0, 110, 0.3);
+        border-radius: var(--radius-sm);
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .skills-title {
+        color: var(--neon-yellow);
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 5px var(--neon-yellow);
+      }
+
+      .skill-tag {
+        display: inline-block;
+        background: rgba(255, 190, 11, 0.2);
+        border: 1px solid rgba(255, 190, 11, 0.5);
+        border-radius: 20px;
+        padding: 0.25rem 0.75rem;
+        margin: 0.25rem;
+        font-size: 0.75rem;
+        color: var(--neon-yellow);
+      }
+
+      .quest-action-btn {
+        width: 100%;
+        background: var(--gradient-green);
+        border: none;
+        color: var(--bg-primary);
+        padding: 1rem;
+        border-radius: var(--radius-sm);
+        font-family: 'Press Start 2P', cursive;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all var(--transition-fast);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 1rem;
+      }
+
+      .quest-action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(0, 255, 136, 0.5);
+      }
+
+      .quest-action-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background: linear-gradient(135deg, #666, #999);
+      }
+
+      /* Story Modal */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(10, 6, 20, 0.95);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+
+      .modal-overlay.active {
+        display: flex;
+        animation: fadeIn var(--transition-base);
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .story-modal {
+        background: linear-gradient(135deg, rgba(43, 16, 85, 0.95), rgba(26, 11, 46, 0.98));
+        border: 2px solid var(--neon-purple);
+        border-radius: var(--radius-lg);
+        max-width: 800px;
+        width: 100%;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 
+          inset 0 0 50px rgba(199, 125, 255, 0.2),
+          0 0 50px rgba(199, 125, 255, 0.5);
+        animation: slideUp var(--transition-slow);
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(50px);
+          opacity: 0;
         }
-        
-        .matrix thead th {
-          font-size: 0.75rem;
-          padding: 0.75rem;
+        to {
+          transform: translateY(0);
+          opacity: 1;
         }
-        
-        .topic-btn {
-          padding: 0.75rem;
-        }
-        
-        .topic-icon {
-          font-size: 1.25rem;
-        }
-        
-        .topic-name {
-          font-size: 0.8rem;
-        }
-        
-        .topic-desc {
-          font-size: 0.7rem;
-        }
+      }
+
+      .modal-header {
+        padding: 1.5rem;
+        border-bottom: 2px solid rgba(199, 125, 255, 0.3);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .modal-title {
+        font-family: 'Press Start 2P', cursive;
+        font-size: 1rem;
+        color: var(--neon-purple);
+        text-shadow: 0 0 10px var(--neon-purple);
+      }
+
+      .modal-close {
+        background: none;
+        border: none;
+        color: var(--text-primary);
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all var(--transition-fast);
+      }
+
+      .modal-close:hover {
+        color: var(--neon-pink);
+        transform: scale(1.2);
+      }
+
+      .modal-body {
+        padding: 2rem;
+      }
+
+      .story-type {
+        display: inline-block;
+        background: rgba(255, 0, 110, 0.2);
+        border: 1px solid var(--neon-pink);
+        border-radius: 20px;
+        padding: 0.25rem 0.75rem;
+        font-size: 0.75rem;
+        color: var(--neon-pink);
+        margin-bottom: 1rem;
+      }
+
+      .story-content {
+        color: var(--text-primary);
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+      }
+
+      .story-lesson {
+        background: rgba(0, 255, 136, 0.1);
+        border-left: 3px solid var(--neon-green);
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .story-lesson-title {
+        color: var(--neon-green);
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 5px var(--neon-green);
+      }
+
+      .story-lesson-text {
+        color: var(--text-secondary);
       }
 
       /* Footer */
@@ -680,483 +789,1188 @@
       .blink {
         animation: arcade-blink 1s infinite;
       }
+
+      /* Empty state */
+      .empty-state {
+        text-align: center;
+        padding: 3rem;
+        color: var(--text-muted);
+      }
+
+      .empty-state-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+      }
+
+      .empty-state-text {
+        font-style: italic;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <header class="hero">
         <h1>GameDev Survival Guide</h1>
-        <p>Level up your career in the video game industry! Master the skills, unlock achievements, and become a legendary game developer. 🎮✨</p>
+        <p>My personal journey through the video game industry. Follow my path from Junior Developer to Technical Mastery, with all the treasures found and monsters defeated along the way. 🎮✨</p>
       </header>
 
-      <section aria-labelledby="matrix-heading">
-        <h2 id="matrix-heading">🎯 Engineer Evolution Matrix</h2>
-        <p class="lead">Track your progression through the ranks! Click cells to unlock knowledge and share your epic dev stories.</p>
+      <!-- Character Section -->
+      <div class="character-section">
+        <aside class="character-card">
+          <div class="character-avatar" id="characterAvatar">👨‍💻</div>
+          <div class="character-name" id="characterName">Your Name</div>
+          <div class="character-class" id="characterClass">Software Engineer</div>
+          <div class="character-level" id="characterLevel">Level 1</div>
+          
+          <ul class="traits-list" id="traitsList">
+            <!-- Traits will be populated here -->
+          </ul>
 
-        <div class="matrix-container">
-          <!-- Main Matrix Panel -->
-          <div class="panel" id="matrix-panel">
-            <div class="toolbar">
-              <div class="toolbar-title">
-                <span>⚡</span>
-                <span>Skills & Expectations</span>
+          <div class="stats-panel">
+            <div class="stat-item">
+              <span class="stat-label">Years in Industry:</span>
+              <span class="stat-value" id="yearsInIndustry">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Games Shipped:</span>
+              <span class="stat-value" id="gamesShipped">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Monsters Defeated:</span>
+              <span class="stat-value" id="monstersDefeated">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Treasures Found:</span>
+              <span class="stat-value" id="treasuresFound">0</span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Quest Board -->
+        <main class="quest-board-container">
+          <!-- Quest Map -->
+          <div class="quest-map-panel">
+            <div class="map-toolbar">
+              <div class="map-title">
+                <span>🗺️</span>
+                <span>Quest Map</span>
               </div>
             </div>
-            <div class="table-wrap">
-              <table class="matrix" role="table" aria-label="Software engineering expectations by level and topic">
-                <thead>
-                  <tr id="matrix-header">
-                    <!-- Generated by JavaScript -->
-                  </tr>
-                </thead>
-                <tbody id="matrix-body">
-                  <!-- Generated by JavaScript -->
-                </tbody>
-              </table>
+            <div class="quest-map">
+              <svg id="questBoard" viewBox="0 0 450 2800" preserveAspectRatio="none" style="height: 2800px;">
+                <!-- SVG content will be generated by JavaScript -->
+              </svg>
             </div>
           </div>
 
-          <!-- Detail Panel -->
-          <aside class="panel detail-panel" id="detail-panel" aria-live="polite">
-            <div class="toolbar">
-              <div class="toolbar-title" id="detail-title">
-                <span>🎯</span>
-                <span>Select Your Quest</span>
+          <!-- Quest Details -->
+          <aside class="quest-details-panel">
+            <div class="details-toolbar">
+              <div class="details-title">
+                <span>📜 Quest Details</span>
               </div>
             </div>
-            <div class="detail-content" id="detail-content">
-              <div class="detail-empty">
-                Choose your path! Click on a skill category to see the full progression tree, or select a specific cell to unlock detailed requirements and share your war stories.
+            <div class="quest-content" id="questContent">
+              <div class="empty-state">
+                <div class="empty-state-icon">🎯</div>
+                <div class="empty-state-text">
+                  Click on a level node to view quest details and requirements
+                </div>
               </div>
             </div>
           </aside>
-        </div>
-      </section>
+        </main>
+      </div>
 
       <footer>
-        <p>GameDev Survival Guide | Power Level: <span class="blink">∞</span> | <a href="#" onclick="resetData(); return false;">Reset Save Game</a></p>
+        <p>GameDev Survival Guide | Current Quest: <span class="blink" id="currentQuest">Level 1</span> | <a href="#" onclick="resetGame(); return false;">New Game</a> | <a href="#" onclick="editMode(); return false;">Edit Journey</a></p>
       </footer>
     </div>
 
+    <!-- Story Modal -->
+    <div class="modal-overlay" id="storyModal">
+      <div class="story-modal">
+        <div class="modal-header">
+          <h2 class="modal-title" id="modalTitle">Story Title</h2>
+          <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body" id="modalBody">
+          <!-- Story content will be inserted here -->
+        </div>
+      </div>
+    </div>
+
     <script>
-      // Data structure for the matrix with gaming-themed content
-      const matrixData = {
-        levels: [
-          'Junior Engineer',
-          'Software Engineer', 
-          'Senior Engineer',
-          'Principal Engineer',
-          'Distinguished Engineer'
+      // ==========================================
+      // GAME DATA CONFIGURATION
+      // ==========================================
+      // Edit this section to customize your journey
+
+      const myCharacter = {
+        name: "Your Name", // Change this to your name
+        class: "Software Engineer",
+        avatar: "👨‍💻", // Change emoji or use an image URL
+        currentLevel: 1, // Your current level (1-20)
+        traits: [
+          { icon: "🤔", name: "Problem Solver", description: "Loves complex challenges" },
+          { icon: "🎨", name: "Creative", description: "Thinks outside the box" },
+          { icon: "🤝", name: "Team Player", description: "Thrives in collaboration" }
         ],
-        topics: [
-          {
-            id: 'Communication',
-            icon: '💬',
-            name: 'Communication',
-            description: 'Team sync & player feedback'
-          },
-          {
-            id: 'WaysOfWorking',
-            icon: '⚙️',
-            name: 'Ways of Working',
-            description: 'Dev processes & workflows'
-          },
-          {
-            id: 'CraftExpertise',
-            icon: '🛠️',
-            name: 'Craft Expertise',
-            description: 'Technical mastery & skills'
-          },
-          {
-            id: 'Business',
-            icon: '📈',
-            name: 'Business Impact',
-            description: 'Studio goals & KPIs'
-          },
-          {
-            id: 'Mentorship',
-            icon: '🧙',
-            name: 'Mentorship',
-            description: 'Leveling up teammates'
-          },
-          {
-            id: 'Collaboration',
-            icon: '🤝',
-            name: 'Collaboration',
-            description: 'Cross-team quests'
-          }
-        ],
-        expectations: {
-          'Communication': {
-            'Junior Engineer': {
-              summary: 'Daily standups, PR comments, asks for help when stuck',
-              details: 'Participates actively in daily standups, writes clear PR descriptions, communicates blockers early.',
-              tales: ''
-            },
-            'Software Engineer': {
-              summary: '',
-              details: '',
-              tales: ''
-            },
-            'Senior Engineer': {
-              summary: '',
-              details: '',
-              tales: ''
-            },
-            'Principal Engineer': {
-              summary: '',
-              details: '',
-              tales: ''
-            },
-            'Distinguished Engineer': {
-              summary: '',
-              details: '',
-              tales: ''
-            }
-          },
-          'WaysOfWorking': {
-            'Junior Engineer': { summary: '', details: '', tales: '' },
-            'Software Engineer': { summary: '', details: '', tales: '' },
-            'Senior Engineer': { summary: '', details: '', tales: '' },
-            'Principal Engineer': { summary: '', details: '', tales: '' },
-            'Distinguished Engineer': { summary: '', details: '', tales: '' }
-          },
-          'CraftExpertise': {
-            'Junior Engineer': { summary: '', details: '', tales: '' },
-            'Software Engineer': { summary: '', details: '', tales: '' },
-            'Senior Engineer': { summary: '', details: '', tales: '' },
-            'Principal Engineer': { summary: '', details: '', tales: '' },
-            'Distinguished Engineer': { summary: '', details: '', tales: '' }
-          },
-          'Business': {
-            'Junior Engineer': { summary: '', details: '', tales: '' },
-            'Software Engineer': { summary: '', details: '', tales: '' },
-            'Senior Engineer': { summary: '', details: '', tales: '' },
-            'Principal Engineer': { summary: '', details: '', tales: '' },
-            'Distinguished Engineer': { summary: '', details: '', tales: '' }
-          },
-          'Mentorship': {
-            'Junior Engineer': { summary: '', details: '', tales: '' },
-            'Software Engineer': { summary: '', details: '', tales: '' },
-            'Senior Engineer': { summary: '', details: '', tales: '' },
-            'Principal Engineer': { summary: '', details: '', tales: '' },
-            'Distinguished Engineer': { summary: '', details: '', tales: '' }
-          },
-          'Collaboration': {
-            'Junior Engineer': { summary: '', details: '', tales: '' },
-            'Software Engineer': { summary: '', details: '', tales: '' },
-            'Senior Engineer': { summary: '', details: '', tales: '' },
-            'Principal Engineer': { summary: '', details: '', tales: '' },
-            'Distinguished Engineer': { summary: '', details: '', tales: '' }
-          }
+        stats: {
+          yearsInIndustry: 0,
+          gamesShipped: 0,
+          monstersDefeated: 0,
+          treasuresFound: 0
         }
       };
 
-      // State management
-      let currentSelection = {
-        type: null, // 'row' or 'cell'
-        topic: null,
-        level: null
+      // Your journey through 20 levels
+      const myJourney = {
+        levels: [
+          {
+            id: 1,
+            name: "Hello World",
+            year: "Year 1",
+            role: "Junior Engineer",
+            emoji: "👋",
+            color: "#4a90e2",
+            position: { x: 225, y: 2700 },
+            completed: false,
+            available: true,
+            myPath: true,
+            
+            quest: {
+              title: "Breaking into GameDev",
+              description: "Your first steps into the game development world. Time to learn the basics and prove yourself.",
+              objectives: [
+                "Set up development environment",
+                "Submit your first pull request",
+                "Fix your first bug",
+                "Survive the first code review"
+              ],
+              skillsRequired: ["Git", "C++", "Debugging", "Communication"]
+            },
+            
+            treasures: [
+              {
+                type: "story",
+                title: "The Interview That Changed Everything",
+                content: "Add your story here about how you got into gamedev...",
+                lesson: "Persistence pays off"
+              }
+            ],
+            
+            monsters: [
+              {
+                name: "Imposter Syndrome",
+                icon: "👹",
+                description: "The feeling that everyone knows more than you",
+                story: "In my first week, I felt completely overwhelmed...",
+                defeated: "Found a mentor who showed me everyone starts somewhere"
+              }
+            ],
+            
+            notes: [
+              "Coffee became my best friend",
+              "Stack Overflow saved me daily"
+            ]
+          },
+          
+          {
+            id: 2,
+            name: "Bug Hunter",
+            year: "Year 1",
+            role: "Junior Engineer",
+            emoji: "🐛",
+            color: "#5c8a3a",
+            position: { x: 225, y: 2560 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Becoming a Debugging Master",
+              description: "Learn to track down and eliminate bugs like a pro.",
+              objectives: [
+                "Fix 10 bugs",
+                "Learn to use the debugger effectively",
+                "Write your first unit test",
+                "Document your fixes"
+              ],
+              skillsRequired: ["Debugging", "Testing", "Documentation"]
+            },
+            
+            treasures: [],
+            monsters: [],
+            notes: []
+          },
+          
+          {
+            id: 3,
+            name: "Feature Builder",
+            year: "Year 2",
+            role: "Junior Engineer",
+            emoji: "🔨",
+            color: "#e85d75",
+            position: { x: 225, y: 2420 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Ship Your First Feature",
+              description: "Design and implement a complete game feature from scratch.",
+              objectives: [
+                "Design the feature architecture",
+                "Implement core functionality",
+                "Write comprehensive tests",
+                "Get it through QA"
+              ],
+              skillsRequired: ["System Design", "Implementation", "Testing"]
+            },
+            
+            treasures: [],
+            monsters: [
+              {
+                name: "Scope Creep",
+                icon: "🐙",
+                description: "The feature that kept growing",
+                story: "What started as a simple feature...",
+                defeated: "Learned to say no and define clear boundaries"
+              }
+            ],
+            notes: []
+          },
+          
+          {
+            id: 4,
+            name: "Team Player",
+            year: "Year 2",
+            role: "Software Engineer",
+            emoji: "🤝",
+            color: "#f39c12",
+            position: { x: 225, y: 2280 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Master Collaboration",
+              description: "Learn to work effectively with designers, artists, and other developers.",
+              objectives: [],
+              skillsRequired: []
+            },
+            
+            treasures: [],
+            monsters: [],
+            notes: []
+          },
+          
+          {
+            id: 5,
+            name: "Performance Wizard",
+            year: "Year 3",
+            role: "Software Engineer",
+            emoji: "⚡",
+            color: "#9b59b6",
+            position: { x: 225, y: 2140 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Optimization Quest",
+              description: "Make the game run at 60 FPS on all platforms.",
+              objectives: [],
+              skillsRequired: ["Profiling", "Optimization", "Memory Management"]
+            },
+            
+            treasures: [],
+            monsters: [],
+            notes: []
+          },
+          
+          {
+            id: 6,
+            name: "System Architect",
+            year: "Year 3",
+            role: "Software Engineer",
+            emoji: "🏗️",
+            color: "#34495e",
+            position: { x: 225, y: 2000 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Design Major Systems",
+              description: "Architect and implement core game systems.",
+              objectives: [],
+              skillsRequired: []
+            },
+            
+            treasures: [],
+            monsters: [],
+            notes: []
+          },
+          
+          {
+            id: 7,
+            name: "Crisis Manager",
+            year: "Year 4",
+            role: "Senior Engineer",
+            emoji: "🔥",
+            color: "#e74c3c",
+            position: { x: 225, y: 1860 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Survive the Crunch",
+              description: "Navigate through your first major crunch period.",
+              objectives: [],
+              skillsRequired: []
+            },
+            
+            monsters: [
+              {
+                name: "Burnout Dragon",
+                icon: "🐲",
+                description: "The exhaustion that threatens to consume you",
+                story: "Three months of 70-hour weeks...",
+                defeated: "Set boundaries and learned to prioritize health"
+              }
+            ],
+            
+            treasures: [],
+            notes: []
+          },
+          
+          {
+            id: 8,
+            name: "Mentor",
+            year: "Year 4",
+            role: "Senior Engineer",
+            emoji: "🧙",
+            color: "#3498db",
+            position: { x: 225, y: 1720 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Guide New Developers",
+              description: "Help junior developers find their path.",
+              objectives: [],
+              skillsRequired: ["Mentoring", "Teaching", "Patience"]
+            },
+            
+            treasures: [],
+            monsters: [],
+            notes: []
+          },
+          
+          {
+            id: 9,
+            name: "Tool Builder",
+            year: "Year 5",
+            role: "Senior Engineer",
+            emoji: "🔧",
+            color: "#16a085",
+            position: { x: 225, y: 1580 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Create Development Tools",
+              description: "Build tools that make everyone's life easier.",
+              objectives: [],
+              skillsRequired: []
+            },
+            
+            treasures: [],
+            monsters: [],
+            notes: []
+          },
+          
+          {
+            id: 10,
+            name: "Ship It!",
+            year: "Year 5",
+            role: "Senior Engineer",
+            emoji: "🚀",
+            color: "#27ae60",
+            position: { x: 225, y: 1440 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Launch Your First Game",
+              description: "Experience the thrill and terror of launching a game.",
+              objectives: [],
+              skillsRequired: []
+            },
+            
+            treasures: [
+              {
+                type: "achievement",
+                title: "First Game Shipped!",
+                content: "The moment when millions of players experienced our work...",
+                lesson: "Nothing beats seeing players enjoy your game"
+              }
+            ],
+            
+            monsters: [],
+            notes: []
+          },
+          
+          {
+            id: 11,
+            name: "Tech Lead",
+            year: "Year 6",
+            role: "Senior Engineer",
+            emoji: "🎯",
+            color: "#8e44ad",
+            position: { x: 225, y: 1300 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Technical Leadership",
+              description: "Lead technical decisions and guide the team's architecture.",
+              objectives: [],
+              skillsRequired: ["Architecture", "Leadership", "Communication"]
+            },
+            
+            treasures: [],
+            monsters: [],
+            notes: []
+          },
+          
+          {
+            id: 12,
+            name: "Domain Expert",
+            year: "Year 7",
+            role: "Principal Engineer",
+            emoji: "👑",
+            color: "#d35400",
+            position: { x: 225, y: 1160 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Master Your Domain",
+              description: "Become the go-to expert in your specialization.",
+              objectives: [],
+              skillsRequired: []
+            },
+            
+            treasures: [],
+            monsters: [],
+            notes: []
+          },
+          
+          {
+            id: 13,
+            name: "Code Architect",
+            year: "Year 8",
+            role: "Principal Engineer",
+            emoji: "🏛️",
+            color: "#2c3e50",
+            position: { x: 225, y: 1020 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Design at Scale",
+              description: "Architect systems that can handle millions of players.",
+              objectives: [],
+              skillsRequired: []
+            },
+            
+            treasures: [],
+            monsters: [],
+            notes: []
+          },
+          
+          {
+            id: 14,
+            name: "Innovation Driver",
+            year: "Year 9",
+            role: "Principal Engineer",
+            emoji: "💡",
+            color: "#f1c40f",
+            position: { x: 225, y: 880 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Push Technical Boundaries",
+              description: "Implement cutting-edge technology in production.",
+              objectives: [],
+              skillsRequired: []
+            },
+            
+            treasures: [],
+            monsters: [],
+            notes: []
+          },
+          
+          {
+            id: 15,
+            name: "Platform Builder",
+            year: "Year 10",
+            role: "Principal Engineer",
+            emoji: "🌐",
+            color: "#1abc9c",
+            position: { x: 225, y: 740 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Lead Technical Excellence",
+              description: "Guide technical decisions across multiple teams.",
+              objectives: [],
+              skillsRequired: []
+            },
+            
+            treasures: [],
+            monsters: [],
+            notes: []
+          },
+          
+          {
+            id: 16,
+            name: "Industry Expert",
+            year: "Year 11",
+            role: "Distinguished Engineer",
+            emoji: "🏆",
+            color: "#e67e22",
+            position: { x: 225, y: 600 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Build the Foundation",
+              description: "Create platforms that empower other developers.",
+              objectives: [],
+              skillsRequired: []
+            },
+            
+            treasures: [],
+            monsters: [],
+            notes: []
+          },
+          
+          {
+            id: 17,
+            name: "Technical Director",
+            year: "Year 12",
+            role: "Distinguished Engineer",
+            emoji: "🎬",
+            color: "#c0392b",
+            position: { x: 225, y: 460 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Industry Recognition",
+              description: "Become known in the wider game development community.",
+              objectives: [],
+              skillsRequired: []
+            },
+            
+            treasures: [],
+            monsters: [],
+            notes: []
+          },
+          
+          {
+            id: 18,
+            name: "Master Craftsman",
+            year: "Year 13",
+            role: "Distinguished Engineer",
+            emoji: "✨",
+            color: "#8b4513",
+            position: { x: 225, y: 320 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Shape the Future",
+              description: "Define technical vision for entire projects.",
+              objectives: [],
+              skillsRequired: []
+            },
+            
+            treasures: [],
+            monsters: [],
+            notes: []
+          },
+          
+          {
+            id: 19,
+            name: "Legendary Status",
+            year: "Year 14",
+            role: "Distinguished Engineer",
+            emoji: "🎆",
+            color: "#663399",
+            position: { x: 225, y: 180 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Legendary Status",
+              description: "Your expertise is sought after industry-wide.",
+              objectives: [],
+              skillsRequired: []
+            },
+            
+            treasures: [],
+            monsters: [],
+            notes: []
+          },
+          
+          {
+            id: 20,
+            name: "Mastery",
+            year: "Year 15+",
+            role: "Technical Fellow",
+            emoji: "💎",
+            color: "#ffd700",
+            position: { x: 225, y: 40 },
+            completed: false,
+            available: false,
+            myPath: true,
+            
+            quest: {
+              title: "Technical Mastery Achieved",
+              description: "You've reached the pinnacle of technical excellence.",
+              objectives: [],
+              skillsRequired: []
+            },
+            
+            treasures: [
+              {
+                type: "legendary",
+                title: "The Master's Wisdom",
+                content: "After all these years, the most important lesson is...",
+                lesson: "The journey never really ends, it just gets more interesting"
+              }
+            ],
+            
+            monsters: [],
+            notes: []
+          }
+        ],
+        
+        // Global curses that can appear at multiple levels
+        globalCurses: [
+          {
+            name: "Imposter Syndrome",
+            icon: "👹",
+            appearsAt: [1, 5, 8, 12],
+            description: "The persistent feeling of not being good enough"
+          },
+          {
+            name: "Burnout Dragon",
+            icon: "🐲",
+            appearsAt: [7, 14, 18],
+            description: "Exhaustion from overwork"
+          },
+          {
+            name: "Scope Creep",
+            icon: "🐙",
+            appearsAt: [3, 9, 15],
+            description: "Features that grow beyond control"
+          }
+        ]
       };
 
-      // Initialize the application
+      // ==========================================
+      // GAME ENGINE
+      // ==========================================
+      
+      let gameState = {
+        currentLevel: myCharacter.currentLevel,
+        selectedLevel: null,
+        showAllPaths: false,
+        editMode: false
+      };
+
+      // Initialize the game
       function init() {
-        loadData();
-        renderMatrix();
+        loadGameState();
+        renderCharacter();
+        renderQuestMap();
         setupEventListeners();
-        checkMobileLayout();
       }
 
-      // Load data from localStorage
-      function loadData() {
-        const saved = localStorage.getItem('gamedevMatrix');
+      // Render character card
+      function renderCharacter() {
+        document.getElementById('characterAvatar').textContent = myCharacter.avatar;
+        document.getElementById('characterName').textContent = myCharacter.name;
+        document.getElementById('characterClass').textContent = myCharacter.class;
+        document.getElementById('characterLevel').textContent = `Level ${myCharacter.currentLevel}`;
+        
+        // Render traits
+        const traitsList = document.getElementById('traitsList');
+        traitsList.innerHTML = myCharacter.traits.map(trait => `
+          <li class="trait-item">
+            <span class="trait-icon">${trait.icon}</span>
+            <div>
+              <div style="font-weight: 600;">${trait.name}</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">${trait.description}</div>
+            </div>
+          </li>
+        `).join('');
+        
+        // Update stats
+        document.getElementById('yearsInIndustry').textContent = myCharacter.stats.yearsInIndustry;
+        document.getElementById('gamesShipped').textContent = myCharacter.stats.gamesShipped;
+        document.getElementById('monstersDefeated').textContent = myCharacter.stats.monstersDefeated;
+        document.getElementById('treasuresFound').textContent = myCharacter.stats.treasuresFound;
+      }
+
+      // Render the quest map
+      function renderQuestMap() {
+        const svg = document.getElementById('questBoard');
+        svg.innerHTML = '';
+        
+        // Draw arrows between levels
+        for (let i = 0; i < myJourney.levels.length - 1; i++) {
+          const fromLevel = myJourney.levels[i];
+          const toLevel = myJourney.levels[i + 1];
+          drawArrow(svg, fromLevel.position, toLevel.position);
+        }
+        
+        // Draw level rectangles from bottom to top
+        myJourney.levels.forEach(level => {
+          drawLevelRect(svg, level);
+        });
+        
+        // Scroll to bottom (Level 1) after rendering
+        setTimeout(() => {
+          const questMap = document.querySelector('.quest-map');
+          if (questMap) {
+            questMap.scrollTop = questMap.scrollHeight;
+          }
+        }, 100);
+      }
+
+      // Draw a level rectangle
+      function drawLevelRect(svg, level) {
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('class', 'level-group');
+        g.onclick = () => selectLevel(level.id);
+        
+        // Rectangle
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('x', level.position.x - 200);
+        rect.setAttribute('y', level.position.y - 35);
+        rect.setAttribute('width', '400');
+        rect.setAttribute('height', '70');
+        rect.setAttribute('class', `level-rect ${getLevelClass(level)}`);
+        rect.setAttribute('fill', level.locked || !level.available ? '#2c3e50' : (level.color || '#2c3e50'));
+        rect.setAttribute('stroke', 'rgba(255, 255, 255, 0.3)');
+        g.appendChild(rect);
+        
+        // Level number
+        const number = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        number.setAttribute('x', level.position.x - 180);
+        number.setAttribute('y', level.position.y - 5);
+        number.setAttribute('class', 'level-text level-number');
+        number.setAttribute('text-anchor', 'start');
+        number.setAttribute('fill', !level.available ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.9)');
+        number.textContent = level.id < 10 ? `0${level.id}` : level.id;
+        g.appendChild(number);
+        
+        // Emoji
+        const emoji = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        emoji.setAttribute('x', level.position.x - 140);
+        emoji.setAttribute('y', level.position.y - 5);
+        emoji.setAttribute('class', 'level-emoji');
+        emoji.setAttribute('text-anchor', 'middle');
+        emoji.setAttribute('opacity', !level.available ? '0.4' : '1');
+        emoji.textContent = level.emoji || '🎯';
+        g.appendChild(emoji);
+        
+        // Level name
+        const name = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        name.setAttribute('x', level.position.x - 100);
+        name.setAttribute('y', level.position.y - 10);
+        name.setAttribute('class', 'level-text level-name');
+        name.setAttribute('text-anchor', 'start');
+        name.setAttribute('fill', !level.available ? 'rgba(255,255,255,0.4)' : 'var(--text-primary)');
+        name.textContent = level.name;
+        g.appendChild(name);
+        
+        // Year
+        const year = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        year.setAttribute('x', level.position.x + 160);
+        year.setAttribute('y', level.position.y - 15);
+        year.setAttribute('class', 'level-text level-year');
+        year.setAttribute('text-anchor', 'end');
+        year.setAttribute('fill', !level.available ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.7)');
+        year.textContent = level.year;
+        g.appendChild(year);
+        
+        // Role
+        const role = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        role.setAttribute('x', level.position.x + 160);
+        role.setAttribute('y', level.position.y + 5);
+        role.setAttribute('class', 'level-text level-role');
+        role.setAttribute('text-anchor', 'end');
+        role.setAttribute('fill', !level.available ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.8)');
+        role.textContent = level.role || '';
+        g.appendChild(role);
+        
+        svg.appendChild(g);
+      }
+
+      // Draw arrow between levels
+      function drawArrow(svg, from, to) {
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        
+        // Arrow line
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const startY = from.y - 35;
+        const endY = to.y + 35;
+        path.setAttribute('d', `M ${from.x} ${startY} L ${to.x} ${endY}`);
+        path.setAttribute('class', 'arrow-path');
+        g.appendChild(path);
+        
+        // Arrow head
+        const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+        const arrowSize = 8;
+        const points = `${to.x},${endY - arrowSize} ${to.x - arrowSize/2},${endY} ${to.x + arrowSize/2},${endY}`;
+        arrowHead.setAttribute('points', points);
+        arrowHead.setAttribute('class', 'arrow-head');
+        g.appendChild(arrowHead);
+        
+        svg.appendChild(g);
+      }
+
+      // Get CSS class for level based on state
+      function getLevelClass(level) {
+        if (level.id === gameState.currentLevel) return 'current';
+        if (level.completed) return 'completed';
+        if (level.available) return 'available';
+        return 'locked';
+      }
+
+      // Select a level
+      function selectLevel(levelId) {
+        const level = myJourney.levels.find(l => l.id === levelId);
+        if (!level) return;
+        
+        gameState.selectedLevel = levelId;
+        displayQuestDetails(level);
+      }
+
+      // Removed branch selection - no longer needed
+
+      // Display quest details
+      function displayQuestDetails(level) {
+        const content = document.getElementById('questContent');
+        
+        content.innerHTML = `
+          <div class="quest-header">${level.emoji || ''} ${level.name}</div>
+          <div class="quest-year">${level.year} • ${level.role || ''}</div>
+          <div class="quest-description">${level.quest.description}</div>
+          
+          ${level.quest.objectives && level.quest.objectives.length > 0 ? `
+            <div class="quest-objectives">
+              <div class="objectives-title">📋 Objectives</div>
+              ${level.quest.objectives.map(obj => `
+                <div class="objective-item">${obj}</div>
+              `).join('')}
+            </div>
+          ` : ''}
+          
+          ${level.quest.skillsRequired && level.quest.skillsRequired.length > 0 ? `
+            <div class="quest-skills">
+              <div class="skills-title">🎯 Skills Required</div>
+              ${level.quest.skillsRequired.map(skill => `
+                <span class="skill-tag">${skill}</span>
+              `).join('')}
+            </div>
+          ` : ''}
+          
+          ${level.treasures && level.treasures.length > 0 ? `
+            <div class="quest-objectives" style="background: rgba(255, 215, 0, 0.1); border-color: rgba(255, 215, 0, 0.3);">
+              <div class="objectives-title" style="color: var(--neon-yellow); text-shadow: 0 0 5px var(--neon-yellow);">
+                💎 Treasures Found
+              </div>
+              ${level.treasures.map(treasure => `
+                <div class="objective-item" style="cursor: pointer;" onclick="showTreasureModal(${level.id}, '${treasure.title}')">
+                  ${treasure.title} →
+                </div>
+              `).join('')}
+            </div>
+          ` : ''}
+          
+          ${level.monsters && level.monsters.length > 0 ? `
+            <div class="quest-objectives" style="background: rgba(255, 0, 110, 0.1); border-color: rgba(255, 0, 110, 0.3);">
+              <div class="objectives-title" style="color: var(--neon-pink); text-shadow: 0 0 5px var(--neon-pink);">
+                👾 Monsters Defeated
+              </div>
+              ${level.monsters.map(monster => `
+                <div class="objective-item" style="cursor: pointer;" onclick="showMonsterModal(${level.id}, '${monster.name}')">
+                  ${monster.icon || '👾'} ${monster.name} →
+                </div>
+              `).join('')}
+            </div>
+          ` : ''}
+          
+          ${level.notes && level.notes.length > 0 ? `
+            <div class="quest-objectives" style="background: rgba(0, 245, 255, 0.1); border-color: rgba(0, 245, 255, 0.3);">
+              <div class="objectives-title" style="color: var(--neon-cyan); text-shadow: 0 0 5px var(--neon-cyan);">
+                📝 Notes & Observations
+              </div>
+              ${level.notes.map(note => `
+                <div class="objective-item">${note}</div>
+              `).join('')}
+            </div>
+          ` : ''}
+          
+          <button class="quest-action-btn" 
+                  onclick="completeLevel(${level.id})"
+                  ${level.completed || !level.available ? 'disabled' : ''}>
+            ${level.completed ? 'Completed ✓' : level.available ? 'Level Up ⬆️' : 'Locked 🔒'}
+          </button>
+        `;
+      }
+
+      // Add helper functions for showing specific treasure/monster
+      function showTreasureModal(levelId, treasureTitle) {
+        const level = myJourney.levels.find(l => l.id === levelId);
+        if (!level || !level.treasures) return;
+        
+        const treasure = level.treasures.find(t => t.title === treasureTitle);
+        if (treasure) {
+          showStoryModal('💎 Treasure Found!', treasure);
+        }
+      }
+      
+      function showMonsterModal(levelId, monsterName) {
+        const level = myJourney.levels.find(l => l.id === levelId);
+        if (!level || !level.monsters) return;
+        
+        const monster = level.monsters.find(m => m.name === monsterName);
+        if (monster) {
+          showMonsterModalContent(monster);
+        }
+      }
+
+      // Complete a level
+      function completeLevel(levelId) {
+        const level = myJourney.levels.find(l => l.id === levelId);
+        if (!level || !level.available || level.completed) return;
+        
+        level.completed = true;
+        
+        // Unlock next level
+        const nextIndex = myJourney.levels.findIndex(l => l.id === levelId) + 1;
+        if (nextIndex < myJourney.levels.length) {
+          myJourney.levels[nextIndex].available = true;
+          gameState.currentLevel = myJourney.levels[nextIndex].id;
+        }
+        
+        // Update stats
+        if (level.treasures) {
+          myCharacter.stats.treasuresFound += level.treasures.length;
+        }
+        if (level.monsters) {
+          myCharacter.stats.monstersDefeated += level.monsters.length;
+        }
+        
+        saveGameState();
+        renderCharacter();
+        renderQuestMap();
+        displayQuestDetails(level);
+        
+        // Show completion message
+        if (level.treasures && level.treasures.length > 0) {
+          setTimeout(() => showTreasures(levelId), 500);
+        }
+      }
+
+      // Show treasures modal
+      function showTreasures(levelId) {
+        const level = myJourney.levels.find(l => l.id === levelId);
+        if (!level || !level.treasures || level.treasures.length === 0) return;
+        
+        const treasure = level.treasures[0]; // Show first treasure for now
+        showStoryModal('💎 Treasure Found!', treasure);
+      }
+
+      // Show monsters modal
+      function showMonsters(levelId) {
+        const level = myJourney.levels.find(l => l.id === levelId);
+        if (!level || !level.monsters || level.monsters.length === 0) return;
+        
+        const monster = level.monsters[0]; // Show first monster for now
+        showMonsterModalContent(monster);
+      }
+
+      // Show notes modal
+      function showNotes(levelId) {
+        const level = myJourney.levels.find(l => l.id === levelId);
+        if (!level || !level.notes || level.notes.length === 0) return;
+        
+        showNotesModal(level.notes);
+      }
+
+      // Show story modal
+      function showStoryModal(title, story) {
+        const modal = document.getElementById('storyModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        
+        modalTitle.textContent = title;
+        modalBody.innerHTML = `
+          <div class="story-type">${story.type || 'story'}</div>
+          <h3 style="color: var(--neon-cyan); margin-bottom: 1rem;">${story.title}</h3>
+          <div class="story-content">${story.content}</div>
+          ${story.lesson ? `
+            <div class="story-lesson">
+              <div class="story-lesson-title">💡 Lesson Learned</div>
+              <div class="story-lesson-text">${story.lesson}</div>
+            </div>
+          ` : ''}
+        `;
+        
+        modal.classList.add('active');
+      }
+
+      // Show monster modal content
+      function showMonsterModalContent(monster) {
+        const modal = document.getElementById('storyModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        
+        modalTitle.textContent = `${monster.icon} ${monster.name}`;
+        modalBody.innerHTML = `
+          <div class="story-type">monster</div>
+          <div style="color: var(--neon-pink); margin-bottom: 1rem;">${monster.description}</div>
+          <div class="story-content">${monster.story}</div>
+          <div class="story-lesson">
+            <div class="story-lesson-title">⚔️ How I Defeated It</div>
+            <div class="story-lesson-text">${monster.defeated}</div>
+          </div>
+        `;
+        
+        modal.classList.add('active');
+      }
+
+      // Show notes modal
+      function showNotesModal(notes) {
+        const modal = document.getElementById('storyModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        
+        modalTitle.textContent = '📝 Notes & Observations';
+        modalBody.innerHTML = `
+          <div class="story-type">notes</div>
+          <ul style="list-style: none; padding: 0;">
+            ${notes.map(note => `
+              <li style="padding: 0.75rem; margin-bottom: 0.5rem; background: rgba(0, 245, 255, 0.1); border-left: 3px solid var(--neon-cyan); border-radius: var(--radius-sm);">
+                ${note}
+              </li>
+            `).join('')}
+          </ul>
+        `;
+        
+        modal.classList.add('active');
+      }
+
+      // Close modal
+      function closeModal() {
+        document.getElementById('storyModal').classList.remove('active');
+      }
+
+      // Removed reset view and toggle paths functions - buttons no longer exist
+
+      // Save game state
+      function saveGameState() {
+        localStorage.setItem('gamedevQuestState', JSON.stringify({
+          character: myCharacter,
+          journey: myJourney,
+          gameState: gameState
+        }));
+      }
+
+      // Load game state
+      function loadGameState() {
+        const saved = localStorage.getItem('gamedevQuestState');
         if (saved) {
           try {
-            const parsed = JSON.parse(saved);
-            // Merge saved expectations with current structure
-            if (parsed.expectations) {
-              Object.keys(parsed.expectations).forEach(topic => {
-                if (matrixData.expectations[topic]) {
-                  Object.keys(parsed.expectations[topic]).forEach(level => {
-                    if (matrixData.expectations[topic][level]) {
-                      matrixData.expectations[topic][level] = parsed.expectations[topic][level];
-                    }
-                  });
+            const data = JSON.parse(saved);
+            // Merge saved data with current data
+            if (data.character) {
+              Object.assign(myCharacter, data.character);
+            }
+            if (data.journey) {
+              // Carefully merge journey data to preserve new content
+              data.journey.levels.forEach((savedLevel, index) => {
+                if (myJourney.levels[index]) {
+                  myJourney.levels[index].completed = savedLevel.completed;
+                  myJourney.levels[index].available = savedLevel.available;
                 }
               });
             }
+            if (data.gameState) {
+              Object.assign(gameState, data.gameState);
+            }
           } catch (e) {
-            console.error('Failed to load saved data:', e);
+            console.error('Failed to load saved game:', e);
           }
         }
       }
 
-      // Save data to localStorage
-      function saveData() {
-        try {
-          localStorage.setItem('gamedevMatrix', JSON.stringify({
-            expectations: matrixData.expectations
-          }));
-        } catch (e) {
-          console.error('Failed to save data:', e);
-        }
-      }
-
-      // Render the matrix table
-      function renderMatrix() {
-        const header = document.getElementById('matrix-header');
-        const body = document.getElementById('matrix-body');
-
-        // Render header with level icons
-        header.innerHTML = `
-          <th scope="col">Skill Tree</th>
-          ${matrixData.levels.map((level, index) => {
-            const levelIcons = ['👶', '💪', '⭐', '👑', '🏆'];
-            return `<th scope="col">${levelIcons[index]} ${level}</th>`;
-          }).join('')}
-        `;
-
-        // Render body with topic details
-        body.innerHTML = matrixData.topics.map(topic => `
-          <tr>
-            <th scope="row">
-              <button type="button" class="topic-btn" onclick="selectRow('${topic.id}')">
-                <span class="topic-icon">${topic.icon}</span>
-                <span class="topic-name">${topic.name}</span>
-                <span class="topic-desc">${topic.description}</span>
-              </button>
-            </th>
-            ${matrixData.levels.map(level => {
-              const data = matrixData.expectations[topic.id][level];
-              const hasContent = data.summary || data.details;
-              const buttonClass = hasContent ? 'cell-btn has-content' : 'cell-btn placeholder';
-              const buttonText = data.summary || `Click to add`;
-              
-              return `
-                <td>
-                  <button type="button" class="${buttonClass}" 
-                          onclick="selectCell('${topic.id}', '${level}')"
-                          data-topic="${topic.id}"
-                          data-level="${level}">
-                    ${buttonText}
-                  </button>
-                </td>
-              `;
-            }).join('')}
-          </tr>
-        `).join('');
-      }
-
-      // Select a row (topic overview)
-      function selectRow(topicId) {
-        const topic = matrixData.topics.find(t => t.id === topicId);
-        
-        // Update selection state
-        currentSelection = {
-          type: 'row',
-          topic: topicId,
-          level: null
-        };
-
-        // Update visual selection
-        updateSelection();
-
-        // Update detail panel
-        const detailTitle = document.getElementById('detail-title');
-        const detailContent = document.getElementById('detail-content');
-
-        detailTitle.innerHTML = `
-          <span>${topic.icon}</span>
-          <span>${topic.name} Progression</span>
-        `;
-
-        const levelItems = matrixData.levels.map((level, index) => {
-          const levelIcons = ['👶', '💪', '⭐', '👑', '🏆'];
-          const data = matrixData.expectations[topicId][level];
-          const text = data.summary || data.details || 'Awaiting definition...';
-          
-          return `
-            <li class="level-item">
-              <span class="level-name">${levelIcons[index]} ${level}</span>
-              <span class="level-description">${text}</span>
-            </li>
-          `;
-        }).join('');
-
-        detailContent.innerHTML = `
-          <div class="detail-header">Level Progression Path</div>
-          <ul class="level-list">
-            ${levelItems}
-          </ul>
-        `;
-
-        // Scroll to detail on mobile
-        if (window.innerWidth < 1024) {
-          document.getElementById('detail-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-      }
-
-      // Select a cell
-      function selectCell(topicId, level) {
-        const topic = matrixData.topics.find(t => t.id === topicId);
-        
-        // Update selection state
-        currentSelection = {
-          type: 'cell',
-          topic: topicId,
-          level: level
-        };
-
-        // Update visual selection
-        updateSelection();
-
-        // Update detail panel
-        const detailTitle = document.getElementById('detail-title');
-        const detailContent = document.getElementById('detail-content');
-        const data = matrixData.expectations[topicId][level];
-
-        const levelIndex = matrixData.levels.indexOf(level);
-        const levelIcons = ['👶', '💪', '⭐', '👑', '🏆'];
-
-        detailTitle.innerHTML = `
-          <span>${topic.icon}</span>
-          <span>${topic.name}</span>
-          <span style="color: var(--neon-green);">•</span>
-          <span>${levelIcons[levelIndex]} ${level}</span>
-        `;
-
-        detailContent.innerHTML = `
-          <div class="tales-content">
-            <div class="detail-header">Quest Details & War Stories</div>
-            
-            <div class="input-group">
-              <label for="summary-input">
-                ⚡ Quick Summary
-              </label>
-              <textarea id="summary-input" 
-                       placeholder="Core expectations in a nutshell..."
-                       onchange="updateCellData('${topicId}', '${level}', 'summary', this.value)"
-                       rows="3">${data.summary || ''}</textarea>
-            </div>
-
-            <div class="input-group">
-              <label for="details-input">
-                📋 Detailed Requirements
-              </label>
-              <textarea id="details-input" 
-                       placeholder="Specific skills, behaviors, and deliverables expected..."
-                       onchange="updateCellData('${topicId}', '${level}', 'details', this.value)"
-                       rows="5">${data.details || ''}</textarea>
-            </div>
-
-            <div class="input-group">
-              <label for="tales-input">
-                🎮 Tales from the Crypt
-              </label>
-              <textarea id="tales-input" 
-                       placeholder="Share your epic fails, legendary wins, and lessons learned from the trenches..."
-                       onchange="updateCellData('${topicId}', '${level}', 'tales', this.value)"
-                       rows="6">${data.tales || ''}</textarea>
-            </div>
-
-            <div class="tales-prompts">
-              <h4>Story Prompts</h4>
-              <ul>
-                <li>The bug that taught you humility</li>
-                <li>That crunch time miracle (or disaster)</li>
-                <li>When the players broke everything</li>
-                <li>The feature that shipped vs. what was designed</li>
-                <li>Your "it works on my machine" moment</li>
-              </ul>
-            </div>
-          </div>
-        `;
-
-        // Scroll to detail on mobile
-        if (window.innerWidth < 1024) {
-          document.getElementById('detail-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-      }
-
-      // Update visual selection in the table
-      function updateSelection() {
-        // Clear all selections
-        document.querySelectorAll('.matrix tbody tr').forEach(tr => tr.classList.remove('selected'));
-        document.querySelectorAll('.matrix td').forEach(td => td.classList.remove('selected'));
-
-        if (currentSelection.type === 'row') {
-          // Highlight the row
-          const rows = document.querySelectorAll('.matrix tbody tr');
-          const topicIndex = matrixData.topics.findIndex(t => t.id === currentSelection.topic);
-          if (topicIndex >= 0 && rows[topicIndex]) {
-            rows[topicIndex].classList.add('selected');
-          }
-        } else if (currentSelection.type === 'cell') {
-          // Highlight the specific cell
-          const button = document.querySelector(
-            `button[data-topic="${currentSelection.topic}"][data-level="${currentSelection.level}"]`
-          );
-          if (button) {
-            button.closest('td').classList.add('selected');
-          }
-        }
-      }
-
-      // Update cell data
-      function updateCellData(topicId, level, field, value) {
-        matrixData.expectations[topicId][level][field] = value;
-        saveData();
-        
-        // Update the cell button if summary changed
-        if (field === 'summary') {
-          const button = document.querySelector(
-            `button[data-topic="${topicId}"][data-level="${level}"]`
-          );
-          if (button) {
-            button.textContent = value || 'Click to add';
-            button.className = value ? 'cell-btn has-content' : 'cell-btn placeholder';
-          }
-        }
-      }
-
-      // Reset data to defaults
-      function resetData() {
-        if (confirm('⚠️ This will wipe your save game! All your data will be reset to factory defaults. Continue?')) {
-          localStorage.removeItem('gamedevMatrix');
+      // Reset game
+      function resetGame() {
+        if (confirm('⚠️ Start a new game? This will reset all progress!')) {
+          localStorage.removeItem('gamedevQuestState');
           location.reload();
         }
       }
 
-      // Check for mobile layout
-      function checkMobileLayout() {
-        const detailPanel = document.getElementById('detail-panel');
-        
-        if (window.innerWidth < 1024) {
-          detailPanel.setAttribute('aria-label', 'Details (shown below matrix on mobile)');
-        } else {
-          detailPanel.setAttribute('aria-label', 'Details panel');
-        }
+      // Edit mode toggle
+      function editMode() {
+        gameState.editMode = !gameState.editMode;
+        alert(gameState.editMode ? 
+          'Edit mode enabled! Modify the myCharacter and myJourney objects in the code to customize your journey.' : 
+          'Edit mode disabled.');
       }
 
       // Setup event listeners
       function setupEventListeners() {
-        // Window resize
-        window.addEventListener('resize', checkMobileLayout);
-
-        // Keyboard navigation
+        // Close modal on escape
         document.addEventListener('keydown', (e) => {
           if (e.key === 'Escape') {
-            currentSelection = { type: null, topic: null, level: null };
-            updateSelection();
-            document.getElementById('detail-content').innerHTML = `
-              <div class="detail-empty">
-                Choose your path! Click on a skill category to see the full progression tree, or select a specific cell to unlock detailed requirements and share your war stories.
-              </div>
-            `;
-            document.getElementById('detail-title').innerHTML = `
-              <span>🎯</span>
-              <span>Select Your Quest</span>
-            `;
+            closeModal();
+          }
+        });
+        
+        // Close modal on overlay click
+        document.getElementById('storyModal').addEventListener('click', (e) => {
+          if (e.target.id === 'storyModal') {
+            closeModal();
           }
         });
       }
