@@ -6,8 +6,9 @@
     <title>GameDev Survival Guide - My Journey</title>
     <meta name="description" content="A personal journey through the video game industry, documenting the path from Junior to Mastery." />
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;600;700;900&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;600;700;900&family=Cinzel:wght@400;600;700;900&family=MedievalSharp&display=swap');
       
+      /* Sci-Fi Theme (Default) */
       :root {
         /* Gaming color palette */
         --bg-primary: #0a0614;
@@ -53,6 +54,52 @@
         --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
         --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
         --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+        
+        /* Font families */
+        --font-primary: 'Orbitron', monospace;
+        --font-retro: 'Press Start 2P', cursive;
+      }
+      
+      /* RPG Theme */
+      [data-theme="rpg"] {
+        /* Medieval/Fantasy color palette */
+        --bg-primary: #1a0f0a;
+        --bg-secondary: #2c1810;
+        --bg-accent: #3d2419;
+        
+        /* RPG colors */
+        --neon-pink: #c9302c;
+        --neon-blue: #4169e1;
+        --neon-cyan: #6495ed;
+        --neon-green: #228b22;
+        --neon-yellow: #daa520;
+        --neon-purple: #8b008b;
+        --neon-orange: #ff8c00;
+        
+        /* Text colors */
+        --text-primary: #f4e4c1;
+        --text-secondary: #d4af37;
+        --text-muted: #8b7355;
+        
+        /* UI elements */
+        --border: rgba(218, 165, 32, 0.4);
+        --border-hover: rgba(255, 215, 0, 0.6);
+        
+        /* Gradients */
+        --gradient-pink: linear-gradient(135deg, #8b0000, #dc143c);
+        --gradient-blue: linear-gradient(135deg, #191970, #4169e1);
+        --gradient-green: linear-gradient(135deg, #228b22, #32cd32);
+        --gradient-rainbow: linear-gradient(135deg, #8b0000, #ff8c00, #ffd700, #228b22, #4169e1, #8b008b);
+        
+        /* Effects */
+        --shadow-neon-pink: 0 0 20px rgba(220, 20, 60, 0.5);
+        --shadow-neon-blue: 0 0 20px rgba(65, 105, 225, 0.5);
+        --shadow-neon-cyan: 0 0 20px rgba(100, 149, 237, 0.5);
+        --shadow-lg: 0 20px 40px rgba(0,0,0,0.7);
+        
+        /* Font families */
+        --font-primary: 'Cinzel', serif;
+        --font-retro: 'MedievalSharp', cursive;
       }
 
       * {
@@ -68,16 +115,17 @@
 
       body {
         min-height: 100vh;
-        font-family: 'Orbitron', monospace;
+        font-family: var(--font-primary);
         background: var(--bg-primary);
         color: var(--text-primary);
         line-height: 1.6;
         position: relative;
         overflow-x: hidden;
+        transition: background-color var(--transition-slow), color var(--transition-slow);
       }
 
-      /* Animated starfield background */
-      body::before {
+      /* Animated starfield background for sci-fi theme */
+      body:not([data-theme="rpg"])::before {
         content: "";
         position: fixed;
         top: 0;
@@ -97,9 +145,37 @@
         pointer-events: none;
         z-index: 0;
       }
+      
+      /* Parchment texture background for RPG theme */
+      body[data-theme="rpg"]::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+          repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 2px,
+            rgba(139, 69, 19, 0.03) 2px,
+            rgba(139, 69, 19, 0.03) 4px
+          ),
+          repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(139, 69, 19, 0.03) 2px,
+            rgba(139, 69, 19, 0.03) 4px
+          ),
+          radial-gradient(ellipse at center, rgba(218, 165, 32, 0.05), transparent);
+        pointer-events: none;
+        z-index: 0;
+      }
 
-      /* Grid overlay effect */
-      body::after {
+      /* Grid overlay effect for sci-fi */
+      body:not([data-theme="rpg"])::after {
         content: "";
         position: fixed;
         top: 0;
@@ -113,6 +189,22 @@
         pointer-events: none;
         z-index: 0;
         animation: grid 20s linear infinite;
+      }
+      
+      /* Ornamental border effect for RPG */
+      body[data-theme="rpg"]::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+          linear-gradient(rgba(218, 165, 32, 0.02) 2px, transparent 2px),
+          linear-gradient(90deg, rgba(218, 165, 32, 0.02) 2px, transparent 2px);
+        background-size: 100px 100px;
+        pointer-events: none;
+        z-index: 0;
       }
 
       @keyframes stars {
@@ -167,7 +259,7 @@
       }
 
       .hero h1 {
-        font-family: 'Press Start 2P', cursive;
+        font-family: var(--font-retro);
         font-size: 2rem;
         background: var(--gradient-rainbow);
         -webkit-background-clip: text;
@@ -230,7 +322,7 @@
       }
 
       .character-name {
-        font-family: 'Press Start 2P', cursive;
+        font-family: var(--font-retro);
         font-size: 1rem;
         color: var(--neon-cyan);
         text-align: center;
@@ -492,7 +584,7 @@
 
       .level-text {
         fill: var(--text-primary);
-        font-family: 'Orbitron', monospace;
+        font-family: var(--font-primary);
         pointer-events: none;
       }
 
@@ -644,7 +736,7 @@
         color: var(--bg-primary);
         padding: 1rem;
         border-radius: var(--radius-sm);
-        font-family: 'Press Start 2P', cursive;
+        font-family: var(--font-retro);
         font-size: 0.875rem;
         cursor: pointer;
         transition: all var(--transition-fast);
@@ -723,7 +815,7 @@
       }
 
       .modal-title {
-        font-family: 'Press Start 2P', cursive;
+        font-family: var(--font-retro);
         font-size: 1rem;
         color: var(--neon-purple);
         text-shadow: 0 0 10px var(--neon-purple);
@@ -844,9 +936,100 @@
       .empty-state-text {
         font-style: italic;
       }
+      
+      /* Theme Toggle */
+      .theme-toggle {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(135deg, rgba(43, 16, 85, 0.9), rgba(26, 11, 46, 0.9));
+        backdrop-filter: blur(10px);
+        border: 2px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 0.75rem 1rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      }
+      
+      .theme-toggle-label {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        font-weight: 600;
+        user-select: none;
+      }
+      
+      .theme-buttons {
+        display: flex;
+        gap: 0.5rem;
+      }
+      
+      .theme-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid var(--border);
+        color: var(--text-primary);
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        font-family: var(--font-primary);
+        font-size: 0.875rem;
+        transition: all var(--transition-fast);
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+      
+      .theme-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-1px);
+      }
+      
+      .theme-btn.active {
+        background: var(--gradient-blue);
+        border-color: var(--neon-cyan);
+        box-shadow: 0 0 15px rgba(0, 245, 255, 0.5);
+      }
+      
+      /* RPG theme specific styles */
+      [data-theme="rpg"] .hero::before {
+        content: "⚔️";
+      }
+      
+      [data-theme="rpg"] .hero::after {
+        content: "🛡️";
+      }
+      
+      [data-theme="rpg"] .level-rect {
+        stroke-dasharray: none;
+        filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+      }
+      
+      [data-theme="rpg"] .character-card,
+      [data-theme="rpg"] .quest-map-panel,
+      [data-theme="rpg"] .quest-details-panel {
+        border-width: 3px;
+        border-style: double;
+      }
     </style>
   </head>
   <body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+      <span class="theme-toggle-label">Theme:</span>
+      <div class="theme-buttons">
+        <button class="theme-btn active" onclick="setTheme('sci-fi')" id="scifiBtn">
+          <span>🚀</span>
+          <span>Sci-Fi</span>
+        </button>
+        <button class="theme-btn" onclick="setTheme('rpg')" id="rpgBtn">
+          <span>⚔️</span>
+          <span>RPG</span>
+        </button>
+      </div>
+    </div>
+    
     <div class="container">
       <header class="hero">
         <h1>Game Developer Survival Guide - Mikael Lagré</h1>
@@ -1533,10 +1716,35 @@
       // Initialize the game
       function init() {
         // No longer loading saved state - using constant data
+        loadTheme();
         updateCharacterStats();
         renderCharacter();
         renderQuestMap();
         setupEventListeners();
+      }
+      
+      // Theme Management
+      function loadTheme() {
+        const savedTheme = localStorage.getItem('gamedevTheme') || 'sci-fi';
+        setTheme(savedTheme);
+      }
+      
+      function setTheme(theme) {
+        const body = document.body;
+        const scifiBtn = document.getElementById('scifiBtn');
+        const rpgBtn = document.getElementById('rpgBtn');
+        
+        if (theme === 'rpg') {
+          body.setAttribute('data-theme', 'rpg');
+          rpgBtn.classList.add('active');
+          scifiBtn.classList.remove('active');
+        } else {
+          body.removeAttribute('data-theme');
+          scifiBtn.classList.add('active');
+          rpgBtn.classList.remove('active');
+        }
+        
+        localStorage.setItem('gamedevTheme', theme);
       }
       
       // Update character stats based on initial values
@@ -1966,6 +2174,13 @@
 
       // Initialize on load
       document.addEventListener('DOMContentLoaded', init);
+      
+      // Make functions available globally for onclick handlers
+      window.setTheme = setTheme;
+      window.closeModal = closeModal;
+      window.resetGame = resetGame;
+      window.showTreasureModalByIndex = showTreasureModalByIndex;
+      window.showMonsterModalByIndex = showMonsterModalByIndex;
     </script>
   </body>
 </html>
