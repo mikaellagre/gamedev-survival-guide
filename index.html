@@ -1173,13 +1173,13 @@
             quest: {
               title: "You can study game development!?",
               description: "Moved to Skellefteå in northern Sweden and studied for 3 years. Learned to live on my own, took all-nighters to study for exams and had the perfect student lifestyle.",
-              objectives: [
+              objectivesCompleted: [
                 "Survived living on my own for the first time",
                 "Learned working together with artist on larger projects",
                 "Made my own 3d engine in OpenGL",
                 "Became world champion in a video game"
               ],
-              skillsRequired: ["C++", "Working with artists", "General programming practices", "Advanced math and physics", "Cooking, cleaning, surviving", "Partying", "More partying", "Social skills"]
+              skillsAcquired: ["C++", "Working with artists", "General programming practices", "Advanced math and physics", "Cooking, cleaning, surviving", "Partying", "More partying", "Blender"]
             },
             
             treasures: [
@@ -1213,7 +1213,6 @@
                 defeated: "The summer before I could try the exam again I setup part-time goals. The first week I would only open the book to read it about 20min a day. These lower effort goals made it less stressful and I could later move it higher to say something like 'solve 1 math problem each day'. The smaller goals led me to learn in a better pace and I was ready for the exam. I nailed it. In fact I got all the answer correct and since it was my final course I could graduate and take my master thesis."
               }
             ],
-            
             notes: [
               "Coffee became my best friend",
               "Stack Overflow saved me daily"
@@ -1222,27 +1221,31 @@
           
           {
             id: 2,
-            name: "Bug Hunter",
-            year: "Year 1",
-            role: "Junior Engineer",
+            name: "JAVA Master",
+            year: "Year 3-4",
+            role: "Master Thesis",
             emoji: "🐛",
             color: "#5c8a3a",
             position: { x: 170, y: 2560 },
             myPath: true,
             
             quest: {
-              title: "Becoming a Debugging Master",
-              description: "Learn to track down and eliminate bugs like a pro.",
-              objectives: [
-                "Fix 10 bugs",
-                "Learn to use the debugger effectively",
-                "Write your first unit test",
-                "Document your fixes"
+              title: "Becoming a JAVA expert at Agency 9",
+              description: "For my Master Thesis I was working at a company called Agency 9. They were one of the first to introduce 3d on the web. My Master Thesis was about how to help their content pipeline become more effecient using a format called COLLADA.",
+              objectivesCompleted: [
+                "Helped open source development",
+                "Made a plugin shipped in Blender 2.7",
+                "Learned how to work with a customer",
+                "Got my first job"
               ],
-              skillsRequired: ["Debugging", "Testing", "Documentation"]
+              skillsAcquired: ["JAVA", "COLLADA", "Blender expert", "Working in a real job"]
             },
-            
-            treasures: [],
+            treasures: [{
+                type: "story",
+                title: "Contribute to open source",
+                content: "In one of the projects I was part of we made a simple FPS called Field of Fear. You controlled a little robot walking and finding mines on a minefield. One day we noticed that the framerate had come to a low 5 fps. Back then most games bottleneck was polygons so I went into wireframe mode to find out if anything was off. I saw some grass on the fields that looked shaded. I walked closer and saw that it was made of several thousand polygons. I went to the artist that had commited the art and asked if he made an error. It turned out he didn't know we had polygon limitations like that - he had mostly done art for film at this point. He asked how many polygons we should have and I said 5-10 would be enough. :) ",
+                lesson: "Here is where I learned that not everyone will have the technical know-how as us programmers do and you shouldn't assume things. A clear tech requirements for other crafts written down would have helped us here and most things can be solved between crafts by just talking to each other."
+              }],
             monsters: [],
             notes: []
           },
@@ -1260,13 +1263,13 @@
             quest: {
               title: "Ship Your First Feature",
               description: "Design and implement a complete game feature from scratch.",
-              objectives: [
+              objectivesCompleted: [
                 "Design the feature architecture",
                 "Implement core functionality",
                 "Write comprehensive tests",
                 "Get it through QA"
               ],
-              skillsRequired: ["System Design", "Implementation", "Testing"]
+              skillsAcquired: ["System Design", "Implementation", "Testing"]
             },
             
             treasures: [],
@@ -1295,8 +1298,8 @@
             quest: {
               title: "Master Collaboration",
               description: "Learn to work effectively with designers, artists, and other developers.",
-              objectives: [],
-              skillsRequired: []
+              objectivesCompleted: [],
+              skillsAcquired: []
             },
             
             treasures: [],
@@ -1317,8 +1320,8 @@
             quest: {
               title: "Optimization Quest",
               description: "Make the game run at 60 FPS on all platforms.",
-              objectives: [],
-              skillsRequired: ["Profiling", "Optimization", "Memory Management"]
+              objectivesCompleted: [],
+              skillsAcquired: ["Profiling", "Optimization", "Memory Management"]
             },
             
             treasures: [],
@@ -1339,8 +1342,8 @@
             quest: {
               title: "Design Major Systems",
               description: "Architect and implement core game systems.",
-              objectives: [],
-              skillsRequired: []
+              objectivesCompleted: [],
+              skillsAcquired: []
             },
             
             treasures: [],
@@ -1361,8 +1364,8 @@
             quest: {
               title: "Survive the Crunch",
               description: "Navigate through your first major crunch period.",
-              objectives: [],
-              skillsRequired: []
+              objectivesCompleted: [],
+              skillsAcquired: []
             },
             
             monsters: [
@@ -1392,8 +1395,8 @@
             quest: {
               title: "Guide New Developers",
               description: "Help junior developers find their path.",
-              objectives: [],
-              skillsRequired: ["Mentoring", "Teaching", "Patience"]
+              objectivesCompleted: [],
+              skillsAcquired: ["Mentoring", "Teaching", "Patience"]
             },
             
             treasures: [],
@@ -1414,8 +1417,8 @@
             quest: {
               title: "Create Development Tools",
               description: "Build tools that make everyone's life easier.",
-              objectives: [],
-              skillsRequired: []
+              objectivesCompleted: [],
+              skillsAcquired: []
             },
             
             treasures: [],
@@ -1436,8 +1439,8 @@
             quest: {
               title: "Launch Your First Game",
               description: "Experience the thrill and terror of launching a game.",
-              objectives: [],
-              skillsRequired: []
+              objectivesCompleted: [],
+              skillsAcquired: []
             },
             
             treasures: [
@@ -1466,8 +1469,8 @@
             quest: {
               title: "Technical Leadership",
               description: "Lead technical decisions and guide the team's architecture.",
-              objectives: [],
-              skillsRequired: ["Architecture", "Leadership", "Communication"]
+              objectivesCompleted: [],
+              skillsAcquired: ["Architecture", "Leadership", "Communication"]
             },
             
             treasures: [],
@@ -1488,8 +1491,8 @@
             quest: {
               title: "Master Your Domain",
               description: "Become the go-to expert in your specialization.",
-              objectives: [],
-              skillsRequired: []
+              objectivesCompleted: [],
+              skillsAcquired: []
             },
             
             treasures: [],
@@ -1510,8 +1513,8 @@
             quest: {
               title: "Design at Scale",
               description: "Architect systems that can handle millions of players.",
-              objectives: [],
-              skillsRequired: []
+              objectivesCompleted: [],
+              skillsAcquired: []
             },
             
             treasures: [],
@@ -1532,8 +1535,8 @@
             quest: {
               title: "Push Technical Boundaries",
               description: "Implement cutting-edge technology in production.",
-              objectives: [],
-              skillsRequired: []
+              objectivesCompleted: [],
+              skillsAcquired: []
             },
             
             treasures: [],
@@ -1554,8 +1557,8 @@
             quest: {
               title: "Lead Technical Excellence",
               description: "Guide technical decisions across multiple teams.",
-              objectives: [],
-              skillsRequired: []
+              objectivesCompleted: [],
+              skillsAcquired: []
             },
             
             treasures: [],
@@ -1576,8 +1579,8 @@
             quest: {
               title: "Build the Foundation",
               description: "Create platforms that empower other developers.",
-              objectives: [],
-              skillsRequired: []
+              objectivesCompleted: [],
+              skillsAcquired: []
             },
             
             treasures: [],
@@ -1598,8 +1601,8 @@
             quest: {
               title: "Industry Recognition",
               description: "Become known in the wider game development community.",
-              objectives: [],
-              skillsRequired: []
+              objectivesCompleted: [],
+              skillsAcquired: []
             },
             
             treasures: [],
@@ -1620,8 +1623,8 @@
             quest: {
               title: "Shape the Future",
               description: "Define technical vision for entire projects.",
-              objectives: [],
-              skillsRequired: []
+              objectivesCompleted: [],
+              skillsAcquired: []
             },
             
             treasures: [],
@@ -1642,8 +1645,8 @@
             quest: {
               title: "Legendary Status",
               description: "Your expertise is sought after industry-wide.",
-              objectives: [],
-              skillsRequired: []
+              objectivesCompleted: [],
+              skillsAcquired: []
             },
             
             treasures: [],
@@ -1664,8 +1667,8 @@
             quest: {
               title: "Technical Mastery Achieved",
               description: "You've reached the pinnacle of technical excellence.",
-              objectives: [],
-              skillsRequired: []
+              objectivesCompleted: [],
+              skillsAcquired: []
             },
             
             treasures: [
@@ -1973,19 +1976,19 @@
           <div class="quest-year">${level.year} • ${level.role || ''}</div>
           <div class="quest-description">${level.quest.description}</div>
           
-          ${level.quest.objectives && level.quest.objectives.length > 0 ? `
+          ${level.quest.objectivesCompleted && level.quest.objectivesCompleted.length > 0 ? `
             <div class="quest-objectives">
               <div class="objectives-title">📋 Objectives Completed</div>
-              ${level.quest.objectives.map(obj => `
+              ${level.quest.objectivesCompleted.map(obj => `
                 <div class="objective-item">${obj}</div>
               `).join('')}
             </div>
           ` : ''}
           
-          ${level.quest.skillsRequired && level.quest.skillsRequired.length > 0 ? `
+          ${level.quest.skillsAcquired && level.quest.skillsAcquired.length > 0 ? `
             <div class="quest-skills">
               <div class="skills-title">🎯 Skills Acquired</div>
-              ${level.quest.skillsRequired.map(skill => `
+              ${level.quest.skillsAcquired.map(skill => `
                 <span class="skill-tag">${skill}</span>
               `).join('')}
             </div>
@@ -2017,16 +2020,6 @@
             </div>
           ` : ''}
           
-          ${level.notes && level.notes.length > 0 ? `
-            <div class="quest-objectives" style="background: rgba(0, 245, 255, 0.1); border-color: rgba(0, 245, 255, 0.3);">
-              <div class="objectives-title" style="color: var(--neon-cyan); text-shadow: 0 0 5px var(--neon-cyan);">
-                📝 Notes & Observations
-              </div>
-              ${level.notes.map(note => `
-                <div class="objective-item">${note}</div>
-              `).join('')}
-            </div>
-          ` : ''}
           
         `;
       }
