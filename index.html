@@ -989,32 +989,45 @@
             
             quest: {
               title: "You can study game development!?",
-              description: "Learned to live on my own. Survived the dark winters of northern Sweden where I learned how to work with others in group projects.",
+              description: "Moved to Skellefteå in northern Sweden and studied for 3 years. Learned to live on my own, took all-nighters to study for exams and had the perfect student lifestyle.",
               objectives: [
-                "Set up development environment",
-                "Submit your first pull request",
-                "Fix your first bug",
-                "Survive the first code review"
+                "Survived living on my own for the first time",
+                "Learned working together with artist on larger projects",
+                "Made my own 3d engine in OpenGL",
+                "Became world champion in a video game"
               ],
-              skillsRequired: ["Git", "C++", "Debugging", "Communication"]
+              skillsRequired: ["C++", "Working with artists", "General programming practices", "Advanced math and physics", "Cooking, cleaning, surviving", "Partying", "More partying", "Social skills"]
             },
             
             treasures: [
               {
                 type: "story",
-                title: "The Interview That Changed Everything",
-                content: "Add your story here about how you got into gamedev...",
-                lesson: "Persistence pays off"
+                title: "How to tank the framerate in a first person game",
+                content: "In one of the projects I was part of we made a simple FPS called Field of Fear. You controlled a little robot walking and finding mines on a minefield. One day we noticed that the framerate had come to a low 5 fps. Back then most games bottleneck was polygons so I went into wireframe mode to find out if anything was off. I saw some grass on the fields that looked shaded. I walked closer and saw that it was made of several thousand polygons. I went to the artist that had commited the art and asked if he made an error. It turned out he didn't know we had polygon limitations like that - he had mostly done art for film at this point. He asked how many polygons we should have and I said 5-10 would be enough. :) ",
+                lesson: "Here is where I learned that not everyone will have the technical know-how as us programmers do and you shouldn't assume things. A clear tech requirements for other crafts written down would have helped us here and most things can be solved between crafts by just talking to each other."
+              },
+              {
+                type: "project",
+                title: "The Room - not just a great movie...",
+                content: "... but it was also the project name of my own C++ engine based on OpenGL. I did rendering setup, content pipeline, camera, entities, light and shadow during 9 months. Back at this time Doom 3 had just released featuring a new technique called Shadow Volumes which I also added to my engine.",
+                lesson: "This was non-stop coding for 9 months and one of the most productive times I've had.<p>I learned so much about the different areas in what it takes to make my own game engine. Being a solo dev focusing on programming and learning suited me perfectly here. There was never a dull moment but I did encounter some weird bugs that took many days to solve.<p> Looking back I'm glad I had the time to completly go into focus mode for these months. Although working with others would have prepared me more for my work career I feel looking back that at least once in a life you need a periods like this to go into Mastery of creating something for your own enjoyment."
               }
             ],
             
             monsters: [
               {
-                name: "Imposter Syndrome",
+                name: "Is this really what I want to do?",
                 icon: "👹",
-                description: "The feeling that everyone knows more than you",
-                story: "In my first week, I felt completely overwhelmed...",
-                defeated: "Found a mentor who showed me everyone starts somewhere"
+                description: "Do I even like making games?",
+                story: "Sometime during the second year I lost motivation to programming and wasn't sure if this was for me. I didn't feel like what I did mattered that much or that I was learning the right things.",
+                defeated: "I eventually overcome this. Every now and then you will get to some low points and it doesn't mean your career paths are off - most often they might not be related at all. Since this event I've learned to love programming and solving problems many times over. I believe I wasn't feeling I got external validation for all my efforts (I studied hard but does anyone really care?). Later I realised that external validation comes and goes but your internal and intrisic motivation matters more."
+              },
+              {
+                name: "I don't have what it takes",
+                icon: "👹",
+                description: "Failing exams",
+                story: "One of the very first math exam I had I completly failed. I took the follow up exam and failed that one too. The third one... failed. At this point this particular exam was only done once a year so I had to wait up until I had completed all of my other exams and I had only this one left.",
+                defeated: "The summer before I could try the exam again I setup part-time goals. The first week I would only open the book to read it about 20min a day. These lower effort goals made it less stressful and I could later move it higher to say something like 'solve 1 math problem each day'. The smaller goals led me to learn in a better pace and I was ready for the exam. I nailed it. In fact I got all the answer correct and since it was my final course I could graduate and take my master thesis."
               }
             ],
             
@@ -1775,8 +1788,8 @@
               <div class="objectives-title" style="color: var(--neon-yellow); text-shadow: 0 0 5px var(--neon-yellow);">
                 💎 Treasures Found
               </div>
-              ${level.treasures.map(treasure => `
-                <div class="objective-item" style="cursor: pointer;" onclick="showTreasureModal(${level.id}, '${treasure.title}')">
+              ${level.treasures.map((treasure, index) => `
+                <div class="objective-item" style="cursor: pointer;" onclick="showTreasureModalByIndex(${level.id}, ${index})">
                   ${treasure.title} →
                 </div>
               `).join('')}
@@ -1788,8 +1801,8 @@
               <div class="objectives-title" style="color: var(--neon-pink); text-shadow: 0 0 5px var(--neon-pink);">
                 👾 Monsters Defeated
               </div>
-              ${level.monsters.map(monster => `
-                <div class="objective-item" style="cursor: pointer;" onclick="showMonsterModal(${level.id}, '${monster.name}')">
+              ${level.monsters.map((monster, index) => `
+                <div class="objective-item" style="cursor: pointer;" onclick="showMonsterModalByIndex(${level.id}, ${index})">
                   ${monster.icon || '👾'} ${monster.name} →
                 </div>
               `).join('')}
@@ -1810,25 +1823,21 @@
         `;
       }
 
-      // Add helper functions for showing specific treasure/monster
-      function showTreasureModal(levelId, treasureTitle) {
+      // Add helper functions for showing specific treasure/monster by index
+      function showTreasureModalByIndex(levelId, treasureIndex) {
         const level = myJourney.levels.find(l => l.id === levelId);
-        if (!level || !level.treasures) return;
+        if (!level || !level.treasures || !level.treasures[treasureIndex]) return;
         
-        const treasure = level.treasures.find(t => t.title === treasureTitle);
-        if (treasure) {
-          showStoryModal('💎 Treasure Found!', treasure);
-        }
+        const treasure = level.treasures[treasureIndex];
+        showStoryModal('💎 Treasure Found!', treasure);
       }
       
-      function showMonsterModal(levelId, monsterName) {
+      function showMonsterModalByIndex(levelId, monsterIndex) {
         const level = myJourney.levels.find(l => l.id === levelId);
-        if (!level || !level.monsters) return;
+        if (!level || !level.monsters || !level.monsters[monsterIndex]) return;
         
-        const monster = level.monsters.find(m => m.name === monsterName);
-        if (monster) {
-          showMonsterModalContent(monster);
-        }
+        const monster = level.monsters[monsterIndex];
+        showMonsterModalContent(monster);
       }
 
 
