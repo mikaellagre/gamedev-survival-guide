@@ -1174,10 +1174,6 @@
               title: "You can study game development!?",
               description: "Moved to Skellefteå in northern Sweden and studied for 3 years. Learned to live on my own, took all-nighters to study for exams and had the perfect student lifestyle.",
               objectivesCompleted: [
-                "Survived living on my own for the first time",
-                "Learned working together with artist on larger projects",
-                "Made my own 3d engine in OpenGL",
-                "Became world champion in a video game"
               ],
               skillsAcquired: ["C++", "Working with artists", "General programming practices", "Advanced math and physics", "Cooking, cleaning, surviving", "Partying", "More partying", "Blender"]
             },
@@ -1194,6 +1190,12 @@
                 title: "The Room - not just a great movie...",
                 content: "... but it was also the project name of my own C++ engine based on OpenGL. I did rendering setup, content pipeline, camera, entities, light and shadow during 9 months. Back at this time Doom 3 had just released featuring a new technique called Shadow Volumes which I also added to my engine.",
                 lesson: "This was non-stop coding for 9 months and one of the most productive times I've had.<p>I learned so much about the different areas in what it takes to make my own game engine. Being a solo dev focusing on programming and learning suited me perfectly here. There was never a dull moment but I did encounter some weird bugs that took many days to solve.<p> Looking back I'm glad I had the time to completly go into focus mode for these months. Although working with others would have prepared me more for my work career I feel looking back that at least once in a life you need a periods like this to go into Mastery of creating something for your own enjoyment."
+              },
+              {
+                type: "story",
+                title: "Video game world champion",
+                content: "Student life. You have time, energy but very little money. I got hooked on a game called Rallisport Challenge 2 (developed by DICE). Turns out that I was good at it. In fact I played it so much I become number one in the world eventually.",
+                lesson: "You can in fact reach your goals. Even if your goals is to play a video game for 10 hours a day for several months, to beat the world champion time on every rally track in a video game.<p><br>I'm very proud of this achievement and I don't regret any second of it. It was a great feeling to have the number one spot for something and I worked really hard for it."
               }
             ],
             
@@ -1231,31 +1233,64 @@
             
             quest: {
               title: "Becoming a JAVA expert at Agency 9",
-              description: "For my Master Thesis I was working at a company called Agency 9. They were one of the first to introduce 3d on the web. My Master Thesis was about how to help their content pipeline become more effecient using a format called COLLADA.",
+              description: `For my Master Thesis I was working at a company called Agency 9.
+              <br>
+              <p>
+              They were actually one of the first to introduce 3d on the web.<p><br>
+              My Master Thesis was about how to help their content pipeline become more efficient using a new XML format called COLLADA.`,
               objectivesCompleted: [
-                "Helped open source development",
-                "Made a plugin shipped in Blender 2.7",
-                "Learned how to work with a customer",
-                "Got my first job"
               ],
               skillsAcquired: ["JAVA", "COLLADA", "Blender expert", "Working in a real job"]
             },
             treasures: [{
                 type: "story",
-                title: "Contribute to open source",
-                content: "In one of the projects I was part of we made a simple FPS called Field of Fear. You controlled a little robot walking and finding mines on a minefield. One day we noticed that the framerate had come to a low 5 fps. Back then most games bottleneck was polygons so I went into wireframe mode to find out if anything was off. I saw some grass on the fields that looked shaded. I walked closer and saw that it was made of several thousand polygons. I went to the artist that had commited the art and asked if he made an error. It turned out he didn't know we had polygon limitations like that - he had mostly done art for film at this point. He asked how many polygons we should have and I said 5-10 would be enough. :) ",
-                lesson: "Here is where I learned that not everyone will have the technical know-how as us programmers do and you shouldn't assume things. A clear tech requirements for other crafts written down would have helped us here and most things can be solved between crafts by just talking to each other."
+                title: "I'm an adult now!? (got my first job)",
+                content: `After I done my master thesis I got a part-time (40%) job offer to work as a JAVA engineer for Agency 9. This later extended into a full-time employment.
+                  <p><br>
+                  This was in northern Sweden (Luleå) in an office close to where I lived in a student dorm. It was myself, one other engineer and one manager. At the time I was also studying philosophy and physics for game development. The course in physics was done by the same 2 guys I was working with!
+                  
+                  <p><br>
+                  I was part of helping different customers that wanted to visualize something interactive. It could be a CAD drawing or interactive showcase about engine parts for a vehicle.`,
+                lesson: `
+                  One of the key projects I was involved in was showcasing the JAVA engine they had developed.
+                  <p><br>
+                  We had contact with a Finnish firm that was going to do a scene showing an animated character in some fantasy setting. We hit all kinds of roadblocks. They were used to doing film so once they started working on the scenes they created things very low poly as there only reference at that time was low-poly Quake 1. At one point in time I sent an example I made on what a detail map could be - they used the same image I had done (coder art) to apply the detail to their textures. It wasn't working out.
+                  <p><br>
+                  One thing we missed here was doing a proper tech spec for what the engine could do. The outsourced art team didn't get enough detail and came in with assumptions on what could be achieved. The project never landed into something concrete. We developers need to provide better tutorial, technical specification and best practices.`},
+              {
+                type: "story",
+                title: "Made a plugin shipped in Blender 2.7",
+                content: `
+                Collada was the new hot format (developed by Sony) that was supposed to replace FBX. A way to move between 3d Studio Max, Maya and Blender.<p><br>
+                I was involved from the start helping out with the Maya plugin and later Blender. Through my master thesis I used this new format and dipped my feet into the land of open source development (although briefly).  
+                  I made the plugin for this format to Blender and it actually got shipped in the 2.7 version. I was extremly proud and put a lot of heart into it.`,
+                lesson: `I quickly saw an opportunity to become expert into something new and took my change to stick out from the crowd and learn all about it. At this point in life I had plenty of time as well and I was thinking this would be great to have on my CV.
+                  If you ever see yourself in a time period with more time to spare - why not learn some new tools or skill?
+                  <p><br>
+                  
+                  One of the early feedback I got from the plugin from the Blender team was from their initial testing. They simply exported the default scene and imported it again and saw that the camera was not correct. I got a bit snowblind in trying to solve all the extreme cases and forget the basic flow of a camera and a simple scene.
+                  <p><br>
+                  
+                  I think making this plugin was one of the most valuable skills I developed. I had to learn all details of modelling, animation, rigging, texturing etc.`
               }],
-            monsters: [],
+            monsters: [{
+                name: "Dream about work",
+                icon: "👹",
+                description: "Solving issues in your dream",
+                story: `I didn't really do much else besides working on my master thesis. It was non-stop.<p><br>
+                  At one point I had a tricky solution to solve involving how to implement soft skinning for an animated character. I was working on this for 2 weeks and one night even dreamed about the problem where I saw the code in front of me. I realized in my dream that I could use another array to to reference the first array! I woke up and went to work and this actually solved the issue!`,
+                defeated: `While dreaming about a specific solution and actually solve it makes for a cool story its probably a sign you are working to much. Remember to do other things in life. There is a reason people come up with their most creative ideas when they are not working on the project. The brain needs new input to find new pathways to solve things. This was my first wake up call that I might have worked to much on something - even if I enjoy it I need to slow down.`
+                }
+            ],
             notes: []
           },
           
           {
             id: 3,
-            name: "Feature Builder",
-            year: "Year 2",
-            role: "Junior Engineer",
-            emoji: "🔨",
+            name: "Roll the Dice",
+            year: "Year 5-6",
+            role: "Associate Engineer",
+            emoji: "🎲",
             color: "#e85d75",
             position: { x: 170, y: 2420 },
             myPath: true,
