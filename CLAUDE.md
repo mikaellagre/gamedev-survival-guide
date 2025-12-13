@@ -8,18 +8,34 @@ This is the GameDev Survival Guide - a documentation project providing practical
 
 ## Project Structure
 
-- `index.html`: Interactive matrix tool for mapping software engineering expectations by level and topic
+- `index.html`: Interactive matrix tool for mapping software engineering expectations by level and topic (layout only)
+- `data/quests.json`: Quest content data (separate from layout)
+- `scripts/serve.sh`: Local development server
 - `AGENTS.md`: Repository guidelines and conventions for contributors
 - `docs/` (planned): Markdown chapters and guides with numbered prefixes for ordering
 - `assets/` (planned): Images and media referenced by documentation
 - `examples/` (planned): Minimal, runnable samples referenced by chapters
-- `scripts/` (planned): Local automation for linting, link-checking, and image optimization
 - `tests/` (planned): Content validation checks
 
 ## Development Commands
 
-Currently no build tooling is enforced. When implemented, the following commands are planned:
-- `make serve` or `scripts/serve.sh`: Start local docs server with live reload
+To run the project locally (required for data loading):
+
+```bash
+# Start local development server
+./scripts/serve.sh
+
+# Or use Python directly
+python3 -m http.server 8000
+```
+
+Then open: http://localhost:8000
+
+**Note:** The project uses `fetch()` to load quest data from `data/quests.json`, which requires a web server (file:// protocol will not work).
+
+### Planned Commands
+
+When implemented, the following commands are planned:
 - `make build` or `scripts/build.sh`: Generate static site or exportable bundle
 - `make check` or `scripts/check.sh`: Run all content checks (lint, links, spelling)
 

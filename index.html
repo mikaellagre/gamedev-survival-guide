@@ -6,99 +6,49 @@
     <title>GameDev Survival Guide - My Journey</title>
     <meta name="description" content="A personal journey through the video game industry, documenting the path from Junior to Mastery." />
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;600;700;900&family=Cinzel:wght@400;600;700;900&family=MedievalSharp&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Cinzel:wght@400;600;700;900&family=MedievalSharp&display=swap');
       
-      /* Sci-Fi Theme (Default) */
+      /* RPG Pixel Art Theme */
       :root {
-        /* Gaming color palette */
-        --bg-primary: #0a0614;
-        --bg-secondary: #1a0b2e;
-        --bg-accent: #2b1055;
-        
-        /* Neon gaming colors */
-        --neon-pink: #ff006e;
-        --neon-blue: #3a86ff;
-        --neon-cyan: #00f5ff;
-        --neon-green: #00ff88;
-        --neon-yellow: #ffbe0b;
-        --neon-purple: #c77dff;
-        --neon-orange: #fb5607;
-        
-        /* Text colors */
-        --text-primary: #ffffff;
-        --text-secondary: #e4c1ff;
-        --text-muted: #9d79bc;
-        
-        /* UI elements */
-        --border: rgba(255, 0, 110, 0.3);
-        --border-hover: rgba(0, 245, 255, 0.6);
-        
-        /* Gradients */
-        --gradient-pink: linear-gradient(135deg, #ff006e, #c77dff);
-        --gradient-blue: linear-gradient(135deg, #3a86ff, #00f5ff);
-        --gradient-green: linear-gradient(135deg, #00ff88, #00f5ff);
-        --gradient-rainbow: linear-gradient(135deg, #ff006e, #ffbe0b, #00ff88, #00f5ff, #3a86ff, #c77dff);
-        
-        /* Effects */
-        --shadow-neon-pink: 0 0 20px rgba(255, 0, 110, 0.5);
-        --shadow-neon-blue: 0 0 20px rgba(58, 134, 255, 0.5);
-        --shadow-neon-cyan: 0 0 20px rgba(0, 245, 255, 0.5);
-        --shadow-lg: 0 20px 40px rgba(0,0,0,0.5);
-        
-        /* Sizing */
-        --radius-sm: 8px;
-        --radius-md: 12px;
-        --radius-lg: 20px;
-        
-        /* Animation */
-        --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-        --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-        --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
-        
-        /* Font families */
-        --font-primary: 'Orbitron', monospace;
-        --font-retro: 'Press Start 2P', cursive;
-      }
-      
-      /* RPG Theme */
-      [data-theme="rpg"] {
-        /* Medieval/Fantasy color palette */
+        /* RPG Pixel Art Palette */
         --bg-primary: #1a0f0a;
         --bg-secondary: #2c1810;
         --bg-accent: #3d2419;
-        
-        /* RPG colors */
-        --neon-pink: #c9302c;
-        --neon-blue: #4169e1;
-        --neon-cyan: #6495ed;
-        --neon-green: #228b22;
-        --neon-yellow: #daa520;
-        --neon-purple: #8b008b;
-        --neon-orange: #ff8c00;
-        
-        /* Text colors */
+
+        /* RPG Colors */
+        --red-rpg: #c9302c;
+        --blue-rpg: #4169e1;
+        --green-rpg: #228b22;
+        --gold-rpg: #daa520;
+        --purple-rpg: #8b008b;
+
+        /* Text */
         --text-primary: #f4e4c1;
         --text-secondary: #d4af37;
         --text-muted: #8b7355;
-        
-        /* UI elements */
-        --border: rgba(218, 165, 32, 0.4);
-        --border-hover: rgba(255, 215, 0, 0.6);
-        
+
+        /* Borders */
+        --border-rpg: rgba(218, 165, 32, 0.5);
+
         /* Gradients */
-        --gradient-pink: linear-gradient(135deg, #8b0000, #dc143c);
-        --gradient-blue: linear-gradient(135deg, #191970, #4169e1);
-        --gradient-green: linear-gradient(135deg, #228b22, #32cd32);
         --gradient-rainbow: linear-gradient(135deg, #8b0000, #ff8c00, #ffd700, #228b22, #4169e1, #8b008b);
-        
+
         /* Effects */
-        --shadow-neon-pink: 0 0 20px rgba(220, 20, 60, 0.5);
-        --shadow-neon-blue: 0 0 20px rgba(65, 105, 225, 0.5);
-        --shadow-neon-cyan: 0 0 20px rgba(100, 149, 237, 0.5);
-        --shadow-lg: 0 20px 40px rgba(0,0,0,0.7);
-        
-        /* Font families */
+        --shadow-gold: 0 0 20px rgba(218, 165, 32, 0.5);
+        --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.7);
+
+        /* Sizing */
+        --radius-sm: 6px;
+        --radius-md: 10px;
+        --radius-lg: 16px;
+
+        /* Animation */
+        --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+        /* Fonts */
         --font-primary: 'Cinzel', serif;
+        --font-pixel: 'Press Start 2P', monospace;
         --font-retro: 'MedievalSharp', cursive;
       }
 
@@ -124,97 +74,21 @@
         transition: background-color var(--transition-slow), color var(--transition-slow);
       }
 
-      /* Animated starfield background for sci-fi theme */
-      body:not([data-theme="rpg"])::before {
+      /* RPG Parchment Background */
+      body::before {
         content: "";
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: 
-          radial-gradient(2px 2px at 20% 30%, white, transparent),
-          radial-gradient(2px 2px at 60% 70%, white, transparent),
-          radial-gradient(1px 1px at 50% 50%, white, transparent),
-          radial-gradient(1px 1px at 80% 10%, white, transparent),
-          radial-gradient(2px 2px at 90% 60%, white, transparent);
-        background-size: 200% 200%;
-        background-repeat: repeat;
-        animation: stars 120s linear infinite;
-        opacity: 0.3;
+        background:
+          repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(139, 69, 19, 0.05) 4px, rgba(139, 69, 19, 0.05) 8px),
+          repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(139, 69, 19, 0.05) 4px, rgba(139, 69, 19, 0.05) 8px),
+          radial-gradient(ellipse at center, rgba(218, 165, 32, 0.03), transparent);
         pointer-events: none;
         z-index: 0;
-      }
-      
-      /* Parchment texture background for RPG theme */
-      body[data-theme="rpg"]::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: 
-          repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 2px,
-            rgba(139, 69, 19, 0.03) 2px,
-            rgba(139, 69, 19, 0.03) 4px
-          ),
-          repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 2px,
-            rgba(139, 69, 19, 0.03) 2px,
-            rgba(139, 69, 19, 0.03) 4px
-          ),
-          radial-gradient(ellipse at center, rgba(218, 165, 32, 0.05), transparent);
-        pointer-events: none;
-        z-index: 0;
-      }
-
-      /* Grid overlay effect for sci-fi */
-      body:not([data-theme="rpg"])::after {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: 
-          linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
-        background-size: 50px 50px;
-        pointer-events: none;
-        z-index: 0;
-        animation: grid 20s linear infinite;
-      }
-      
-      /* Ornamental border effect for RPG */
-      body[data-theme="rpg"]::after {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: 
-          linear-gradient(rgba(218, 165, 32, 0.02) 2px, transparent 2px),
-          linear-gradient(90deg, rgba(218, 165, 32, 0.02) 2px, transparent 2px);
-        background-size: 100px 100px;
-        pointer-events: none;
-        z-index: 0;
-      }
-
-      @keyframes stars {
-        from { transform: translateY(0); }
-        to { transform: translateY(-100%); }
-      }
-
-      @keyframes grid {
-        from { transform: translate(0, 0); }
-        to { transform: translate(50px, 50px); }
+        image-rendering: pixelated;
       }
 
       .container {
@@ -227,536 +101,247 @@
 
       /* Header with retro gaming style */
       .hero {
-        background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(0, 245, 255, 0.1)),
-                    var(--bg-secondary);
-        border: 2px solid var(--neon-pink);
-        border-radius: var(--radius-lg);
-        padding: 3rem 2rem;
+        text-align: center;
+        padding: 1rem 2rem;
         margin-bottom: 2rem;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 
-          inset 0 0 50px rgba(255, 0, 110, 0.1),
-          0 0 30px rgba(255, 0, 110, 0.3);
-      }
-
-      .hero::before {
-        content: "🎮";
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        font-size: 3rem;
-        opacity: 0.3;
-      }
-
-      .hero::after {
-        content: "🕹️";
-        position: absolute;
-        bottom: 20px;
-        left: 20px;
-        font-size: 3rem;
-        opacity: 0.3;
       }
 
       .hero h1 {
         font-family: var(--font-retro);
-        font-size: 2rem;
+        font-size: 1.5rem;
         background: var(--gradient-rainbow);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        margin-bottom: 1rem;
         text-transform: uppercase;
         letter-spacing: 2px;
-        position: relative;
       }
 
       @media (min-width: 768px) {
         .hero h1 {
-          font-size: 2.5rem;
+          font-size: 1.75rem;
         }
       }
 
-      .hero p {
-        color: var(--text-secondary);
-        font-size: 1.125rem;
-        max-width: 65ch;
-        position: relative;
-        font-weight: 400;
+      /* Stats Bar */
+      .stats-bar {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        gap: 2rem;
+        background: linear-gradient(135deg, rgba(139, 69, 19, 0.3), rgba(60, 44, 30, 0.3));
+        border: 3px double var(--border-rpg);
+        border-radius: var(--radius-md);
+        padding: 1.5rem 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        align-items: start;
       }
 
-      /* Character Section */
-      .character-section {
+      .stats-bar .stat-item {
         display: flex;
         flex-direction: column;
-        gap: 2rem;
-        margin-bottom: 2rem;
-      }
-
-      @media (min-width: 768px) {
-        .character-section {
-          flex-direction: row;
-          align-items: flex-start; /* This makes panels have independent heights */
-        }
-      }
-
-      /* Character Card */
-      .character-card {
-        background: linear-gradient(135deg, rgba(43, 16, 85, 0.8), rgba(26, 11, 46, 0.9));
-        backdrop-filter: blur(10px);
-        border: 2px solid;
-        border-image: var(--gradient-blue) 1;
-        border-radius: var(--radius-md);
-        padding: 1.5rem;
-        box-shadow: 
-          inset 0 0 30px rgba(58, 134, 255, 0.1),
-          0 0 40px rgba(58, 134, 255, 0.2);
-        width: 300px;
-        flex-shrink: 0;
-      }
-
-      .character-avatar {
-        font-size: 4rem;
-        text-align: center;
-        margin-bottom: 1rem;
-      }
-
-      .character-name {
-        font-family: var(--font-retro);
-        font-size: 1rem;
-        color: var(--neon-cyan);
-        text-align: center;
-        margin-bottom: 0.5rem;
-        text-shadow: 0 0 10px var(--neon-cyan);
-      }
-
-      .character-class {
-        text-align: center;
-        color: var(--text-secondary);
-        margin-bottom: 1rem;
-        font-size: 0.9rem;
-      }
-
-      .character-level {
-        text-align: center;
-        font-size: 1.5rem;
-        color: var(--neon-yellow);
-        text-shadow: 0 0 10px var(--neon-yellow);
-        margin-bottom: 1rem;
-      }
-
-      .traits-list {
-        list-style: none;
-        padding: 0;
-      }
-
-      .trait-item {
-        background: rgba(0, 245, 255, 0.1);
-        border: 1px solid rgba(0, 245, 255, 0.3);
-        border-radius: var(--radius-sm);
-        padding: 0.5rem;
-        margin-bottom: 0.5rem;
-        font-size: 0.875rem;
-        display: flex;
         align-items: center;
         gap: 0.5rem;
       }
 
-      .trait-icon {
-        font-size: 1.2rem;
+      .stats-bar .stat-icon {
+        font-size: 2rem;
       }
 
-      /* Curses Section */
-      .curses-section {
-        margin-top: 1rem;
-      }
-
-      .curses-title {
-        color: var(--neon-pink);
-        font-size: 0.875rem;
+      .stats-bar .stat-value {
+        font-size: 1.5rem;
         font-weight: 700;
+        color: var(--gold-rpg);
+        text-shadow: 0 0 10px var(--gold-rpg);
+        font-family: var(--font-pixel);
+      }
+
+      .stats-bar .stat-label {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
         text-transform: uppercase;
         letter-spacing: 1px;
-        margin-bottom: 0.5rem;
-        text-shadow: 0 0 5px var(--neon-pink);
       }
 
-      .curses-list {
-        list-style: none;
-        padding: 0;
-      }
-
-      .curse-item {
-        background: rgba(255, 0, 110, 0.05);
-        border: 1px solid rgba(255, 0, 110, 0.2);
-        border-radius: var(--radius-sm);
-        padding: 0.5rem;
-        margin-bottom: 0.5rem;
-        font-size: 0.875rem;
+      /* Character Status Section */
+      .character-status {
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
+      }
+
+      .status-section {
+        display: flex;
+        flex-direction: column;
         gap: 0.5rem;
       }
 
-      .curse-icon {
-        font-size: 1.2rem;
-      }
-
-      /* Stats Section */
-      .stats-panel {
-        background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(0, 245, 255, 0.1));
-        border: 1px solid rgba(255, 0, 110, 0.3);
-        border-radius: var(--radius-sm);
-        padding: 1rem;
-        margin-top: 1rem;
-      }
-
-      .stat-item {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 0.5rem;
+      .status-title {
         font-size: 0.875rem;
-      }
-
-      .stat-label {
-        color: var(--text-secondary);
-      }
-
-      .stat-value {
-        color: var(--neon-green);
+        color: var(--gold-rpg);
+        text-transform: uppercase;
+        letter-spacing: 1px;
         font-weight: 700;
-        text-shadow: 0 0 5px var(--neon-green);
+        text-align: center;
       }
 
-      /* Quest Board Container */
-      .quest-board-container {
+      .status-list {
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+      }
+
+      .status-badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .status-badge-trait {
+        background: rgba(34, 139, 34, 0.3);
+        border: 2px solid var(--green-rpg);
+        color: var(--text-primary);
+      }
+
+      .status-badge-curse {
+        background: rgba(139, 0, 0, 0.3);
+        border: 2px solid var(--red-rpg);
+        color: var(--text-primary);
+      }
+
+      /* Quest Grid */
+      .quest-grid {
+        display: grid;
         gap: 2rem;
-        flex: 1;
+        padding: 2rem 0;
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       }
 
-      @media (min-width: 1280px) {
-        .quest-board-container {
-          flex-direction: row;
-          align-items: flex-start; /* This makes panels have independent heights */
-        }
-      }
-
-      /* Quest Map Panel */
-      .quest-map-panel {
-        background: linear-gradient(135deg, rgba(43, 16, 85, 0.8), rgba(26, 11, 46, 0.9));
-        backdrop-filter: blur(10px);
-        border: 2px solid;
-        border-image: var(--gradient-blue) 1;
+      /* Quest Cards */
+      .quest-card {
+        background: linear-gradient(135deg, rgba(60, 44, 30, 0.8), rgba(44, 32, 22, 0.9));
+        border: 3px solid var(--border-rpg);
         border-radius: var(--radius-md);
-        box-shadow: 
-          inset 0 0 30px rgba(58, 134, 255, 0.1),
-          0 0 40px rgba(58, 134, 255, 0.2);
+        cursor: pointer;
+        transition: all var(--transition-base);
         overflow: hidden;
         position: relative;
-        width: 360px;
-        flex-shrink: 0;
+        box-shadow: inset 0 0 20px rgba(139, 69, 19, 0.2), 0 4px 15px rgba(0, 0, 0, 0.5);
+        min-height: 280px;
+        display: flex;
+        flex-direction: column;
       }
 
-      .map-toolbar {
+      .quest-card:hover {
+        transform: translateY(-5px) scale(1.02);
+        border-color: var(--gold-rpg);
+        box-shadow: inset 0 0 30px rgba(218, 165, 32, 0.3), 0 8px 30px rgba(218, 165, 32, 0.4);
+      }
+
+      .quest-card-header {
+        padding: 0.75rem;
+        background: rgba(139, 69, 19, 0.4);
+        border-bottom: 2px solid var(--border-rpg);
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        padding: 1rem 1.25rem;
-        border-bottom: 2px solid rgba(0, 245, 255, 0.3);
-        background: linear-gradient(90deg, rgba(255, 0, 110, 0.1), rgba(0, 245, 255, 0.1));
-      }
-
-      .map-title {
-        font-weight: 700;
-        color: var(--neon-yellow);
-        text-shadow: 0 0 10px var(--neon-yellow);
-        font-size: 1.125rem;
-        display: flex;
         align-items: center;
-        gap: 0.5rem;
       }
 
-      .map-controls {
-        display: flex;
-        gap: 0.5rem;
-      }
-
-      .map-btn {
-        background: rgba(0, 245, 255, 0.1);
-        border: 1px solid rgba(0, 245, 255, 0.3);
-        color: var(--text-primary);
-        padding: 0.5rem 1rem;
-        border-radius: var(--radius-sm);
-        cursor: pointer;
-        font-family: inherit;
-        font-size: 0.875rem;
-        transition: all var(--transition-fast);
-      }
-
-      .map-btn:hover {
-        background: rgba(0, 245, 255, 0.2);
-        box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
-      }
-
-      /* Quest Map SVG Container */
-      .quest-map {
-        padding: 0.5rem;
-        height: 600px;
-        position: relative;
-        overflow-y: auto;
-        overflow-x: hidden;
-        width: 100%;
-      }
-
-      #questBoard {
-        width: 100%;
-        height: auto;
-        display: block;
-      }
-
-      .level-icon-badge {
-        font-size: 12px;
-        pointer-events: none;
-      }
-
-      /* SVG Styles */
-      .level-rect {
-        cursor: pointer;
-        transition: all var(--transition-fast);
-        stroke-width: 2;
-        rx: 8;
-        ry: 8;
-      }
-
-      .level-rect:hover {
-        filter: brightness(1.2);
-        stroke-width: 3;
-      }
-
-      .level-rect.completed {
-        stroke: var(--neon-green);
-        stroke-width: 3;
-        filter: drop-shadow(0 0 10px var(--neon-green));
-      }
-
-      .level-rect.current {
-        stroke: var(--neon-yellow);
-        stroke-width: 3;
-        filter: drop-shadow(0 0 15px var(--neon-yellow));
-        animation: pulse 2s ease-in-out infinite;
-      }
-
-      .level-rect.locked {
-        fill: #2c3e50 !important;
-        opacity: 0.6;
-        stroke: rgba(157, 121, 188, 0.3);
-        stroke-dasharray: 5, 5;
-      }
-
-      .arrow-path {
-        stroke: var(--neon-cyan);
-        stroke-width: 2;
-        fill: none;
-        opacity: 0.5;
-      }
-
-      .arrow-head {
-        fill: var(--neon-cyan);
-        opacity: 0.5;
-      }
-
-      .level-group {
-        cursor: pointer;
-      }
-
-      @keyframes pulse {
-        0%, 100% { 
-          stroke-width: 3;
-          filter: drop-shadow(0 0 15px var(--neon-yellow));
-        }
-        50% { 
-          stroke-width: 5;
-          filter: drop-shadow(0 0 25px var(--neon-yellow));
-        }
-      }
-
-      .level-text {
-        fill: var(--text-primary);
-        font-family: var(--font-primary);
-        pointer-events: none;
-      }
-
-      .level-number {
-        font-size: 24px;
-        font-weight: 900;
-        fill: rgba(255, 255, 255, 0.9);
-      }
-
-      .level-name {
-        font-size: 12px;
-        font-weight: 700;
-        fill: var(--text-primary);
-      }
-
-      .level-year {
-        font-size: 10px;
-        fill: rgba(255, 255, 255, 0.7);
-      }
-
-      .level-role {
-        font-size: 10px;
-        fill: rgba(255, 255, 255, 0.8);
-        font-weight: 600;
-      }
-
-      .level-emoji {
-        font-size: 20px;
-      }
-
-      #questBoard {
-        width: 100%;
-        height: 100%;
-        min-height: 600px;
-      }
-
-      /* Quest Details Panel */
-      .quest-details-panel {
-        background: linear-gradient(135deg, rgba(43, 16, 85, 0.8), rgba(26, 11, 46, 0.9));
-        backdrop-filter: blur(10px);
-        border: 2px solid;
-        border-image: var(--gradient-pink) 1;
-        border-radius: var(--radius-md);
-        box-shadow: 
-          inset 0 0 30px rgba(255, 0, 110, 0.1),
-          0 0 40px rgba(255, 0, 110, 0.2);
-        flex: 1;
-        min-width: 0;
-      }
-
-      .details-toolbar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1rem 1.25rem;
-        border-bottom: 2px solid rgba(255, 0, 110, 0.3);
-        background: linear-gradient(90deg, rgba(255, 0, 110, 0.1), rgba(0, 245, 255, 0.1));
-      }
-
-      .details-title {
-        font-weight: 700;
-        color: var(--neon-pink);
-        text-shadow: 0 0 10px var(--neon-pink);
-        font-size: 1.125rem;
-      }
-
-      .quest-content {
-        padding: 1.5rem;
-        min-height: 400px;
-      }
-
-      .quest-header {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: var(--neon-cyan);
-        text-shadow: 0 0 10px var(--neon-cyan);
-        margin-bottom: 0.5rem;
-      }
-
-      .quest-year {
-        color: var(--text-secondary);
-        font-size: 0.875rem;
-        margin-bottom: 1rem;
-      }
-
-      .quest-description {
-        color: var(--text-primary);
-        margin-bottom: 1.5rem;
-        line-height: 1.6;
-      }
-
-      .quest-objectives {
-        background: rgba(0, 245, 255, 0.1);
-        border: 1px solid rgba(0, 245, 255, 0.3);
-        border-radius: var(--radius-sm);
-        padding: 1rem;
-        margin-bottom: 1rem;
-      }
-
-      .objectives-title {
-        color: var(--neon-green);
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        text-shadow: 0 0 5px var(--neon-green);
-      }
-
-      .objective-item {
-        color: var(--text-secondary);
-        padding: 0.25rem 0;
-        font-size: 0.875rem;
-      }
-
-      .objective-item::before {
-        content: "▸ ";
-        color: var(--neon-green);
-        font-weight: bold;
-      }
-
-      .quest-skills {
-        background: rgba(255, 0, 110, 0.1);
-        border: 1px solid rgba(255, 0, 110, 0.3);
-        border-radius: var(--radius-sm);
-        padding: 1rem;
-        margin-bottom: 1rem;
-      }
-
-      .skills-title {
-        color: var(--neon-yellow);
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        text-shadow: 0 0 5px var(--neon-yellow);
-      }
-
-      .skill-tag {
-        display: inline-block;
-        background: rgba(255, 190, 11, 0.2);
-        border: 1px solid rgba(255, 190, 11, 0.5);
-        border-radius: 20px;
+      .quest-level-badge {
+        background: linear-gradient(135deg, rgba(139, 69, 19, 0.9), rgba(60, 44, 30, 0.9));
+        border: 2px solid var(--gold-rpg);
+        border-radius: 6px;
         padding: 0.25rem 0.75rem;
-        margin: 0.25rem;
         font-size: 0.75rem;
-        color: var(--neon-yellow);
+        font-weight: 700;
+        color: var(--gold-rpg);
+        font-family: var(--font-pixel);
+        text-shadow: 0 0 10px rgba(218, 165, 32, 0.5);
       }
 
-      .quest-action-btn {
-        width: 100%;
-        background: var(--gradient-green);
-        border: none;
-        color: var(--bg-primary);
-        padding: 1rem;
-        border-radius: var(--radius-sm);
-        font-family: var(--font-retro);
-        font-size: 0.875rem;
-        cursor: pointer;
-        transition: all var(--transition-fast);
+      .quest-badge {
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
         text-transform: uppercase;
         letter-spacing: 1px;
-        margin-top: 1rem;
+        font-family: var(--font-pixel);
       }
 
-      .quest-action-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 20px rgba(0, 255, 136, 0.5);
+      .quest-badge-main {
+        background: linear-gradient(135deg, #8b0000, #dc143c);
+        border: 2px solid #ffd700;
+        color: #ffd700;
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
       }
 
-      .quest-action-btn:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        background: linear-gradient(135deg, #666, #999);
+      .quest-badge-side {
+        background: linear-gradient(135deg, #4169e1, #6495ed);
+        border: 2px solid #87ceeb;
+        color: #f4e4c1;
+        box-shadow: 0 0 10px rgba(135, 206, 235, 0.3);
       }
 
-      /* Story Modal */
+      .quest-card-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-bottom: 2px solid var(--border-rpg);
+        image-rendering: pixelated;
+      }
+
+      .quest-card-body {
+        padding: 1.25rem;
+        min-height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+      }
+
+      .quest-card-title {
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        text-align: center;
+        line-height: 1.4;
+        font-family: var(--font-pixel);
+        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+      }
+
+      .quest-card-footer {
+        padding: 0.75rem 1.25rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-top: 2px solid var(--border-rpg);
+        display: flex;
+        justify-content: space-around;
+        gap: 0.5rem;
+      }
+
+      .quest-stat {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--gold-rpg);
+        font-family: var(--font-pixel);
+        white-space: nowrap;
+      }
+
+      .quest-xp {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--gold-rpg);
+        font-family: var(--font-pixel);
+      }
+
+      /* Modal Overlay */
       .modal-overlay {
         display: none;
         position: fixed;
@@ -764,1451 +349,515 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(10, 6, 20, 0.95);
+        background: rgba(0, 0, 0, 0.85);
         z-index: 1000;
-        align-items: center;
         justify-content: center;
+        align-items: center;
         padding: 2rem;
       }
 
       .modal-overlay.active {
         display: flex;
-        animation: fadeIn var(--transition-base);
       }
 
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-
-      .story-modal {
-        background: linear-gradient(135deg, rgba(43, 16, 85, 0.95), rgba(26, 11, 46, 0.98));
-        border: 2px solid var(--neon-purple);
+      /* Quest Modal Enhancements */
+      .quest-modal {
+        background: linear-gradient(135deg, rgba(60, 44, 30, 0.98), rgba(44, 32, 22, 0.99));
+        border: 4px double var(--gold-rpg);
         border-radius: var(--radius-lg);
         max-width: 800px;
         width: 100%;
-        max-height: 80vh;
+        max-height: 85vh;
         overflow-y: auto;
-        box-shadow: 
-          inset 0 0 50px rgba(199, 125, 255, 0.2),
-          0 0 50px rgba(199, 125, 255, 0.5);
-        animation: slideUp var(--transition-slow);
-      }
-
-      @keyframes slideUp {
-        from {
-          transform: translateY(50px);
-          opacity: 0;
-        }
-        to {
-          transform: translateY(0);
-          opacity: 1;
-        }
+        box-shadow: inset 0 0 50px rgba(218, 165, 32, 0.2), 0 0 50px rgba(218, 165, 32, 0.5);
+        position: relative;
       }
 
       .modal-header {
-        padding: 1.5rem;
-        border-bottom: 2px solid rgba(199, 125, 255, 0.3);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        position: sticky;
+        top: 0;
+        background: linear-gradient(135deg, rgba(60, 44, 30, 1), rgba(44, 32, 22, 1));
+        border-bottom: 3px solid var(--gold-rpg);
+        padding: 1.5rem 4rem 1.5rem 1.5rem;
+        z-index: 10;
       }
 
       .modal-title {
-        font-family: var(--font-retro);
-        font-size: 1rem;
-        color: var(--neon-purple);
-        text-shadow: 0 0 10px var(--neon-purple);
+        font-family: var(--font-pixel);
+        color: var(--gold-rpg);
+        font-size: 1.25rem;
+        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
       }
 
       .modal-close {
-        background: none;
-        border: none;
-        color: var(--text-primary);
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+        background: rgba(139, 69, 19, 0.6);
+        border: 2px solid var(--gold-rpg);
+        border-radius: 6px;
+        color: var(--gold-rpg);
         font-size: 1.5rem;
         cursor: pointer;
-        transition: all var(--transition-fast);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all var(--transition-base);
+        font-weight: bold;
       }
 
       .modal-close:hover {
-        color: var(--neon-pink);
-        transform: scale(1.2);
+        background: rgba(218, 165, 32, 0.3);
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(218, 165, 32, 0.5);
       }
 
       .modal-body {
-        padding: 2rem;
+        /* Body styles already exist below */
       }
 
-      .story-type {
-        display: inline-block;
-        background: rgba(255, 0, 110, 0.2);
-        border: 1px solid var(--neon-pink);
-        border-radius: 20px;
-        padding: 0.25rem 0.75rem;
-        font-size: 0.75rem;
-        color: var(--neon-pink);
-        margin-bottom: 1rem;
-      }
-
-      .story-content {
-        color: var(--text-primary);
-        line-height: 1.8;
+      .quest-modal-section {
         margin-bottom: 1.5rem;
+        padding: 1.5rem;
+        background: rgba(139, 69, 19, 0.2);
+        border: 2px solid var(--border-rpg);
+        border-radius: var(--radius-md);
       }
 
-      .story-lesson {
-        background: rgba(0, 255, 136, 0.1);
-        border-left: 3px solid var(--neon-green);
-        padding: 1rem;
+      .quest-modal-section-title {
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: var(--gold-rpg);
         margin-bottom: 1rem;
+        font-family: var(--font-pixel);
+        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
       }
 
-      .story-lesson-title {
-        color: var(--neon-green);
+      .quest-tools-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .tool-tag {
+        background: rgba(218, 165, 32, 0.2);
+        border: 2px solid var(--gold-rpg);
+        border-radius: 6px;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        color: var(--gold-rpg);
+        font-family: var(--font-pixel);
+      }
+
+      .quest-xp-large {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--gold-rpg);
+        text-shadow: 0 0 15px var(--gold-rpg);
+        font-family: var(--font-pixel);
+        text-align: center;
+        padding: 1rem;
+      }
+
+      .quest-monsters-list,
+      .quest-loot-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .monster-item {
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+        background: rgba(255, 0, 0, 0.1);
+        border-left: 3px solid #dc143c;
+        border-radius: var(--radius-sm);
+        color: var(--text-primary);
+      }
+
+      .monster-item-name::before {
+        content: "👹 ";
+        margin-right: 0.5rem;
+      }
+
+      .monster-item-name {
         font-weight: 700;
         margin-bottom: 0.5rem;
-        text-shadow: 0 0 5px var(--neon-green);
       }
 
-      .story-lesson-text {
-        color: var(--text-secondary);
-      }
-
-      /* Footer */
-      footer {
-        text-align: center;
-        padding: 2rem 0;
-        color: var(--text-muted);
+      .monster-item-description {
         font-size: 0.875rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+        padding-left: 1.75rem;
       }
 
-      footer::before {
-        content: "🚀 ";
-      }
-
-      footer a {
-        color: var(--neon-purple);
-        text-decoration: none;
-        transition: all var(--transition-fast);
-      }
-
-      footer a:hover {
-        color: var(--neon-pink);
-        text-shadow: 0 0 10px currentColor;
-      }
-
-      /* Accessibility */
-      .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border-width: 0;
-      }
-
-      /* Loading animation */
-      @keyframes arcade-blink {
-        0%, 49% { opacity: 1; }
-        50%, 100% { opacity: 0; }
-      }
-
-      .blink {
-        animation: arcade-blink 1s infinite;
-      }
-
-      /* Empty state */
-      .empty-state {
-        text-align: center;
-        padding: 3rem;
-        color: var(--text-muted);
-      }
-
-      .empty-state-icon {
-        font-size: 3rem;
+      .loot-item {
+        padding: 0.75rem;
         margin-bottom: 1rem;
-        opacity: 0.5;
+        background: rgba(218, 165, 32, 0.1);
+        border-left: 3px solid var(--gold-rpg);
+        border-radius: var(--radius-sm);
+        color: var(--text-primary);
       }
 
-      .empty-state-text {
-        font-style: italic;
+      .loot-item-name::before {
+        content: "💎 ";
+        margin-right: 0.5rem;
       }
-      
-      /* Theme Toggle */
-      .theme-toggle {
-        position: fixed;
-        top: 1rem;
-        right: 1rem;
-        z-index: 1000;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: linear-gradient(135deg, rgba(43, 16, 85, 0.9), rgba(26, 11, 46, 0.9));
-        backdrop-filter: blur(10px);
-        border: 2px solid var(--border);
-        border-radius: var(--radius-lg);
-        padding: 0.75rem 1rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+
+      .loot-item-name {
+        font-weight: 700;
+        margin-bottom: 0.5rem;
       }
-      
-      .theme-toggle-label {
+
+      .loot-item-description {
+        font-size: 0.875rem;
         color: var(--text-secondary);
-        font-size: 0.875rem;
-        font-weight: 600;
-        user-select: none;
+        line-height: 1.5;
+        padding-left: 1.75rem;
       }
-      
-      .theme-buttons {
-        display: flex;
-        gap: 0.5rem;
+
+      /* Responsive Grid */
+      @media (min-width: 768px) {
+        .quest-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
       }
-      
-      .theme-btn {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid var(--border);
-        color: var(--text-primary);
-        padding: 0.5rem 1rem;
-        border-radius: var(--radius-sm);
-        cursor: pointer;
-        font-family: var(--font-primary);
-        font-size: 0.875rem;
-        transition: all var(--transition-fast);
-        display: flex;
-        align-items: center;
-        gap: 0.25rem;
+
+      @media (min-width: 1024px) {
+        .quest-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
       }
-      
-      .theme-btn:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: translateY(-1px);
+
+      @media (min-width: 1440px) {
+        .quest-grid {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 2.5rem;
+        }
       }
-      
-      .theme-btn.active {
-        background: var(--gradient-blue);
-        border-color: var(--neon-cyan);
-        box-shadow: 0 0 15px rgba(0, 245, 255, 0.5);
-      }
-      
-      /* RPG theme specific styles */
-      [data-theme="rpg"] .hero::before {
-        content: "⚔️";
-      }
-      
-      [data-theme="rpg"] .hero::after {
-        content: "🛡️";
-      }
-      
-      [data-theme="rpg"] .level-rect {
-        stroke-dasharray: none;
-        filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
-      }
-      
-      [data-theme="rpg"] .character-card,
-      [data-theme="rpg"] .quest-map-panel,
-      [data-theme="rpg"] .quest-details-panel {
-        border-width: 3px;
-        border-style: double;
+
+      @media (max-width: 767px) {
+        .quest-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .stats-bar {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+
+        .quest-card {
+          min-height: 240px;
+        }
       }
     </style>
   </head>
   <body>
-    <!-- Theme Toggle -->
-    <div class="theme-toggle">
-      <span class="theme-toggle-label">Theme:</span>
-      <div class="theme-buttons">
-        <button class="theme-btn active" onclick="setTheme('sci-fi')" id="scifiBtn">
-          <span>🚀</span>
-          <span>Sci-Fi</span>
-        </button>
-        <button class="theme-btn" onclick="setTheme('rpg')" id="rpgBtn">
-          <span>⚔️</span>
-          <span>RPG</span>
-        </button>
-      </div>
-    </div>
-    
     <div class="container">
       <header class="hero">
-        <h1>Game Developer Survival Guide - Mikael Lagré</h1>
-        <p>My personal journey through the video game industry from university up to where I'm at today.</p>
+        <h1>Game Developer Survival Guide</h1>
       </header>
 
-      <!-- Character Section -->
-      <div class="character-section">
-        <aside class="character-card">
-          <div class="character-avatar" id="characterAvatar">👨‍💻</div>
-          <div class="character-name" id="characterName">My name goes here</div>
-          <div class="character-class" id="characterClass">Software Engineer</div>
-          <div class="character-level" id="characterLevel">Level 1</div>
-          
-          <ul class="traits-list" id="traitsList">
-            <!-- Traits will be populated here -->
-          </ul>
+      <!-- Stats Bar -->
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-icon">👹</span>
+          <span class="stat-value" id="statMonsters">0</span>
+          <span class="stat-label">Monsters</span>
+        </div>
 
-          <div class="curses-section">
-            <ul class="curses-list" id="cursesList">
-              <!-- Curses will be populated here -->
-            </ul>
-          </div>
-
-          <div class="stats-panel">
-            <div class="stat-item">
-              <span class="stat-label">Years in Industry:</span>
-              <span class="stat-value" id="yearsInIndustry">0</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">Games Shipped:</span>
-              <span class="stat-value" id="gamesShipped">0</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">Monsters Defeated:</span>
-              <span class="stat-value" id="monstersDefeated">0</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">Treasures Found:</span>
-              <span class="stat-value" id="treasuresFound">0</span>
+        <div class="character-status">
+          <div class="status-section">
+            <div class="status-title">✨ Traits</div>
+            <div class="status-list" id="characterTraits">
+              <span class="status-badge status-badge-trait">Team Player</span>
+              <span class="status-badge status-badge-trait">Creative</span>
+              <span class="status-badge status-badge-trait">Problem Solver</span>
             </div>
           </div>
-        </aside>
-
-        <!-- Main Quest Board -->
-        <main class="quest-board-container">
-          <!-- Quest Map -->
-          <div class="quest-map-panel">
-            <div class="map-toolbar">
-              <div class="map-title">
-                <span>🗺️</span>
-                <span>Quest Map</span>
-              </div>
-            </div>
-            <div class="quest-map">
-              <svg id="questBoard" viewBox="0 0 340 2800" preserveAspectRatio="none" style="height: 2800px;">
-                <!-- SVG content will be generated by JavaScript -->
-              </svg>
+          <div class="status-section">
+            <div class="status-title">💀 Curses</div>
+            <div class="status-list" id="characterCurses">
+              <span class="status-badge status-badge-curse">Perfectionist</span>
+              <span class="status-badge status-badge-curse">Imposter Syndrome</span>
+              <span class="status-badge status-badge-curse">Sensitive to Stress</span>
             </div>
           </div>
+        </div>
 
-          <!-- Quest Details -->
-          <aside class="quest-details-panel">
-            <div class="details-toolbar">
-              <div class="details-title">
-                <span>📜 Quest Summary</span>
-              </div>
-            </div>
-            <div class="quest-content" id="questContent">
-              <div class="empty-state">
-                <div class="empty-state-icon">🎯</div>
-                <div class="empty-state-text">
-                  Click on a level node to view quest details and requirements
-                </div>
-              </div>
-            </div>
-          </aside>
-        </main>
+        <div class="stat-item">
+          <span class="stat-icon">✅</span>
+          <span class="stat-value" id="statQuests">0</span>
+          <span class="stat-label">Quests</span>
+        </div>
       </div>
 
+      <!-- Quest Grid -->
+      <main class="quest-grid">
+        <!-- Quest cards will be rendered here by JavaScript -->
+      </main>
+
       <footer>
-        <p>GameDev Survival Guide | <a href="#" onclick="resetGame(); return false;">Reset Data</a></p>
+        <p>GameDev Survival Guide</p>
       </footer>
     </div>
 
-    <!-- Story Modal -->
-    <div class="modal-overlay" id="storyModal">
-      <div class="story-modal">
+    <!-- Quest Modal -->
+    <div class="modal-overlay" id="questModal">
+      <div class="story-modal quest-modal">
         <div class="modal-header">
-          <h2 class="modal-title" id="modalTitle">Story Title</h2>
-          <button class="modal-close" onclick="closeModal()">✕</button>
+          <h2 class="modal-title" id="modalTitle">Quest Title</h2>
+          <button class="modal-close" onclick="closeQuestModal()">✕</button>
         </div>
         <div class="modal-body" id="modalBody">
-          <!-- Story content will be inserted here -->
+          <!-- Quest content will be inserted here -->
         </div>
       </div>
     </div>
 
     <script>
       // ==========================================
-      // GAME DATA CONFIGURATION
+      // QUEST DATA CONFIGURATION
       // ==========================================
-      // Edit this section to customize your journey
+      // Quest data loaded from external file
 
-      const myCharacter = {
-        name: "Mikael Lagré", // Change this to your name
-        class: "Software Engineer",
-        avatar: "👨‍💻", // Change emoji or use an image URL
-        currentLevel: 20, // Your current level (1-20)
-        traits: [
-          { icon: "🤔", name: "Problem Solver", description: "Loves solving puzzles between machines. Not so much between people." },
-          { icon: "🎨", name: "Creative", description: "Creative in all areas including art, music and of course programming." },
-          { icon: "🤝", name: "Team Player", description: "I want to make sure everyone belongs" }
-        ],
-        curses: [
-          { icon: "😰", name: "Imposter Syndrome", description: "Always feeling like I don't belong or am good enough." },
-          { icon: "🔥", name: "Sensitive to stress", description: "Don't handle stress to well." },
-          { icon: "🎯", name: "Perfectionism", description: "Nothing is ever quite good enough." }
-        ],
-        stats: {
-          yearsInIndustry: 20,
-          gamesShipped: 8,
-          monstersDefeated: 0,
-          treasuresFound: 0
+      let quests = [];
+
+      // ==========================================
+      // DATA LOADING
+      // ==========================================
+
+      /**
+       * Loads quest data from external JSON file
+       * @returns {Promise<Array>} Array of quest objects
+       */
+      async function loadQuestData() {
+        try {
+          const response = await fetch('data/quests.json');
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+
+          console.log(`✅ Loaded ${data.length} quests`);
+          return data;
+
+        } catch (error) {
+          console.error('❌ Failed to load quest data:', error);
+          showLoadingError(error.message);
+          return [];
         }
-      };
+      }
 
-      // Your journey through 20 levels
-      const myJourney = {
-        levels: [
-          {
-            id: 1,
-            name: "Hello University",
-            year: "Year 1 - 3",
-            role: "Student at gsCEPT",
-            emoji: "👋",
-            color: "#4a90e2",
-            position: { x: 170, y: 2700 },
-            myPath: true,
-            
-            quest: {
-              title: "You can study game development!?",
-              description: "Moved to Skellefteå in northern Sweden and studied for 3 years. Learned to live on my own, took all-nighters to study for exams and had the perfect student lifestyle.",
-              objectivesCompleted: [
-              ],
-              skillsAcquired: ["C++", "Working with artists", "General programming practices", "Advanced math and physics", "Cooking, cleaning, surviving", "Partying", "More partying", "Blender"]
-            },
-            
-            treasures: [
-              {
-                type: "story",
-                title: "How to tank the framerate in a first person game",
-                content: "In one of the projects I was part of we made a simple FPS called Field of Fear. You controlled a little robot walking and finding mines on a minefield. One day we noticed that the framerate had come to a low 5 fps. Back then most games bottleneck was polygons so I went into wireframe mode to find out if anything was off. I saw some grass on the fields that looked shaded. I walked closer and saw that it was made of several thousand polygons. I went to the artist that had commited the art and asked if he made an error. It turned out he didn't know we had polygon limitations like that - he had mostly done art for film at this point. He asked how many polygons we should have and I said 5-10 would be enough. :) ",
-                lesson: "Here is where I learned that not everyone will have the technical know-how as us programmers do and you shouldn't assume things. A clear tech requirements for other crafts written down would have helped us here and most things can be solved between crafts by just talking to each other."
-              },
-              {
-                type: "project",
-                title: "The Room - not just a great movie...",
-                content: "... but it was also the project name of my own C++ engine based on OpenGL. I did rendering setup, content pipeline, camera, entities, light and shadow during 9 months. Back at this time Doom 3 had just released featuring a new technique called Shadow Volumes which I also added to my engine.",
-                lesson: "This was non-stop coding for 9 months and one of the most productive times I've had.<p>I learned so much about the different areas in what it takes to make my own game engine. Being a solo dev focusing on programming and learning suited me perfectly here. There was never a dull moment but I did encounter some weird bugs that took many days to solve.<p> Looking back I'm glad I had the time to completly go into focus mode for these months. Although working with others would have prepared me more for my work career I feel looking back that at least once in a life you need a periods like this to go into Mastery of creating something for your own enjoyment."
-              },
-              {
-                type: "story",
-                title: "Video game world champion",
-                content: "Student life. You have time, energy but very little money. I got hooked on a game called Rallisport Challenge 2 (developed by DICE). Turns out that I was good at it. In fact I played it so much I become number one in the world eventually.",
-                lesson: "You can in fact reach your goals. Even if your goals is to play a video game for 10 hours a day for several months, to beat the world champion time on every rally track in a video game.<p><br>I'm very proud of this achievement and I don't regret any second of it. It was a great feeling to have the number one spot for something and I worked really hard for it."
-              }
-            ],
-            
-            monsters: [
-              {
-                name: "Is this really what I want to do?",
-                icon: "👹",
-                description: "Do I even like making games?",
-                story: "Sometime during the second year I lost motivation to programming and wasn't sure if this was for me. I didn't feel like what I did mattered that much or that I was learning the right things.",
-                defeated: "I eventually overcome this. Every now and then you will get to some low points and it doesn't mean your career paths are off - most often they might not be related at all. Since this event I've learned to love programming and solving problems many times over. I believe I wasn't feeling I got external validation for all my efforts (I studied hard but does anyone really care?). Later I realised that external validation comes and goes but your internal and intrisic motivation matters more."
-              },
-              {
-                name: "I don't have what it takes",
-                icon: "👹",
-                description: "Failing exams",
-                story: "One of the very first math exam I had I completly failed. I took the follow up exam and failed that one too. The third one... failed. At this point this particular exam was only done once a year so I had to wait up until I had completed all of my other exams and I had only this one left.",
-                defeated: "The summer before I could try the exam again I setup part-time goals. The first week I would only open the book to read it about 20min a day. These lower effort goals made it less stressful and I could later move it higher to say something like 'solve 1 math problem each day'. The smaller goals led me to learn in a better pace and I was ready for the exam. I nailed it. In fact I got all the answer correct and since it was my final course I could graduate and take my master thesis."
-              }
-            ],
-            notes: [
-              "Coffee became my best friend",
-              "Stack Overflow saved me daily"
-            ]
-          },
-          
-          {
-            id: 2,
-            name: "JAVA Master",
-            year: "Year 3-4",
-            role: "Master Thesis",
-            emoji: "🐛",
-            color: "#5c8a3a",
-            position: { x: 170, y: 2560 },
-            myPath: true,
-            
-            quest: {
-              title: "Becoming a JAVA expert at Agency 9",
-              description: `For my Master Thesis I was working at a company called Agency 9.
-              <br>
-              <p>
-              They were actually one of the first to introduce 3d on the web.<p><br>
-              My Master Thesis was about how to help their content pipeline become more efficient using a new XML format called COLLADA.`,
-              objectivesCompleted: [
-              ],
-              skillsAcquired: ["JAVA", "COLLADA", "Blender expert", "Working in a real job"]
-            },
-            treasures: [{
-                type: "story",
-                title: "I'm an adult now!? (got my first job)",
-                content: `After I done my master thesis I got a part-time (40%) job offer to work as a JAVA engineer for Agency 9. This later extended into a full-time employment.
-                  <p><br>
-                  This was in northern Sweden (Luleå) in an office close to where I lived in a student dorm. It was myself, one other engineer and one manager. At the time I was also studying philosophy and physics for game development. The course in physics was done by the same 2 guys I was working with!
-                  
-                  <p><br>
-                  I was part of helping different customers that wanted to visualize something interactive. It could be a CAD drawing or interactive showcase about engine parts for a vehicle.`,
-                lesson: `
-                  One of the key projects I was involved in was showcasing the JAVA engine they had developed.
-                  <p><br>
-                  We had contact with a Finnish firm that was going to do a scene showing an animated character in some fantasy setting. We hit all kinds of roadblocks. They were used to doing film so once they started working on the scenes they created things very low poly as there only reference at that time was low-poly Quake 1. At one point in time I sent an example I made on what a detail map could be - they used the same image I had done (coder art) to apply the detail to their textures. It wasn't working out.
-                  <p><br>
-                  One thing we missed here was doing a proper tech spec for what the engine could do. The outsourced art team didn't get enough detail and came in with assumptions on what could be achieved. The project never landed into something concrete. We developers need to provide better tutorial, technical specification and best practices.`},
-              {
-                type: "story",
-                title: "Made a plugin shipped in Blender 2.7",
-                content: `
-                Collada was the new hot format (developed by Sony) that was supposed to replace FBX. A way to move between 3d Studio Max, Maya and Blender.<p><br>
-                I was involved from the start helping out with the Maya plugin and later Blender. Through my master thesis I used this new format and dipped my feet into the land of open source development (although briefly).  
-                  I made the plugin for this format to Blender and it actually got shipped in the 2.7 version. I was extremly proud and put a lot of heart into it.`,
-                lesson: `I quickly saw an opportunity to become expert into something new and took my change to stick out from the crowd and learn all about it. At this point in life I had plenty of time as well and I was thinking this would be great to have on my CV.
-                  If you ever see yourself in a time period with more time to spare - why not learn some new tools or skill?
-                  <p><br>
-                  
-                  One of the early feedback I got from the plugin from the Blender team was from their initial testing. They simply exported the default scene and imported it again and saw that the camera was not correct. I got a bit snowblind in trying to solve all the extreme cases and forget the basic flow of a camera and a simple scene.
-                  <p><br>
-                  
-                  I think making this plugin was one of the most valuable skills I developed. I had to learn all details of modelling, animation, rigging, texturing etc.`
-              }],
-            monsters: [{
-                name: "Dream about work",
-                icon: "👹",
-                description: "Solving issues in your dream",
-                story: `I didn't really do much else besides working on my master thesis. It was non-stop.<p><br>
-                  At one point I had a tricky solution to solve involving how to implement soft skinning for an animated character. I was working on this for 2 weeks and one night even dreamed about the problem where I saw the code in front of me. I realized in my dream that I could use another array to to reference the first array! I woke up and went to work and this actually solved the issue!`,
-                defeated: `While dreaming about a specific solution and actually solve it makes for a cool story its probably a sign you are working to much. Remember to do other things in life. There is a reason people come up with their most creative ideas when they are not working on the project. The brain needs new input to find new pathways to solve things. This was my first wake up call that I might have worked to much on something - even if I enjoy it I need to slow down.`
-                }
-            ],
-            notes: []
-          },
-          
-          {
-            id: 3,
-            name: "Roll the Dice",
-            year: "Year 5-6",
-            role: "Associate Engineer",
-            emoji: "🎲",
-            color: "#e85d75",
-            position: { x: 170, y: 2420 },
-            myPath: true,
-            
-            quest: {
-              title: "Ship Your First Feature",
-              description: "Design and implement a complete game feature from scratch.",
-              objectivesCompleted: [
-                "Design the feature architecture",
-                "Implement core functionality",
-                "Write comprehensive tests",
-                "Get it through QA"
-              ],
-              skillsAcquired: ["System Design", "Implementation", "Testing"]
-            },
-            
-            treasures: [],
-            monsters: [
-              {
-                name: "Scope Creep",
-                icon: "🐙",
-                description: "The feature that kept growing",
-                story: "What started as a simple feature...",
-                defeated: "Learned to say no and define clear boundaries"
-              }
-            ],
-            notes: []
-          },
-          
-          {
-            id: 4,
-            name: "Team Player",
-            year: "Year 2",
-            role: "Software Engineer",
-            emoji: "🤝",
-            color: "#f39c12",
-            position: { x: 170, y: 2280 },
-            myPath: true,
-            
-            quest: {
-              title: "Master Collaboration",
-              description: "Learn to work effectively with designers, artists, and other developers.",
-              objectivesCompleted: [],
-              skillsAcquired: []
-            },
-            
-            treasures: [],
-            monsters: [],
-            notes: []
-          },
-          
-          {
-            id: 5,
-            name: "Performance Wizard",
-            year: "Year 3",
-            role: "Software Engineer",
-            emoji: "⚡",
-            color: "#9b59b6",
-            position: { x: 170, y: 2140 },
-            myPath: true,
-            
-            quest: {
-              title: "Optimization Quest",
-              description: "Make the game run at 60 FPS on all platforms.",
-              objectivesCompleted: [],
-              skillsAcquired: ["Profiling", "Optimization", "Memory Management"]
-            },
-            
-            treasures: [],
-            monsters: [],
-            notes: []
-          },
-          
-          {
-            id: 6,
-            name: "System Architect",
-            year: "Year 3",
-            role: "Software Engineer",
-            emoji: "🏗️",
-            color: "#34495e",
-            position: { x: 170, y: 2000 },
-            myPath: true,
-            
-            quest: {
-              title: "Design Major Systems",
-              description: "Architect and implement core game systems.",
-              objectivesCompleted: [],
-              skillsAcquired: []
-            },
-            
-            treasures: [],
-            monsters: [],
-            notes: []
-          },
-          
-          {
-            id: 7,
-            name: "Crisis Manager",
-            year: "Year 4",
-            role: "Senior Engineer",
-            emoji: "🔥",
-            color: "#e74c3c",
-            position: { x: 170, y: 1860 },
-            myPath: true,
-            
-            quest: {
-              title: "Survive the Crunch",
-              description: "Navigate through your first major crunch period.",
-              objectivesCompleted: [],
-              skillsAcquired: []
-            },
-            
-            monsters: [
-              {
-                name: "Burnout Dragon",
-                icon: "🐲",
-                description: "The exhaustion that threatens to consume you",
-                story: "Three months of 70-hour weeks...",
-                defeated: "Set boundaries and learned to prioritize health"
-              }
-            ],
-            
-            treasures: [],
-            notes: []
-          },
-          
-          {
-            id: 8,
-            name: "Mentor",
-            year: "Year 4",
-            role: "Senior Engineer",
-            emoji: "🧙",
-            color: "#3498db",
-            position: { x: 170, y: 1720 },
-            myPath: true,
-            
-            quest: {
-              title: "Guide New Developers",
-              description: "Help junior developers find their path.",
-              objectivesCompleted: [],
-              skillsAcquired: ["Mentoring", "Teaching", "Patience"]
-            },
-            
-            treasures: [],
-            monsters: [],
-            notes: []
-          },
-          
-          {
-            id: 9,
-            name: "Tool Builder",
-            year: "Year 5",
-            role: "Senior Engineer",
-            emoji: "🔧",
-            color: "#16a085",
-            position: { x: 170, y: 1580 },
-            myPath: true,
-            
-            quest: {
-              title: "Create Development Tools",
-              description: "Build tools that make everyone's life easier.",
-              objectivesCompleted: [],
-              skillsAcquired: []
-            },
-            
-            treasures: [],
-            monsters: [],
-            notes: []
-          },
-          
-          {
-            id: 10,
-            name: "Ship It!",
-            year: "Year 5",
-            role: "Senior Engineer",
-            emoji: "🚀",
-            color: "#27ae60",
-            position: { x: 170, y: 1440 },
-            myPath: true,
-            
-            quest: {
-              title: "Launch Your First Game",
-              description: "Experience the thrill and terror of launching a game.",
-              objectivesCompleted: [],
-              skillsAcquired: []
-            },
-            
-            treasures: [
-              {
-                type: "achievement",
-                title: "First Game Shipped!",
-                content: "The moment when millions of players experienced our work...",
-                lesson: "Nothing beats seeing players enjoy your game"
-              }
-            ],
-            
-            monsters: [],
-            notes: []
-          },
-          
-          {
-            id: 11,
-            name: "Tech Lead",
-            year: "Year 6",
-            role: "Senior Engineer",
-            emoji: "🎯",
-            color: "#8e44ad",
-            position: { x: 170, y: 1300 },
-            myPath: true,
-            
-            quest: {
-              title: "Technical Leadership",
-              description: "Lead technical decisions and guide the team's architecture.",
-              objectivesCompleted: [],
-              skillsAcquired: ["Architecture", "Leadership", "Communication"]
-            },
-            
-            treasures: [],
-            monsters: [],
-            notes: []
-          },
-          
-          {
-            id: 12,
-            name: "Domain Expert",
-            year: "Year 7",
-            role: "Principal Engineer",
-            emoji: "👑",
-            color: "#d35400",
-            position: { x: 170, y: 1160 },
-            myPath: true,
-            
-            quest: {
-              title: "Master Your Domain",
-              description: "Become the go-to expert in your specialization.",
-              objectivesCompleted: [],
-              skillsAcquired: []
-            },
-            
-            treasures: [],
-            monsters: [],
-            notes: []
-          },
-          
-          {
-            id: 13,
-            name: "Code Architect",
-            year: "Year 8",
-            role: "Principal Engineer",
-            emoji: "🏛️",
-            color: "#2c3e50",
-            position: { x: 170, y: 1020 },
-            myPath: true,
-            
-            quest: {
-              title: "Design at Scale",
-              description: "Architect systems that can handle millions of players.",
-              objectivesCompleted: [],
-              skillsAcquired: []
-            },
-            
-            treasures: [],
-            monsters: [],
-            notes: []
-          },
-          
-          {
-            id: 14,
-            name: "Innovation Driver",
-            year: "Year 9",
-            role: "Principal Engineer",
-            emoji: "💡",
-            color: "#f1c40f",
-            position: { x: 170, y: 880 },
-            myPath: true,
-            
-            quest: {
-              title: "Push Technical Boundaries",
-              description: "Implement cutting-edge technology in production.",
-              objectivesCompleted: [],
-              skillsAcquired: []
-            },
-            
-            treasures: [],
-            monsters: [],
-            notes: []
-          },
-          
-          {
-            id: 15,
-            name: "Platform Builder",
-            year: "Year 10",
-            role: "Principal Engineer",
-            emoji: "🌐",
-            color: "#1abc9c",
-            position: { x: 170, y: 740 },
-            myPath: true,
-            
-            quest: {
-              title: "Lead Technical Excellence",
-              description: "Guide technical decisions across multiple teams.",
-              objectivesCompleted: [],
-              skillsAcquired: []
-            },
-            
-            treasures: [],
-            monsters: [],
-            notes: []
-          },
-          
-          {
-            id: 16,
-            name: "Industry Expert",
-            year: "Year 11",
-            role: "Distinguished Engineer",
-            emoji: "🏆",
-            color: "#e67e22",
-            position: { x: 170, y: 600 },
-            myPath: true,
-            
-            quest: {
-              title: "Build the Foundation",
-              description: "Create platforms that empower other developers.",
-              objectivesCompleted: [],
-              skillsAcquired: []
-            },
-            
-            treasures: [],
-            monsters: [],
-            notes: []
-          },
-          
-          {
-            id: 17,
-            name: "Technical Director",
-            year: "Year 12",
-            role: "Distinguished Engineer",
-            emoji: "🎬",
-            color: "#c0392b",
-            position: { x: 170, y: 460 },
-            myPath: true,
-            
-            quest: {
-              title: "Industry Recognition",
-              description: "Become known in the wider game development community.",
-              objectivesCompleted: [],
-              skillsAcquired: []
-            },
-            
-            treasures: [],
-            monsters: [],
-            notes: []
-          },
-          
-          {
-            id: 18,
-            name: "Master Craftsman",
-            year: "Year 13",
-            role: "Distinguished Engineer",
-            emoji: "✨",
-            color: "#8b4513",
-            position: { x: 170, y: 320 },
-            myPath: true,
-            
-            quest: {
-              title: "Shape the Future",
-              description: "Define technical vision for entire projects.",
-              objectivesCompleted: [],
-              skillsAcquired: []
-            },
-            
-            treasures: [],
-            monsters: [],
-            notes: []
-          },
-          
-          {
-            id: 19,
-            name: "Legendary Status",
-            year: "Year 14",
-            role: "Distinguished Engineer",
-            emoji: "🎆",
-            color: "#663399",
-            position: { x: 170, y: 180 },
-            myPath: true,
-            
-            quest: {
-              title: "Legendary Status",
-              description: "Your expertise is sought after industry-wide.",
-              objectivesCompleted: [],
-              skillsAcquired: []
-            },
-            
-            treasures: [],
-            monsters: [],
-            notes: []
-          },
-          
-          {
-            id: 20,
-            name: "Mastery",
-            year: "Year 15+",
-            role: "Technical Fellow",
-            emoji: "💎",
-            color: "#ffd700",
-            position: { x: 170, y: 40 },
-            myPath: true,
-            
-            quest: {
-              title: "Technical Mastery Achieved",
-              description: "You've reached the pinnacle of technical excellence.",
-              objectivesCompleted: [],
-              skillsAcquired: []
-            },
-            
-            treasures: [
-              {
-                type: "legendary",
-                title: "The Master's Wisdom",
-                content: "After all these years, the most important lesson is...",
-                lesson: "The journey never really ends, it just gets more interesting"
-              }
-            ],
-            
-            monsters: [],
-            notes: []
-          }
-        ],
-        
-        // Global curses that can appear at multiple levels
-        globalCurses: [
-          {
-            name: "Imposter Syndrome",
-            icon: "👹",
-            appearsAt: [1, 5, 8, 12],
-            description: "The persistent feeling of not being good enough"
-          },
-          {
-            name: "Burnout Dragon",
-            icon: "🐲",
-            appearsAt: [7, 14, 18],
-            description: "Exhaustion from overwork"
-          },
-          {
-            name: "Scope Creep",
-            icon: "🐙",
-            appearsAt: [3, 9, 15],
-            description: "Features that grow beyond control"
-          }
-        ]
-      };
+      /**
+       * Displays error message to user when data fails to load
+       * @param {string} message - Error message to display
+       */
+      function showLoadingError(message) {
+        const gridContainer = document.querySelector('.quest-grid');
+        gridContainer.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+            <div style="background: rgba(139, 0, 0, 0.3); border: 3px solid var(--red-rpg);
+                        border-radius: var(--radius-md); padding: 2rem; max-width: 600px;
+                        margin: 0 auto;">
+              <h2 style="color: var(--red-rpg); font-family: var(--font-pixel);
+                         margin-bottom: 1rem;">⚠️ Quest Data Failed to Load</h2>
+              <p style="color: var(--text-primary); margin-bottom: 1rem;">${message}</p>
+              <p style="color: var(--text-secondary); font-size: 0.875rem;">
+                Make sure you're running this page through a web server (not file://)
+              </p>
+              <button onclick="location.reload()"
+                      style="margin-top: 1rem; padding: 0.75rem 1.5rem;
+                             background: var(--red-rpg); color: white; border: none;
+                             border-radius: 6px; cursor: pointer; font-family: var(--font-pixel);">
+                Retry
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
 
       // ==========================================
       // GAME ENGINE
       // ==========================================
-      
-      let gameState = {
-        selectedLevel: null
-      };
 
       // Initialize the game
-      function init() {
-        // No longer loading saved state - using constant data
-        loadTheme();
-        updateCharacterStats();
-        renderCharacter();
-        renderQuestMap();
-        setupEventListeners();
-      }
-      
-      // Theme Management
-      function loadTheme() {
-        const savedTheme = localStorage.getItem('gamedevTheme') || 'sci-fi';
-        setTheme(savedTheme);
-      }
-      
-      function setTheme(theme) {
-        const body = document.body;
-        const scifiBtn = document.getElementById('scifiBtn');
-        const rpgBtn = document.getElementById('rpgBtn');
-        
-        if (theme === 'rpg') {
-          body.setAttribute('data-theme', 'rpg');
-          rpgBtn.classList.add('active');
-          scifiBtn.classList.remove('active');
-        } else {
-          body.removeAttribute('data-theme');
-          scifiBtn.classList.add('active');
-          rpgBtn.classList.remove('active');
-        }
-        
-        localStorage.setItem('gamedevTheme', theme);
-      }
-      
-      // Update character stats based on initial values
-      function updateCharacterStats() {
-        // Stats are now manually set in the myCharacter object
-        // This function is kept for compatibility but doesn't calculate anything
-      }
-
-      // Render character card
-      function renderCharacter() {
-        document.getElementById('characterAvatar').textContent = myCharacter.avatar;
-        document.getElementById('characterName').textContent = myCharacter.name;
-        document.getElementById('characterClass').textContent = myCharacter.class;
-        document.getElementById('characterLevel').textContent = `Level ${myCharacter.currentLevel}`;
-        
-        // Render traits
-        const traitsList = document.getElementById('traitsList');
-        traitsList.innerHTML = myCharacter.traits.map(trait => `
-          <li class="trait-item">
-            <span class="trait-icon">${trait.icon}</span>
-            <div>
-              <div style="font-weight: 600;">${trait.name}</div>
-              <div style="font-size: 0.75rem; color: var(--text-muted);">${trait.description}</div>
+      async function init() {
+        // Show loading state
+        const gridContainer = document.querySelector('.quest-grid');
+        gridContainer.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+            <div style="color: var(--gold-rpg); font-family: var(--font-pixel);
+                        font-size: 1.5rem;">
+              ⏳ Loading Quests...
             </div>
-          </li>
-        `).join('');
-        
-        // Render curses
-        const cursesList = document.getElementById('cursesList');
-        cursesList.innerHTML = myCharacter.curses.map(curse => `
-          <li class="curse-item">
-            <span class="curse-icon">${curse.icon}</span>
-            <div>
-              <div style="font-weight: 600;">${curse.name}</div>
-              <div style="font-size: 0.75rem; color: var(--text-muted);">${curse.description}</div>
-            </div>
-          </li>
-        `).join('');
-        
-        // Update stats
-        document.getElementById('yearsInIndustry').textContent = myCharacter.stats.yearsInIndustry;
-        document.getElementById('gamesShipped').textContent = myCharacter.stats.gamesShipped;
-        document.getElementById('monstersDefeated').textContent = myCharacter.stats.monstersDefeated;
-        document.getElementById('treasuresFound').textContent = myCharacter.stats.treasuresFound;
-      }
-
-      // Render the quest map
-      function renderQuestMap() {
-        const svg = document.getElementById('questBoard');
-        svg.innerHTML = '';
-        
-        // Draw arrows between levels
-        for (let i = 0; i < myJourney.levels.length - 1; i++) {
-          const fromLevel = myJourney.levels[i];
-          const toLevel = myJourney.levels[i + 1];
-          drawArrow(svg, fromLevel.position, toLevel.position);
-        }
-        
-        // Draw level rectangles from bottom to top
-        myJourney.levels.forEach(level => {
-          drawLevelRect(svg, level);
-        });
-        
-        // Scroll to bottom (Level 1) after rendering
-        setTimeout(() => {
-          const questMap = document.querySelector('.quest-map');
-          if (questMap) {
-            questMap.scrollTop = questMap.scrollHeight;
-          }
-        }, 100);
-      }
-
-      // Draw a level rectangle
-      function drawLevelRect(svg, level) {
-        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-        g.setAttribute('class', 'level-group');
-        g.onclick = () => selectLevel(level.id);
-        
-        // Rectangle
-        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-        rect.setAttribute('x', level.position.x - 150);
-        rect.setAttribute('y', level.position.y - 60);
-        rect.setAttribute('width', '300');
-        rect.setAttribute('height', '120');
-        rect.setAttribute('class', `level-rect ${getLevelClass(level)}`);
-        rect.setAttribute('fill', level.color || '#2c3e50');
-        rect.setAttribute('stroke', 'rgba(255, 255, 255, 0.3)');
-        g.appendChild(rect);
-        
-        // Level number
-        const number = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        number.setAttribute('x', level.position.x - 130);
-        number.setAttribute('y', level.position.y - 30);
-        number.setAttribute('class', 'level-text level-number');
-        number.setAttribute('text-anchor', 'start');
-        number.setAttribute('fill', 'rgba(255,255,255,0.9)');
-        number.textContent = level.id < 10 ? `0${level.id}` : level.id;
-        g.appendChild(number);
-        
-        // Emoji
-        const emoji = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        emoji.setAttribute('x', level.position.x - 85);
-        emoji.setAttribute('y', level.position.y - 30);
-        emoji.setAttribute('class', 'level-emoji');
-        emoji.setAttribute('text-anchor', 'middle');
-        emoji.setAttribute('opacity', '1');
-        emoji.textContent = level.emoji || '🎯';
-        g.appendChild(emoji);
-        
-        // Level name
-        const name = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        name.setAttribute('x', level.position.x);
-        name.setAttribute('y', level.position.y - 35);
-        name.setAttribute('class', 'level-text level-name');
-        name.setAttribute('text-anchor', 'middle');
-        name.setAttribute('fill', 'var(--text-primary)');
-        name.textContent = level.name;
-        g.appendChild(name);
-        
-        // Year
-        const year = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        year.setAttribute('x', level.position.x);
-        year.setAttribute('y', level.position.y - 10);
-        year.setAttribute('class', 'level-text level-year');
-        year.setAttribute('text-anchor', 'middle');
-        year.setAttribute('fill', 'rgba(255,255,255,0.7)');
-        year.textContent = level.year;
-        g.appendChild(year);
-        
-        // Role
-        const role = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        role.setAttribute('x', level.position.x);
-        role.setAttribute('y', level.position.y + 10);
-        role.setAttribute('class', 'level-text level-role');
-        role.setAttribute('text-anchor', 'middle');
-        role.setAttribute('fill', 'rgba(255,255,255,0.8)');
-        role.textContent = level.role || '';
-        g.appendChild(role);
-        
-        // Quest description (summary)
-        if (level.quest && level.quest.description) {
-          const descText = level.quest.description;
-          const maxLength = 35; // Limit characters per line for wider box
-          const words = descText.split(' ');
-          let lines = [];
-          let currentLine = '';
-          
-          for (const word of words) {
-            if ((currentLine + ' ' + word).length <= maxLength) {
-              currentLine = currentLine ? currentLine + ' ' + word : word;
-            } else {
-              if (currentLine) lines.push(currentLine);
-              currentLine = word;
-            }
-          }
-          if (currentLine) lines.push(currentLine);
-          
-          // Limit to 2 lines
-          lines = lines.slice(0, 2);
-          if (lines.length === 2 && descText.length > maxLength * 2) {
-            lines[1] = lines[1].substring(0, lines[1].length - 3) + '...';
-          }
-          
-          lines.forEach((line, index) => {
-            const desc = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-            desc.setAttribute('x', level.position.x);
-            desc.setAttribute('y', level.position.y + 35 + (index * 12));
-            desc.setAttribute('class', 'level-text');
-            desc.setAttribute('text-anchor', 'middle');
-            desc.setAttribute('fill', 'rgba(255,255,255,0.6)');
-            desc.setAttribute('font-size', '10px');
-            desc.textContent = line;
-            g.appendChild(desc);
-          });
-        }
-        
-        svg.appendChild(g);
-      }
-
-      // Draw arrow between levels
-      function drawArrow(svg, from, to) {
-        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-        
-        // Arrow line
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        const startY = from.y - 60;
-        const endY = to.y + 60;
-        path.setAttribute('d', `M ${from.x} ${startY} L ${to.x} ${endY}`);
-        path.setAttribute('class', 'arrow-path');
-        g.appendChild(path);
-        
-        // Arrow head
-        const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-        const arrowSize = 8;
-        const points = `${to.x},${endY - arrowSize} ${to.x - arrowSize/2},${endY} ${to.x + arrowSize/2},${endY}`;
-        arrowHead.setAttribute('points', points);
-        arrowHead.setAttribute('class', 'arrow-head');
-        g.appendChild(arrowHead);
-        
-        svg.appendChild(g);
-      }
-
-      // Get CSS class for level based on state
-      function getLevelClass(level) {
-        // All levels are now just informational nodes
-        return 'available';
-      }
-
-      // Select a level
-      function selectLevel(levelId) {
-        const level = myJourney.levels.find(l => l.id === levelId);
-        if (!level) return;
-        
-        gameState.selectedLevel = levelId;
-        displayQuestDetails(level);
-      }
-
-      // Removed branch selection - no longer needed
-
-      // Display quest details
-      function displayQuestDetails(level) {
-        const content = document.getElementById('questContent');
-        
-        content.innerHTML = `
-          <div class="quest-header">${level.emoji || ''} ${level.name}</div>
-          <div class="quest-year">${level.year} • ${level.role || ''}</div>
-          <div class="quest-description">${level.quest.description}</div>
-          
-          ${level.quest.objectivesCompleted && level.quest.objectivesCompleted.length > 0 ? `
-            <div class="quest-objectives">
-              <div class="objectives-title">📋 Objectives Completed</div>
-              ${level.quest.objectivesCompleted.map(obj => `
-                <div class="objective-item">${obj}</div>
-              `).join('')}
-            </div>
-          ` : ''}
-          
-          ${level.quest.skillsAcquired && level.quest.skillsAcquired.length > 0 ? `
-            <div class="quest-skills">
-              <div class="skills-title">🎯 Skills Acquired</div>
-              ${level.quest.skillsAcquired.map(skill => `
-                <span class="skill-tag">${skill}</span>
-              `).join('')}
-            </div>
-          ` : ''}
-          
-          ${level.treasures && level.treasures.length > 0 ? `
-            <div class="quest-objectives" style="background: rgba(255, 215, 0, 0.1); border-color: rgba(255, 215, 0, 0.3);">
-              <div class="objectives-title" style="color: var(--neon-yellow); text-shadow: 0 0 5px var(--neon-yellow);">
-                💎 Treasures Found
-              </div>
-              ${level.treasures.map((treasure, index) => `
-                <div class="objective-item" style="cursor: pointer;" onclick="showTreasureModalByIndex(${level.id}, ${index})">
-                  ${treasure.title} →
-                </div>
-              `).join('')}
-            </div>
-          ` : ''}
-          
-          ${level.monsters && level.monsters.length > 0 ? `
-            <div class="quest-objectives" style="background: rgba(255, 0, 110, 0.1); border-color: rgba(255, 0, 110, 0.3);">
-              <div class="objectives-title" style="color: var(--neon-pink); text-shadow: 0 0 5px var(--neon-pink);">
-                👾 Monsters Defeated
-              </div>
-              ${level.monsters.map((monster, index) => `
-                <div class="objective-item" style="cursor: pointer;" onclick="showMonsterModalByIndex(${level.id}, ${index})">
-                  ${monster.icon || '👾'} ${monster.name} →
-                </div>
-              `).join('')}
-            </div>
-          ` : ''}
-          
-          
-        `;
-      }
-
-      // Add helper functions for showing specific treasure/monster by index
-      function showTreasureModalByIndex(levelId, treasureIndex) {
-        const level = myJourney.levels.find(l => l.id === levelId);
-        if (!level || !level.treasures || !level.treasures[treasureIndex]) return;
-        
-        const treasure = level.treasures[treasureIndex];
-        showStoryModal('💎 Treasure Found!', treasure);
-      }
-      
-      function showMonsterModalByIndex(levelId, monsterIndex) {
-        const level = myJourney.levels.find(l => l.id === levelId);
-        if (!level || !level.monsters || !level.monsters[monsterIndex]) return;
-        
-        const monster = level.monsters[monsterIndex];
-        showMonsterModalContent(monster);
-      }
-
-
-      // Show treasures modal
-      function showTreasures(levelId) {
-        const level = myJourney.levels.find(l => l.id === levelId);
-        if (!level || !level.treasures || level.treasures.length === 0) return;
-        
-        const treasure = level.treasures[0]; // Show first treasure for now
-        showStoryModal('💎 Treasure Found!', treasure);
-      }
-
-      // Show monsters modal
-      function showMonsters(levelId) {
-        const level = myJourney.levels.find(l => l.id === levelId);
-        if (!level || !level.monsters || level.monsters.length === 0) return;
-        
-        const monster = level.monsters[0]; // Show first monster for now
-        showMonsterModalContent(monster);
-      }
-
-      // Show notes modal
-      function showNotes(levelId) {
-        const level = myJourney.levels.find(l => l.id === levelId);
-        if (!level || !level.notes || level.notes.length === 0) return;
-        
-        showNotesModal(level.notes);
-      }
-
-      // Show story modal
-      function showStoryModal(title, story) {
-        const modal = document.getElementById('storyModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalBody = document.getElementById('modalBody');
-        
-        modalTitle.textContent = title;
-        modalBody.innerHTML = `
-          <div class="story-type">${story.type || 'story'}</div>
-          <h3 style="color: var(--neon-cyan); margin-bottom: 1rem;">${story.title}</h3>
-          <div class="story-content">${story.content}</div>
-          ${story.lesson ? `
-            <div class="story-lesson">
-              <div class="story-lesson-title">💡 Lesson Learned</div>
-              <div class="story-lesson-text">${story.lesson}</div>
-            </div>
-          ` : ''}
-        `;
-        
-        modal.classList.add('active');
-      }
-
-      // Show monster modal content
-      function showMonsterModalContent(monster) {
-        const modal = document.getElementById('storyModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalBody = document.getElementById('modalBody');
-        
-        modalTitle.textContent = `${monster.icon} ${monster.name}`;
-        modalBody.innerHTML = `
-          <div class="story-type">monster</div>
-          <div style="color: var(--neon-pink); margin-bottom: 1rem;">${monster.description}</div>
-          <div class="story-content">${monster.story}</div>
-          <div class="story-lesson">
-            <div class="story-lesson-title">⚔️ How I Defeated It</div>
-            <div class="story-lesson-text">${monster.defeated}</div>
           </div>
         `;
-        
-        modal.classList.add('active');
+
+        // Load quest data
+        quests = await loadQuestData();
+
+        // Render if data loaded successfully
+        if (quests.length > 0) {
+          calculateAndRenderStats();
+          renderQuestGrid();
+        }
+
+        setupEventListeners();
       }
 
-      // Show notes modal
-      function showNotesModal(notes) {
-        const modal = document.getElementById('storyModal');
+      // Calculate and display aggregate stats
+      function calculateAndRenderStats() {
+        const totalMonsters = quests.reduce((sum, q) => sum + q.monstersDefeated.length, 0);
+        const totalQuests = quests.length;
+
+        document.getElementById('statMonsters').textContent = totalMonsters;
+        document.getElementById('statQuests').textContent = totalQuests;
+      }
+
+      // Render quest grid
+      function renderQuestGrid() {
+        const gridContainer = document.querySelector('.quest-grid');
+        gridContainer.innerHTML = '';
+
+        quests.forEach(quest => {
+          const card = createQuestCard(quest);
+          gridContainer.appendChild(card);
+        });
+      }
+
+      // Create a quest card element
+      function createQuestCard(quest) {
+        const card = document.createElement('div');
+        card.className = 'quest-card';
+        card.setAttribute('data-quest-id', quest.id);
+        card.onclick = () => openQuestModal(quest.id);
+
+        const badgeText = quest.questType === 'main' ? '⚔️ Main' : '🗡️ Side';
+        const badgeClass = `quest-badge-${quest.questType}`;
+
+        card.innerHTML = `
+          <div class="quest-card-header">
+            <div class="quest-level-badge">LVL ${quest.level}</div>
+            <div class="quest-badge ${badgeClass}">${badgeText}</div>
+          </div>
+          ${quest.image ? `
+            <img class="quest-card-image" src="${quest.image}" alt="${quest.title}" />
+          ` : ''}
+          <div class="quest-card-body">
+            <h3 class="quest-card-title">${quest.title}</h3>
+          </div>
+          <div class="quest-card-footer">
+            <span class="quest-stat">⭐ ${quest.xpGained}</span>
+            <span class="quest-stat">👹 ${quest.monstersDefeated.length}</span>
+            <span class="quest-stat">💎 ${quest.lootDropped.length}</span>
+          </div>
+        `;
+
+        return card;
+      }
+
+      // Open quest details modal
+      function openQuestModal(questId) {
+        const quest = quests.find(q => q.id === questId);
+        if (!quest) return;
+
+        const modal = document.getElementById('questModal');
         const modalTitle = document.getElementById('modalTitle');
         const modalBody = document.getElementById('modalBody');
-        
-        modalTitle.textContent = '📝 Notes & Observations';
+
+        modalTitle.textContent = quest.title;
         modalBody.innerHTML = `
-          <div class="story-type">notes</div>
-          <ul style="list-style: none; padding: 0;">
-            ${notes.map(note => `
-              <li style="padding: 0.75rem; margin-bottom: 0.5rem; background: rgba(0, 245, 255, 0.1); border-left: 3px solid var(--neon-cyan); border-radius: var(--radius-sm);">
-                ${note}
-              </li>
-            `).join('')}
-          </ul>
+          <div style="padding: 2rem;">
+            ${quest.image ? `
+              <div style="margin-bottom: 1.5rem; border-radius: 10px; overflow: hidden; border: 3px solid var(--border-rpg);">
+                <img src="${quest.image}" alt="${quest.title}" style="width: 100%; height: auto; display: block; image-rendering: pixelated;" />
+              </div>
+            ` : ''}
+
+            <div style="text-align: center; margin-bottom: 1.5rem; display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap;">
+              <span class="quest-level-badge">LVL ${quest.level}</span>
+              <span class="quest-badge quest-badge-${quest.questType}">
+                ${quest.questType === 'main' ? '⚔️ Main Quest' : '🗡️ Side Quest'}
+              </span>
+            </div>
+
+            <div class="quest-modal-section">
+              <h3 class="quest-modal-section-title">📜 Description</h3>
+              <p style="color: var(--text-primary); line-height: 1.8;">${quest.description}</p>
+            </div>
+
+            <div class="quest-modal-section">
+              <h3 class="quest-modal-section-title">⚔️ Tools Used</h3>
+              <div class="quest-tools-list">
+                ${quest.tools.map(tool => `<span class="tool-tag">${tool}</span>`).join('')}
+              </div>
+            </div>
+
+            <div class="quest-modal-section">
+              <h3 class="quest-modal-section-title">👹 Monsters Defeated</h3>
+              <ul class="quest-monsters-list">
+                ${quest.monstersDefeated.map(monster => `
+                  <li class="monster-item">
+                    <div class="monster-item-name">${monster.name}</div>
+                    <div class="monster-item-description">${monster.description}</div>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+
+            <div class="quest-modal-section">
+              <h3 class="quest-modal-section-title">💎 Loot Dropped</h3>
+              <ul class="quest-loot-list">
+                ${quest.lootDropped.map(loot => `
+                  <li class="loot-item">
+                    <div class="loot-item-name">${loot.name}</div>
+                    <div class="loot-item-description">${loot.description}</div>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+          </div>
         `;
-        
+
         modal.classList.add('active');
       }
 
-      // Close modal
-      function closeModal() {
-        document.getElementById('storyModal').classList.remove('active');
+      // Close quest modal
+      function closeQuestModal() {
+        document.getElementById('questModal').classList.remove('active');
       }
-
-      // Removed reset view and toggle paths functions - buttons no longer exist
-
-
-      // Reset game
-      function resetGame() {
-        if (confirm('⚠️ Reset to default data?')) {
-          localStorage.removeItem('gamedevQuestState');
-          location.reload();
-        }
-      }
-
 
       // Setup event listeners
       function setupEventListeners() {
         // Close modal on escape
         document.addEventListener('keydown', (e) => {
           if (e.key === 'Escape') {
-            closeModal();
+            closeQuestModal();
           }
         });
-        
+
         // Close modal on overlay click
-        document.getElementById('storyModal').addEventListener('click', (e) => {
-          if (e.target.id === 'storyModal') {
-            closeModal();
+        document.getElementById('questModal').addEventListener('click', (e) => {
+          if (e.target.id === 'questModal') {
+            closeQuestModal();
           }
         });
       }
 
       // Initialize on load
       document.addEventListener('DOMContentLoaded', init);
-      
-      // Make functions available globally for onclick handlers
-      window.setTheme = setTheme;
-      window.closeModal = closeModal;
-      window.resetGame = resetGame;
-      window.showTreasureModalByIndex = showTreasureModalByIndex;
-      window.showMonsterModalByIndex = showMonsterModalByIndex;
+
+      // Make functions globally available
+      window.openQuestModal = openQuestModal;
+      window.closeQuestModal = closeQuestModal;
     </script>
   </body>
 </html>
