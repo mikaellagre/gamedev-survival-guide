@@ -918,8 +918,9 @@
           return response.json();
         }
 
-        async publish() {
-          const response = await fetch(`${this.baseUrl}/api/publish`, {
+        async publish(questFile = null) {
+          const file = questFile || this.currentQuestFile;
+          const response = await fetch(`${this.baseUrl}/api/publish?file=${encodeURIComponent(file)}`, {
             method: 'POST'
           });
           if (!response.ok) throw new Error('Failed to publish');
@@ -1487,8 +1488,11 @@
       // ==========================================
 
       async function publishSite() {
+        const currentFile = api.currentQuestFile;
         const confirmed = confirm(
           '🚀 Publish Site\n\n' +
+          `Source: ${currentFile}\n` +
+          `Output: index.html\n\n` +
           'This will generate a new index.html with all quest and character data embedded.\n' +
           'The published file will be standalone and can be deployed anywhere.\n\n' +
           'Continue?'
@@ -1502,7 +1506,8 @@
 
           alert(
             '✅ Published Successfully!\n\n' +
-            `File: ${result.file}\n\n` +
+            `Source: ${result.source}\n` +
+            `Output: ${result.file}\n\n` +
             'You can now deploy index.html to any static hosting service.'
           );
 

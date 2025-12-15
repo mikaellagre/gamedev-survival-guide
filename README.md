@@ -39,15 +39,19 @@ Then open your browser to: **http://localhost:5001/editor.html**
 **Editor Features:**
 - ✏️ **Add/Edit/Delete Quests** - Visual forms for all quest fields
 - 🔄 **Drag & Drop Reordering** - Rearrange quests by dragging
+- 📁 **Multi-File Support** - Load and edit different quest JSON files
 - ✨ **Character Traits & Curses** - Edit character attributes
 - 💾 **Auto-Save** - Changes automatically saved to backend
 - 🚀 **Publish** - Generate static `index.html` for deployment
 
 **Publishing Workflow:**
-1. Make changes in the editor
-2. Click the **🚀 Publish** button
-3. `index.html` is generated with embedded data
-4. Deploy `index.html` to any static hosting service
+1. Select the quest file you want to work with from the dropdown (defaults to `quests.json`)
+2. Make changes in the editor
+3. Click the **🚀 Publish** button
+4. `index.html` is generated with embedded data from the currently selected quest file
+5. Deploy `index.html` to any static hosting service
+
+**Note:** The editor supports loading and editing multiple quest files (e.g., `quests-updated.json`, `quests-backup.json`), and publishing will use whichever file is currently selected.
 
 ### Manual Editing
 

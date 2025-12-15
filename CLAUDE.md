@@ -65,20 +65,23 @@ Then open: http://localhost:5001/editor.html
 **Editor Features:**
 - Visual quest editor with forms for all fields
 - Drag-and-drop quest reordering
+- Multi-file support: Load and edit different quest JSON files
 - Character traits/curses editor
 - Auto-save (1-second debounce)
 - Publish button generates standalone `index.html`
 
 **Publishing Workflow:**
 1. Make changes in editor at http://localhost:5001/editor.html
-2. Click **🚀 Publish** button
-3. `index.html` is generated with embedded data
-4. Deploy `index.html` to static hosting (works without backend)
+2. Select the quest file you want to publish from the dropdown
+3. Click **🚀 Publish** button
+4. `index.html` is generated with embedded data from the selected quest file
+5. Deploy `index.html` to static hosting (works without backend)
 
 **Architecture:**
-- `editor.html` loads data from Flask API (`/api/quests`, `/api/character`)
-- Changes auto-save back to `data/*.json` files
-- Publishing injects data into `index.template.html` → `index.html`
+- `editor.html` loads data from Flask API (`/api/quests?file=...`, `/api/character`)
+- Quest file selector allows switching between different quest JSON files
+- Changes auto-save back to the selected `data/*.json` file
+- Publishing uses the currently selected quest file and injects into `index.template.html` → `index.html`
 - Published `index.html` is standalone (no fetch, no backend needed)
 
 ### Planned Commands

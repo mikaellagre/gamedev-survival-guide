@@ -55,10 +55,40 @@ def write_json(filepath, data):
 # API ENDPOINTS
 # ==========================================
 
+@app.route('/api/quest-files', methods=['GET'])
+def get_quest_files():
+    """List all available quest JSON files"""
+    try:
+        quest_files = []
+        for file in DATA_DIR.glob('*.json'):
+            # Only include files that start with 'quest' or are named quests.json
+            if file.name.startswith('quest') or file.name == 'quests.json':
+                quest_files.append(file.name)
+
+        # Sort with quests.json first, then alphabetically
+        quest_files.sort(key=lambda x: (x != 'quests.json', x))
+        return jsonify(quest_files)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
 @app.route('/api/quests', methods=['GET'])
 def get_quests():
-    """Get all quests"""
-    data = read_json(QUESTS_FILE)
+    """Get all quests from specified file"""
+    # Get quest file from query parameter, default to quests.json
+    quest_file = request.args.get('file', 'quests.json')
+
+    # Security: prevent directory traversal
+    if '..' in quest_file or '/' in quest_file or '\\' in quest_file:
+        return jsonify({'error': 'Invalid file name'}), 400
+
+    quest_path = DATA_DIR / quest_file
+
+    # Check file exists
+    if not quest_path.exists():
+        return jsonify({'error': f'Quest file not found: {quest_file}'}), 404
+
+    data = read_json(quest_path)
     if data is None:
         return jsonify({'error': 'Quests file not found'}), 404
     if isinstance(data, dict) and 'error' in data:
@@ -68,8 +98,17 @@ def get_quests():
 
 @app.route('/api/quests', methods=['POST'])
 def save_quests():
-    """Save quests data"""
+    """Save quests data to specified file"""
     try:
+        # Get quest file from query parameter, default to quests.json
+        quest_file = request.args.get('file', 'quests.json')
+
+        # Security: prevent directory traversal
+        if '..' in quest_file or '/' in quest_file or '\\' in quest_file:
+            return jsonify({'error': 'Invalid file name'}), 400
+
+        quest_path = DATA_DIR / quest_file
+
         data = request.json
 
         # Validate data structure
@@ -88,8 +127,8 @@ def save_quests():
                 return jsonify({'error': f'Invalid quest type: {quest["questType"]}'}), 400
 
         # Write to file
-        write_json(QUESTS_FILE, data)
-        return jsonify({'success': True, 'message': 'Quests saved'})
+        write_json(quest_path, data)
+        return jsonify({'success': True, 'message': f'Quests saved to {quest_file}'})
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -131,8 +170,22 @@ def save_character():
 def publish():
     """
     Generate static index.html with embedded data
+    Publishes from the specified quest file (default: quests.json)
     """
     try:
+        # Get quest file from query parameter, default to quests.json
+        quest_file = request.args.get('file', 'quests.json')
+
+        # Security: prevent directory traversal
+        if '..' in quest_file or '/' in quest_file or '\\' in quest_file:
+            return jsonify({'error': 'Invalid file name'}), 400
+
+        quest_path = DATA_DIR / quest_file
+
+        # Check file exists
+        if not quest_path.exists():
+            return jsonify({'error': f'Quest file not found: {quest_file}'}), 404
+
         # Read template
         if not TEMPLATE_FILE.exists():
             return jsonify({'error': 'Template file not found'}), 404
@@ -141,7 +194,7 @@ def publish():
             template = f.read()
 
         # Read data files
-        quests = read_json(QUESTS_FILE)
+        quests = read_json(quest_path)
         character = read_json(CHARACTER_FILE)
 
         if quests is None:
@@ -170,8 +223,9 @@ def publish():
 
         return jsonify({
             'success': True,
-            'message': 'Published successfully',
-            'file': str(OUTPUT_FILE)
+            'message': f'Published successfully from {quest_file}',
+            'file': str(OUTPUT_FILE),
+            'source': quest_file
         })
 
     except Exception as e:
@@ -215,9 +269,10 @@ if __name__ == '__main__':
     print("   http://localhost:5001/editor.html")
     print()
     print("📝 API Endpoints:")
-    print("   GET/POST /api/quests")
-    print("   GET/POST /api/character")
-    print("   POST     /api/publish")
+    print("   GET      /api/quest-files       - List available quest files")
+    print("   GET/POST /api/quests?file=...   - Load/save quests (default: quests.json)")
+    print("   GET/POST /api/character          - Load/save character data")
+    print("   POST     /api/publish?file=...  - Publish to index.html (default: quests.json)")
     print()
     print("Press Ctrl+C to stop the server")
     print("=" * 60)
