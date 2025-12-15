@@ -1,0 +1,30 @@
+{
+  "traits": [
+    {
+      "id": 1,
+      "text": "Team Player"
+    },
+    {
+      "id": 2,
+      "text": "Creative"
+    },
+    {
+      "id": 3,
+      "text": "Problem Solver"
+    }
+  ],
+  "curses": [
+    {
+      "id": 1,
+      "text": "Perfectionist"
+    },
+    {
+      "id": 2,
+      "text": "Imposter Syndrome"
+    },
+    {
+      "id": 3,
+      "text": "Sensitive to Stress"
+    }
+  ]
+}

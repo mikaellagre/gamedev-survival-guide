@@ -22,11 +22,36 @@ http-server -p 8000
 
 Then open your browser to: **http://localhost:8000**
 
-### Editing Quest Data
+### Using the Quest Editor
 
-Quest content is stored in `data/quests.json`. Edit this file to update quest information without touching the HTML/CSS/JavaScript code.
+The project includes a visual quest editor with drag-and-drop support:
 
-Each quest has the following structure:
+```bash
+# Start the editor server
+./scripts/editor.sh
+
+# Or manually:
+python3 scripts/editor_server.py
+```
+
+Then open your browser to: **http://localhost:5001/editor.html**
+
+**Editor Features:**
+- ✏️ **Add/Edit/Delete Quests** - Visual forms for all quest fields
+- 🔄 **Drag & Drop Reordering** - Rearrange quests by dragging
+- ✨ **Character Traits & Curses** - Edit character attributes
+- 💾 **Auto-Save** - Changes automatically saved to backend
+- 🚀 **Publish** - Generate static `index.html` for deployment
+
+**Publishing Workflow:**
+1. Make changes in the editor
+2. Click the **🚀 Publish** button
+3. `index.html` is generated with embedded data
+4. Deploy `index.html` to any static hosting service
+
+### Manual Editing
+
+You can also edit quest data manually in `data/quests.json`:
 
 ```json
 {
@@ -47,11 +72,25 @@ Each quest has the following structure:
 }
 ```
 
+Character traits and curses are in `data/character.json`.
+
 ## Project Structure
 
-- `index.html` - Main interactive matrix tool (layout only)
+### Core Files
+- `index.html` - Published output (standalone, generated from editor)
+- `index.template.html` - Template for publishing (with data placeholders)
+- `editor.html` - Quest editor interface
+
+### Data Files
 - `data/quests.json` - Quest content data
-- `scripts/serve.sh` - Local development server script
+- `data/character.json` - Character traits and curses
+
+### Backend
+- `scripts/editor_server.py` - Flask API server for editor
+- `scripts/editor.sh` - Editor launcher script
+- `scripts/serve.sh` - Simple static file server
+
+### Documentation
 - `AGENTS.md` - Repository guidelines for contributors
 - `CLAUDE.md` - AI assistant guidance for code work
 

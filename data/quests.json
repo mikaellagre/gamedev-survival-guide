@@ -1,284 +1,527 @@
 [
   {
     "id": 1,
-    "title": "Get a Computer",
+    "title": "Got a Computer",
     "image": null,
     "questType": "main",
     "level": 10,
     "description": "My first computer - the gateway to a lifelong passion. Started with an IBM 286, learned QBASIC, and built things with LEGO that sparked my imagination for creating interactive systems.",
-    "tools": ["IBM 286", "QBASIC", "LEGO"],
+    "tools": [
+      "IBM 286",
+      "QBASIC",
+      "LEGO"
+    ],
     "xpGained": 300,
     "monstersDefeated": [
-      { "name": "Friends having cooler gadgets", "description": "While others had newer computers and consoles, I learned to make the most of what I had - creativity over hardware." }
+      {
+        "name": "Friends having cooler gadgets",
+        "description": "While others had newer computers, I learned to make the most of what I had - creativity over hardware."
+      }
     ],
     "lootDropped": [
-      { "name": "Learned how to tweak other programs", "description": "Discovered I could modify existing code and make programs do what I wanted." },
-      { "name": "Just having fun", "description": "The pure joy of creating something on a computer - no pressure, just exploration." }
+      {
+        "name": "Learned how to tweak other programs",
+        "description": "Discovered I could modify existing code and make programs do what I wanted."
+      },
+      {
+        "name": "Just having fun",
+        "description": "The pure joy of creating something on a computer - no pressure, just exploration."
+      }
     ]
   },
   {
-    "id": 2,
-    "title": "Make My First Program",
-    "image": null,
-    "questType": "main",
-    "level": 15,
     "description": "Created my first real programs using TI-83 calculator and Visual Basic. Started to understand that programming could be useful and powerful.",
-    "tools": ["TI-83 CALC", "VISUAL BASIC"],
-    "xpGained": 400,
-    "monstersDefeated": [
-      { "name": "PIRATES", "description": "Fighting against software piracy and learning the value of protecting your work." }
-    ],
+    "id": 2,
+    "image": null,
+    "level": 15,
     "lootDropped": [
-      { "name": "Made me better at languages + programming", "description": "Understanding that programming languages are tools for expression and creation." },
-      { "name": "Felt more confident I can do things useful for myself and others", "description": "Realized my skills could actually help people and solve real problems." },
-      { "name": "Got +10 coins", "description": "First taste of earning money from programming skills." }
-    ]
+      {
+        "description": "Understanding that programming languages are tools for expression and creation.",
+        "name": "Made me better at languages + programming"
+      },
+      {
+        "description": "Realized my skills could actually help people and solve real problems.",
+        "name": "Felt more confident I can do things useful for myself and others"
+      },
+      {
+        "description": "First taste of earning money from programming skills.",
+        "name": "Got +10 coins"
+      }
+    ],
+    "monstersDefeated": [
+      {
+        "description": "Fighting against software piracy and learning the value of protecting your work.",
+        "name": "PIRATES"
+      }
+    ],
+    "questType": "main",
+    "title": "Make My First Program",
+    "tools": [
+      "TI-83 CALC",
+      "VISUAL BASIC"
+    ],
+    "xpGained": 400
   },
   {
-    "id": 3,
-    "title": "Surviving University",
-    "image": null,
-    "questType": "main",
-    "level": 19,
     "description": "Moved to Skellefteå in northern Sweden to study game development for 3 years. Learned modern C++, physics, and how to live independently while pursuing my dream.",
-    "tools": ["PC", "VISUAL STUDIO", "BOOKS", "BLENDER"],
-    "xpGained": 700,
-    "monstersDefeated": [
-      { "name": "Motivation", "description": "Some days it was hard to keep going, but passion for game development kept me moving forward." }
-    ],
+    "id": 3,
+    "image": null,
+    "level": 19,
     "lootDropped": [
-      { "name": "Found love for programming", "description": "University solidified that this wasn't just a hobby - it was my calling." },
-      { "name": "Modern C++", "description": "Learned professional-grade C++ that would serve me throughout my career." },
-      { "name": "Physics for game developers", "description": "Understanding the math and physics that make games feel real." },
-      { "name": "Living by myself", "description": "Independence and self-reliance - essential life skills." },
-      { "name": "Algebra", "description": "Mathematical foundations for graphics programming and game logic." },
-      { "name": "Worlds best Rallysport driver!", "description": "Became world champion at Rallisport Challenge 2 - dedication pays off!" }
-    ]
+      {
+        "description": "University solidified that this wasn't just a hobby - it was my calling.",
+        "name": "Found love for programming"
+      },
+      {
+        "description": "Learned professional-grade C++ that would serve me throughout my career.",
+        "name": "Modern C++"
+      },
+      {
+        "description": "Understanding the math and physics that make games feel real.",
+        "name": "Physics for game developers"
+      },
+      {
+        "description": "Independence and self-reliance - essential life skills.",
+        "name": "Living by myself"
+      },
+      {
+        "description": "Mathematical foundations for graphics programming and game logic.",
+        "name": "Algebra"
+      },
+      {
+        "description": "Became world champion at Rallisport Challenge 2 - dedication pays off!",
+        "name": "Worlds best Rallysport driver!"
+      }
+    ],
+    "monstersDefeated": [
+      {
+        "description": "Some days it was hard to keep going, but passion for game development kept me moving forward.",
+        "name": "Motivation"
+      }
+    ],
+    "questType": "main",
+    "title": "Surviving University",
+    "tools": [
+      "PC",
+      "VISUAL STUDIO",
+      "BOOKS",
+      "BLENDER"
+    ],
+    "xpGained": 700
   },
   {
-    "id": 4,
-    "title": "Making a Game with Artist",
-    "image": null,
-    "questType": "side",
-    "level": 20,
     "description": "Collaborated with an artist for the first time using Gamebryo engine. Learned the delicate balance between technical constraints and artistic vision.",
-    "tools": ["Gamebryo", "C++ Knowledge"],
-    "xpGained": 200,
-    "monstersDefeated": [
-      { "name": "Compromises between tech vs art", "description": "Artists want beauty, engineers want performance - finding the middle ground is an art itself." }
-    ],
+    "id": 4,
+    "image": null,
+    "level": 20,
     "lootDropped": [
-      { "name": "Made me more understanding of how artist work", "description": "Learned to speak the artist's language and appreciate their creative process." }
-    ]
+      {
+        "description": "Learned to speak the artist's language and appreciate their creative process.",
+        "name": "Made me more understanding of how artist work"
+      }
+    ],
+    "monstersDefeated": [
+      {
+        "description": "Artists want beauty, engineers want performance - finding the middle ground is an art itself.",
+        "name": "Compromises between tech vs art"
+      }
+    ],
+    "questType": "side",
+    "title": "Making a Game with Artist",
+    "tools": [
+      "Gamebryo",
+      "C++ Knowledge"
+    ],
+    "xpGained": 200
   },
   {
-    "id": 5,
-    "title": "Making My Own Game Engine",
-    "image": null,
-    "questType": "side",
-    "level": 21,
     "description": "Built a complete game engine from scratch using advanced C++ and OpenGL. One of the most creative and challenging solo projects I've ever undertaken.",
-    "tools": ["PC", "Advanced C++ Knowledge", "OpenGL Knowledge"],
-    "xpGained": 400,
-    "monstersDefeated": [
-      { "name": "Working by myself for a long time", "description": "Solo development can be isolating, but it taught me self-discipline and perseverance." }
-    ],
+    "id": 5,
+    "image": null,
+    "level": 21,
     "lootDropped": [
-      { "name": "Working on something longer term and seeing the results of that", "description": "Patience and persistence - watching a complex system come together piece by piece." },
-      { "name": "One of the most creative things I have done", "description": "Building an engine is like creating a universe with its own rules and possibilities." },
-      { "name": "Passion + time = something unique", "description": "Discovered that deep focus over time creates something truly special." }
-    ]
+      {
+        "description": "Patience and persistence - watching a complex system come together piece by piece.",
+        "name": "Working on something longer term and seeing the results of that"
+      },
+      {
+        "description": "Building an engine is like creating a universe with its own rules and possibilities.",
+        "name": "One of the most creative things I have done"
+      },
+      {
+        "description": "Discovered that deep focus over time creates something truly special.",
+        "name": "Passion + time = something unique"
+      }
+    ],
+    "monstersDefeated": [
+      {
+        "description": "Solo development can be isolating, but it taught me self-discipline and perseverance.",
+        "name": "Working by myself for a long time"
+      }
+    ],
+    "questType": "side",
+    "title": "Making My Own Game Engine",
+    "tools": [
+      "PC",
+      "Advanced C++ Knowledge",
+      "OpenGL Knowledge"
+    ],
+    "xpGained": 400
   },
   {
-    "id": 6,
-    "title": "Making a Game for Nokia N-Gage",
-    "image": null,
-    "questType": "side",
-    "level": 22,
     "description": "Developed a game for the Nokia N-Gage platform. Working with hardware constraints taught me optimization and working with other engineers who had different approaches.",
-    "tools": ["PC", "C++ Knowledge"],
-    "xpGained": 300,
-    "monstersDefeated": [
-      { "name": "Hard to work with other engineers wanting different things", "description": "Different engineers have different coding styles and priorities - learning to collaborate and compromise." }
-    ],
+    "id": 6,
+    "image": null,
+    "level": 22,
     "lootDropped": [
-      { "name": "Learned a bit on AI programming", "description": "First exposure to game AI - making NPCs feel alive within tight memory constraints." },
-      { "name": "Really fun to work on restricted hardware", "description": "Constraints breed creativity - limited resources force innovative solutions." }
-    ]
+      {
+        "description": "First exposure to game AI - making NPCs feel alive within tight memory constraints.",
+        "name": "Learned a bit on AI programming"
+      },
+      {
+        "description": "Constraints breed creativity - limited resources force innovative solutions.",
+        "name": "Really fun to work on restricted hardware"
+      }
+    ],
+    "monstersDefeated": [
+      {
+        "description": "Different engineers have different coding styles and priorities - learning to collaborate and compromise.",
+        "name": "Hard to work with other engineers wanting different things"
+      }
+    ],
+    "questType": "side",
+    "title": "Making a Game for Nokia N-Gage",
+    "tools": [
+      "PC",
+      "C++ Knowledge"
+    ],
+    "xpGained": 300
   },
   {
-    "id": 7,
-    "title": "Agency 9",
-    "image": null,
-    "questType": "main",
-    "level": 23,
     "description": "My master's thesis and first real job in the industry. Worked with a team in Finland on COLLADA format integration with Blender. Learned the realities of professional software development.",
-    "tools": ["3 years in university", "JAVA Knowledge", "PC"],
-    "xpGained": 300,
-    "monstersDefeated": [
-      { "name": "Lots of issues working with a team in another country - no good tech spec", "description": "Cross-cultural communication challenges and poor documentation made everything harder than it needed to be." }
-    ],
+    "id": 7,
+    "image": null,
+    "level": 23,
     "lootDropped": [
-      { "name": "First job ever", "description": "Transitioned from student to professional developer - a major milestone." },
-      { "name": "Learned what was expected more and more. Accountability, ownership.", "description": "Professional responsibility means standing behind your code and taking ownership of problems." }
-    ]
+      {
+        "description": "Transitioned from student to professional developer - a major milestone.",
+        "name": "First job ever"
+      },
+      {
+        "description": "Professional responsibility means standing behind your code and taking ownership of problems.",
+        "name": "Learned what was expected more and more. Accountability, ownership."
+      }
+    ],
+    "monstersDefeated": [
+      {
+        "description": "Cross-cultural communication challenges and poor documentation made everything harder than it needed to be.",
+        "name": "Lots of issues working with a team in another country - no good tech spec"
+      }
+    ],
+    "questType": "main",
+    "title": "Agency 9",
+    "tools": [
+      "3 years in university",
+      "JAVA Knowledge",
+      "PC"
+    ],
+    "xpGained": 300
   },
   {
-    "id": 8,
-    "title": "Contribute to Open Source",
-    "image": null,
-    "questType": "side",
-    "level": 24,
     "description": "Created a Blender plugin that shipped with Blender 2.7. First contribution to open source software used by millions worldwide.",
-    "tools": ["Blender", "Python"],
-    "xpGained": 100,
-    "monstersDefeated": [],
+    "id": 8,
+    "image": null,
+    "level": 24,
     "lootDropped": [
-      { "name": "Learning about python code", "description": "Added Python to my programming toolkit - a versatile language for tools and scripting." }
-    ]
+      {
+        "description": "Added Python to my programming toolkit - a versatile language for tools and scripting.",
+        "name": "Learning about python code"
+      }
+    ],
+    "monstersDefeated": [],
+    "questType": "side",
+    "title": "Contribute to Open Source",
+    "tools": [
+      "Blender",
+      "Python"
+    ],
+    "xpGained": 100
   },
   {
-    "id": 9,
-    "title": "First Job in the Industry",
-    "image": null,
-    "questType": "main",
-    "level": 25,
     "description": "Landed my first professional game development job. All the university learning finally put into practice in a real studio environment.",
-    "tools": ["PC", "VISUAL STUDIO", "BOOKS", "BLENDER"],
-    "xpGained": 900,
-    "monstersDefeated": [
-      { "name": "Motivation", "description": "Transitioning from academic projects to professional work - the pressure is real now." }
-    ],
+    "id": 9,
+    "image": null,
+    "level": 25,
     "lootDropped": [
-      { "name": "Found love for programming", "description": "Getting paid to do what I love - the dream is real." },
-      { "name": "Modern C++", "description": "Applying professional C++ standards in production code." },
-      { "name": "Physics for game developers", "description": "Using physics knowledge to make games feel natural." },
-      { "name": "Being around people that want to learn and grow", "description": "Surrounded by passionate developers who push each other to improve." },
-      { "name": "Living by myself", "description": "Full independence as a working professional." },
-      { "name": "Complete lack of health and how it affects you", "description": "Learned the hard way that health must be prioritized - burnout is real." },
-      { "name": "Worlds best Rallysport driver!", "description": "Still got those skills!" },
-      { "name": "Even if tasks are not game related you can pretend you are and do the tasks related to that", "description": "Gamification mindset - making any task more engaging by treating it like a game quest." }
-    ]
+      {
+        "description": "Getting paid to do what I love - the dream is real.",
+        "name": "Found love for programming"
+      },
+      {
+        "description": "Applying professional C++ standards in production code.",
+        "name": "Modern C++"
+      },
+      {
+        "description": "Using physics knowledge to make games feel natural.",
+        "name": "Physics for game developers"
+      },
+      {
+        "description": "Surrounded by passionate developers who push each other to improve.",
+        "name": "Being around people that want to learn and grow"
+      },
+      {
+        "description": "Full independence as a working professional.",
+        "name": "Living by myself"
+      },
+      {
+        "description": "Learned the hard way that health must be prioritized - burnout is real.",
+        "name": "Complete lack of health and how it affects you"
+      },
+      {
+        "description": "Still got those skills!",
+        "name": "Worlds best Rallysport driver!"
+      },
+      {
+        "description": "Gamification mindset - making any task more engaging by treating it like a game quest.",
+        "name": "Even if tasks are not game related you can pretend you are and do the tasks related to that"
+      }
+    ],
+    "monstersDefeated": [
+      {
+        "description": "Transitioning from academic projects to professional work - the pressure is real now.",
+        "name": "Motivation"
+      }
+    ],
+    "questType": "main",
+    "title": "First Job in the Industry",
+    "tools": [
+      "PC",
+      "VISUAL STUDIO",
+      "BOOKS",
+      "BLENDER"
+    ],
+    "xpGained": 900
   },
   {
-    "id": 10,
-    "title": "Mirror's Edge",
-    "image": null,
-    "questType": "main",
-    "level": 27,
     "description": "Worked on Mirror's Edge at DICE. My first AAA game title. Learned Unreal Engine, animation programming, and what it really takes to ship a major game.",
-    "tools": ["Working hard in university projects", "Modern C++", "Experience from a previous job"],
-    "xpGained": 600,
-    "monstersDefeated": [
-      { "name": "Exhausted before crunch even started", "description": "The intensity of AAA development - burnout hit before the final push even began." }
-    ],
+    "id": 10,
+    "image": null,
+    "level": 27,
     "lootDropped": [
-      { "name": "Animation Programming", "description": "Specialized skill in making characters move smoothly and naturally." },
-      { "name": "Learned Unreal Engine", "description": "Mastered one of the industry's most powerful game engines." },
-      { "name": "Working through different phases of a project", "description": "Experienced the full development cycle from pre-production to launch." },
-      { "name": "Learned talking about tech to non-techy people", "description": "Communication skill - explaining complex systems in simple terms." },
-      { "name": "Learned Maya and how Technical Animators work", "description": "Understanding the artist pipeline and tools they use daily." }
-    ]
+      {
+        "description": "Specialized skill in making characters move smoothly and naturally.",
+        "name": "Animation Programming"
+      },
+      {
+        "description": "Mastered one of the industry's most powerful game engines.",
+        "name": "Learned Unreal Engine"
+      },
+      {
+        "description": "Experienced the full development cycle from pre-production to launch.",
+        "name": "Working through different phases of a project"
+      },
+      {
+        "description": "Communication skill - explaining complex systems in simple terms.",
+        "name": "Learned talking about tech to non-techy people"
+      },
+      {
+        "description": "Understanding the artist pipeline and tools they use daily.",
+        "name": "Learned Maya and how Technical Animators work"
+      }
+    ],
+    "monstersDefeated": [
+      {
+        "description": "The intensity of AAA development - burnout hit before the final push even began.",
+        "name": "Exhausted before crunch even started"
+      }
+    ],
+    "questType": "main",
+    "title": "Mirror's Edge",
+    "tools": [
+      "Working hard in university projects",
+      "Modern C++",
+      "Experience from a previous job"
+    ],
+    "xpGained": 600
   },
   {
-    "id": 11,
-    "title": "Being a Senior",
-    "image": null,
-    "questType": "side",
-    "level": 30,
     "description": "Promoted to Senior Engineer. More responsibility, mentoring others, and deeper technical challenges. Working solo on long-term systems.",
-    "tools": ["Experience from holding presentations", "Advanced C++ Knowledge", "OpenGL Knowledge"],
-    "xpGained": 400,
-    "monstersDefeated": [
-      { "name": "Working by myself for a long time", "description": "Senior engineers often tackle complex problems alone - requires mental fortitude." }
-    ],
+    "id": 11,
+    "image": null,
+    "level": 30,
     "lootDropped": [
-      { "name": "Working on something longer term and seeing the results of that", "description": "Building systems that last and evolve over years." },
-      { "name": "One of the most creative things I have done", "description": "Freedom to architect solutions from the ground up." },
-      { "name": "Passion + time = something unique", "description": "Deep expertise comes from sustained focus and dedication." }
-    ]
+      {
+        "description": "Building systems that last and evolve over years.",
+        "name": "Working on something longer term and seeing the results of that"
+      },
+      {
+        "description": "Freedom to architect solutions from the ground up.",
+        "name": "One of the most creative things I have done"
+      },
+      {
+        "description": "Deep expertise comes from sustained focus and dedication.",
+        "name": "Passion + time = something unique"
+      }
+    ],
+    "monstersDefeated": [
+      {
+        "description": "Senior engineers often tackle complex problems alone - requires mental fortitude.",
+        "name": "Working by myself for a long time"
+      }
+    ],
+    "questType": "side",
+    "title": "Being a Senior",
+    "tools": [
+      "Experience from holding presentations",
+      "Advanced C++ Knowledge",
+      "OpenGL Knowledge"
+    ],
+    "xpGained": 400
   },
   {
-    "id": 12,
-    "title": "Holding a GDC Presentation",
-    "image": null,
-    "questType": "side",
-    "level": 32,
     "description": "Presented at Game Developers Conference. Sharing knowledge with the global game development community on a topic I mastered.",
-    "tools": ["Knowledge about the topic", "General Game Development Knowledge"],
-    "xpGained": 200,
-    "monstersDefeated": [
-      { "name": "Hard to work with other engineers wanting different things", "description": "Coordinating with team members who have different visions for the presentation." }
-    ],
+    "id": 12,
+    "image": null,
+    "level": 32,
     "lootDropped": [
-      { "name": "I'm the expert on holding _this_ particular topic", "description": "Recognition as a subject matter expert in the industry." }
-    ]
+      {
+        "description": "Recognition as a subject matter expert in the industry.",
+        "name": "I'm the expert on holding _this_ particular topic"
+      }
+    ],
+    "monstersDefeated": [
+      {
+        "description": "Coordinating with team members who have different visions for the presentation.",
+        "name": "Hard to work with other engineers wanting different things"
+      }
+    ],
+    "questType": "side",
+    "title": "Holding a GDC Presentation",
+    "tools": [
+      "Knowledge about the topic",
+      "General Game Development Knowledge"
+    ],
+    "xpGained": 200
   },
   {
-    "id": 13,
-    "title": "Ship a Launch Title",
-    "image": null,
-    "questType": "main",
-    "level": 34,
     "description": "Shipped a game as a launch title for a new platform. The pressure of being one of the first games on a system is immense.",
-    "tools": ["Several years of experience", "Experience in crunching for deadlines"],
-    "xpGained": 200,
-    "monstersDefeated": [
-      { "name": "Stress and anxiety", "description": "Launch titles have no room for delay - the platform launches with or without you." }
-    ],
-    "lootDropped": [
-      { "name": "A game is larger than the participants in its development", "description": "Games become part of culture - they outlive the team that made them and touch millions of lives." }
-    ]
-  },
-  {
-    "id": 14,
-    "title": "New Job",
+    "id": 13,
     "image": null,
+    "level": 34,
+    "lootDropped": [
+      {
+        "description": "Games become part of culture - they outlive the team that made them and touch millions of lives.",
+        "name": "A game is larger than the participants in its development"
+      }
+    ],
+    "monstersDefeated": [
+      {
+        "description": "Launch titles have no room for delay - the platform launches with or without you.",
+        "name": "Stress and anxiety"
+      }
+    ],
     "questType": "main",
-    "level": 37,
+    "title": "Ship a Launch Title",
+    "tools": [
+      "Several years of experience",
+      "Experience in crunching for deadlines"
+    ],
+    "xpGained": 200
+  },
+  {
     "description": "Joined a mobile game studio. Completely different pace with 2-week release cycles on iOS and Android. Had to adapt my work style and learn new platforms.",
-    "tools": ["iOS", "Android", "2 WEEK RELEASE PROCESS", "Mac"],
-    "xpGained": 800,
-    "monstersDefeated": [
-      { "name": "Self inflicted stress", "description": "Putting too much pressure on myself - perfectionism at its worst." },
-      { "name": "Old life-style doesn't work anymore", "description": "What worked in AAA console development doesn't translate to mobile - had to reinvent my approach." }
-    ],
+    "id": 14,
+    "image": null,
+    "level": 37,
     "lootDropped": [
-      { "name": "Working with Level Designers", "description": "Collaborating closely with designers to iterate quickly on gameplay." },
-      { "name": "Values", "description": "Understanding what truly matters - work-life balance and sustainable development." },
-      { "name": "So many different crafts into making a mobile game", "description": "Mobile games require diverse skills - from performance optimization to monetization." },
-      { "name": "Unconcious Bias", "description": "Recognizing my own biases and working to overcome them." },
-      { "name": "Recruiting", "description": "Learning to identify talent and build strong teams." },
-      { "name": "Be yourself", "description": "Authenticity is more valuable than trying to fit a mold." }
-    ]
+      {
+        "description": "Collaborating closely with designers to iterate quickly on gameplay.",
+        "name": "Working with Level Designers"
+      },
+      {
+        "description": "Understanding what truly matters - work-life balance and sustainable development.",
+        "name": "Values"
+      },
+      {
+        "description": "Mobile games require diverse skills - from performance optimization to monetization.",
+        "name": "So many different crafts into making a mobile game"
+      },
+      {
+        "description": "Recognizing my own biases and working to overcome them.",
+        "name": "Unconcious Bias"
+      },
+      {
+        "description": "Learning to identify talent and build strong teams.",
+        "name": "Recruiting"
+      },
+      {
+        "description": "Authenticity is more valuable than trying to fit a mold.",
+        "name": "Be yourself"
+      }
+    ],
+    "monstersDefeated": [
+      {
+        "description": "Putting too much pressure on myself - perfectionism at its worst.",
+        "name": "Self inflicted stress"
+      },
+      {
+        "description": "What worked in AAA console development doesn't translate to mobile - had to reinvent my approach.",
+        "name": "Old life-style doesn't work anymore"
+      }
+    ],
+    "questType": "main",
+    "title": "New Job",
+    "tools": [
+      "iOS",
+      "Android",
+      "2 WEEK RELEASE PROCESS",
+      "Mac"
+    ],
+    "xpGained": 800
   },
   {
-    "id": 15,
-    "title": "Being a Mentor",
-    "image": null,
-    "questType": "side",
-    "level": 39,
     "description": "Took on formal mentorship responsibilities. Helping new engineers onboard, find their place, and grow their skills. Leadership through teaching.",
-    "tools": ["Onboarding", "Being Senior"],
-    "xpGained": 100,
-    "monstersDefeated": [],
+    "id": 15,
+    "image": null,
+    "level": 39,
     "lootDropped": [
-      { "name": "Show around an office - make sure people have someone to go for lunch with", "description": "Small acts of kindness make huge differences - making people feel welcome and included." }
-    ]
+      {
+        "description": "Small acts of kindness make huge differences - making people feel welcome and included.",
+        "name": "Show around an office - make sure people have someone to go for lunch with"
+      }
+    ],
+    "monstersDefeated": [],
+    "questType": "side",
+    "title": "Being a Mentor",
+    "tools": [
+      "Onboarding",
+      "Being Senior"
+    ],
+    "xpGained": 100
   },
   {
-    "id": 16,
-    "title": "Redesigning the Wheel",
-    "image": null,
-    "questType": "side",
-    "level": 41,
     "description": "Led a major architectural refactor. Making large-scale changes to existing systems requires careful planning, strong QA, and good version control strategy.",
-    "tools": ["Experience with larger changes", "Advanced C++ Knowledge", "Code Design Architecture Knowledge"],
-    "xpGained": 200,
+    "id": 16,
+    "image": null,
+    "level": 41,
+    "lootDropped": [],
     "monstersDefeated": [
-      { "name": "Having a good branch strategy working is crucial", "description": "Large refactors fail without proper branching - merge conflicts multiply quickly." },
-      { "name": "Having a good QA team is crucial", "description": "You can't test everything yourself - trust and empower your QA team." }
+      {
+        "description": "Large refactors fail without proper branching - merge conflicts multiply quickly.",
+        "name": "Having a good branch strategy working is crucial"
+      },
+      {
+        "description": "You can't test everything yourself - trust and empower your QA team.",
+        "name": "Having a good QA team is crucial"
+      }
     ],
-    "lootDropped": []
+    "questType": "side",
+    "title": "Redesigning the Wheel",
+    "tools": [
+      "Experience with larger changes",
+      "Advanced C++ Knowledge",
+      "Code Design Architecture Knowledge"
+    ],
+    "xpGained": 200
   }
 ]

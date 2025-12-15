@@ -1,0 +1,1492 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GameDev Survival Guide - Quest Editor</title>
+    <meta name="description" content="Quest editor for GameDev Survival Guide" />
+
+    <!-- SortableJS for drag and drop -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Cinzel:wght@400;600;700;900&family=MedievalSharp&display=swap');
+
+      /* RPG Pixel Art Theme */
+      :root {
+        /* RPG Pixel Art Palette */
+        --bg-primary: #1a0f0a;
+        --bg-secondary: #2c1810;
+        --bg-accent: #3d2419;
+
+        /* RPG Colors */
+        --red-rpg: #c9302c;
+        --blue-rpg: #4169e1;
+        --green-rpg: #228b22;
+        --gold-rpg: #daa520;
+        --purple-rpg: #8b008b;
+
+        /* Text */
+        --text-primary: #f4e4c1;
+        --text-secondary: #d4af37;
+        --text-muted: #8b7355;
+
+        /* Borders */
+        --border-rpg: rgba(218, 165, 32, 0.5);
+
+        /* Gradients */
+        --gradient-rainbow: linear-gradient(135deg, #8b0000, #ff8c00, #ffd700, #228b22, #4169e1, #8b008b);
+
+        /* Effects */
+        --shadow-gold: 0 0 20px rgba(218, 165, 32, 0.5);
+        --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.7);
+
+        /* Sizing */
+        --radius-sm: 6px;
+        --radius-md: 10px;
+        --radius-lg: 16px;
+
+        /* Animation */
+        --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+        /* Fonts */
+        --font-primary: 'Cinzel', serif;
+        --font-pixel: 'Press Start 2P', monospace;
+        --font-retro: 'MedievalSharp', cursive;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 16px;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        font-family: var(--font-primary);
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.6;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* RPG Parchment Background */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+          repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(139, 69, 19, 0.05) 4px, rgba(139, 69, 19, 0.05) 8px),
+          repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(139, 69, 19, 0.05) 4px, rgba(139, 69, 19, 0.05) 8px),
+          radial-gradient(ellipse at center, rgba(218, 165, 32, 0.03), transparent);
+        pointer-events: none;
+        z-index: 0;
+        image-rendering: pixelated;
+      }
+
+      /* ==========================================
+         EDITOR-SPECIFIC STYLES
+         ========================================== */
+
+      /* Editor Mode Badge */
+      .editor-mode-badge {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: var(--gold-rpg);
+        color: var(--bg-primary);
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-family: var(--font-pixel);
+        font-size: 0.75rem;
+        z-index: 9999;
+        box-shadow: 0 4px 20px rgba(218, 165, 32, 0.5);
+      }
+
+      /* Save Status Indicator */
+      .save-status {
+        position: fixed;
+        top: 60px;
+        right: 10px;
+        background: rgba(60, 44, 30, 0.95);
+        border: 2px solid var(--border-rpg);
+        border-radius: 6px;
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      }
+
+      .save-status .save-icon {
+        font-size: 1rem;
+      }
+
+      .save-status .save-icon.spinning {
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      /* Publish Button */
+      .publish-button {
+        position: fixed;
+        top: 110px;
+        right: 10px;
+        background: linear-gradient(135deg, #8b0000, #dc143c);
+        border: 2px solid #ffd700;
+        color: #ffd700;
+        padding: 0.75rem 1.25rem;
+        border-radius: 6px;
+        font-family: var(--font-pixel);
+        font-size: 0.75rem;
+        cursor: pointer;
+        z-index: 9999;
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        transition: all var(--transition-base);
+      }
+
+      .publish-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+      }
+
+      /* Quest Card Editor Controls */
+      .quest-card-controls {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        display: flex;
+        gap: 0.25rem;
+        z-index: 10;
+      }
+
+      .editor-btn {
+        width: 32px;
+        height: 32px;
+        border: 2px solid var(--gold-rpg);
+        border-radius: 6px;
+        background: rgba(139, 69, 19, 0.8);
+        color: var(--gold-rpg);
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all var(--transition-fast);
+      }
+
+      .editor-btn:hover {
+        background: rgba(218, 165, 32, 0.3);
+        transform: scale(1.1);
+      }
+
+      .editor-btn-drag {
+        cursor: move;
+      }
+
+      .editor-btn-edit {
+        font-size: 0.875rem;
+      }
+
+      .editor-btn-delete {
+        border-color: var(--red-rpg);
+        color: var(--red-rpg);
+      }
+
+      .editor-btn-delete:hover {
+        background: rgba(201, 48, 44, 0.3);
+      }
+
+      /* Add Quest Card */
+      .quest-card-add {
+        border: 3px dashed var(--border-rpg);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1rem;
+        min-height: 280px;
+        background: rgba(60, 44, 30, 0.3);
+      }
+
+      .quest-card-add:hover {
+        border-color: var(--gold-rpg);
+        background: rgba(218, 165, 32, 0.1);
+      }
+
+      .add-quest-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .add-icon {
+        font-size: 3rem;
+        color: var(--gold-rpg);
+      }
+
+      .add-text {
+        font-family: var(--font-pixel);
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+      }
+
+      /* Character Editor Buttons */
+      .character-edit-btn {
+        background: transparent;
+        border: 1px solid var(--border-rpg);
+        color: var(--gold-rpg);
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        cursor: pointer;
+        margin-left: 0.5rem;
+        transition: all var(--transition-fast);
+      }
+
+      .character-edit-btn:hover {
+        background: rgba(218, 165, 32, 0.2);
+        border-color: var(--gold-rpg);
+      }
+
+      /* Form Styles */
+      .quest-edit-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .form-section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+      }
+
+      .form-section label {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--gold-rpg);
+        font-family: var(--font-pixel);
+      }
+
+      .form-section input,
+      .form-section textarea,
+      .form-section select {
+        background: rgba(139, 69, 19, 0.3);
+        border: 2px solid var(--border-rpg);
+        border-radius: var(--radius-sm);
+        padding: 0.75rem;
+        color: var(--text-primary);
+        font-family: var(--font-primary);
+        font-size: 1rem;
+      }
+
+      .form-section input:focus,
+      .form-section textarea:focus,
+      .form-section select:focus {
+        outline: none;
+        border-color: var(--gold-rpg);
+        box-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
+      }
+
+      .form-section small {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+      }
+
+      /* Dynamic List Editors */
+      .list-editor {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .list-item-editor {
+        background: rgba(139, 69, 19, 0.2);
+        border: 2px solid var(--border-rpg);
+        border-radius: var(--radius-sm);
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        position: relative;
+      }
+
+      .list-item-editor .remove-item-btn {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        background: var(--red-rpg);
+        border: none;
+        color: white;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .list-item-editor .remove-item-btn:hover {
+        background: #dc143c;
+      }
+
+      /* Button Styles */
+      .btn-primary {
+        background: linear-gradient(135deg, #228b22, #32cd32);
+        border: 2px solid #90ee90;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-family: var(--font-pixel);
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all var(--transition-base);
+      }
+
+      .btn-primary:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(34, 139, 34, 0.5);
+      }
+
+      .btn-secondary {
+        background: rgba(139, 69, 19, 0.6);
+        border: 2px solid var(--border-rpg);
+        color: var(--text-primary);
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-family: var(--font-pixel);
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all var(--transition-base);
+      }
+
+      .btn-secondary:hover {
+        border-color: var(--gold-rpg);
+      }
+
+      .btn-add {
+        background: linear-gradient(135deg, #4169e1, #6495ed);
+        border: 2px solid #87ceeb;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-family: var(--font-pixel);
+        font-size: 0.75rem;
+        cursor: pointer;
+        transition: all var(--transition-base);
+      }
+
+      .btn-add:hover {
+        transform: scale(1.05);
+      }
+
+      .form-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1rem;
+      }
+
+      /* Sortable Ghost */
+      .quest-card-ghost {
+        opacity: 0.4;
+      }
+
+      .quest-card-dragging {
+        cursor: grabbing !important;
+      }
+
+      /* ==========================================
+         BASE STYLES (from index.html)
+         ========================================== */
+
+      .container {
+        position: relative;
+        z-index: 1;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem 4rem;
+      }
+
+      /* Header with retro gaming style */
+      .hero {
+        text-align: center;
+        padding: 1rem 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .hero h1 {
+        font-family: var(--font-retro);
+        font-size: 1.5rem;
+        background: var(--gradient-rainbow);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      @media (min-width: 768px) {
+        .hero h1 {
+          font-size: 1.75rem;
+        }
+      }
+
+      /* Stats Bar */
+      .stats-bar {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        gap: 2rem;
+        background: linear-gradient(135deg, rgba(139, 69, 19, 0.3), rgba(60, 44, 30, 0.3));
+        border: 3px double var(--border-rpg);
+        border-radius: var(--radius-md);
+        padding: 1.5rem 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        align-items: start;
+      }
+
+      .stats-bar .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .stats-bar .stat-icon {
+        font-size: 2rem;
+      }
+
+      .stats-bar .stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--gold-rpg);
+        text-shadow: 0 0 10px var(--gold-rpg);
+        font-family: var(--font-pixel);
+      }
+
+      .stats-bar .stat-label {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Character Status Section */
+      .character-status {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
+      }
+
+      .status-section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .status-title {
+        font-size: 0.875rem;
+        color: var(--gold-rpg);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .status-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+      }
+
+      .status-badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .status-badge-trait {
+        background: rgba(34, 139, 34, 0.3);
+        border: 2px solid var(--green-rpg);
+        color: var(--text-primary);
+      }
+
+      .status-badge-curse {
+        background: rgba(139, 0, 0, 0.3);
+        border: 2px solid var(--red-rpg);
+        color: var(--text-primary);
+      }
+
+      /* Quest Grid */
+      .quest-grid {
+        display: grid;
+        gap: 2rem;
+        padding: 2rem 0;
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      }
+
+      /* Quest Cards */
+      .quest-card {
+        background: linear-gradient(135deg, rgba(60, 44, 30, 0.8), rgba(44, 32, 22, 0.9));
+        border: 3px solid var(--border-rpg);
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        transition: all var(--transition-base);
+        overflow: hidden;
+        position: relative;
+        box-shadow: inset 0 0 20px rgba(139, 69, 19, 0.2), 0 4px 15px rgba(0, 0, 0, 0.5);
+        min-height: 280px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .quest-card:hover {
+        transform: translateY(-5px) scale(1.02);
+        border-color: var(--gold-rpg);
+        box-shadow: inset 0 0 30px rgba(218, 165, 32, 0.3), 0 8px 30px rgba(218, 165, 32, 0.4);
+      }
+
+      .quest-card-header {
+        padding: 0.75rem;
+        background: rgba(139, 69, 19, 0.4);
+        border-bottom: 2px solid var(--border-rpg);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .quest-level-badge {
+        background: linear-gradient(135deg, rgba(139, 69, 19, 0.9), rgba(60, 44, 30, 0.9));
+        border: 2px solid var(--gold-rpg);
+        border-radius: 6px;
+        padding: 0.25rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--gold-rpg);
+        font-family: var(--font-pixel);
+        text-shadow: 0 0 10px rgba(218, 165, 32, 0.5);
+      }
+
+      .quest-badge {
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-family: var(--font-pixel);
+      }
+
+      .quest-badge-main {
+        background: linear-gradient(135deg, #8b0000, #dc143c);
+        border: 2px solid #ffd700;
+        color: #ffd700;
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+      }
+
+      .quest-badge-side {
+        background: linear-gradient(135deg, #4169e1, #6495ed);
+        border: 2px solid #87ceeb;
+        color: #f4e4c1;
+        box-shadow: 0 0 10px rgba(135, 206, 235, 0.3);
+      }
+
+      .quest-card-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-bottom: 2px solid var(--border-rpg);
+        image-rendering: pixelated;
+      }
+
+      .quest-card-body {
+        padding: 1.25rem;
+        min-height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+      }
+
+      .quest-card-title {
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        text-align: center;
+        line-height: 1.4;
+        font-family: var(--font-pixel);
+        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+      }
+
+      .quest-card-footer {
+        padding: 0.75rem 1.25rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-top: 2px solid var(--border-rpg);
+        display: flex;
+        justify-content: space-around;
+        gap: 0.5rem;
+      }
+
+      .quest-stat {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--gold-rpg);
+        font-family: var(--font-pixel);
+        white-space: nowrap;
+      }
+
+      /* Modal Overlay */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+      }
+
+      .modal-overlay.active {
+        display: flex;
+      }
+
+      /* Quest Modal */
+      .quest-modal {
+        background: linear-gradient(135deg, rgba(60, 44, 30, 0.98), rgba(44, 32, 22, 0.99));
+        border: 4px double var(--gold-rpg);
+        border-radius: var(--radius-lg);
+        max-width: 800px;
+        width: 100%;
+        max-height: 85vh;
+        overflow-y: auto;
+        box-shadow: inset 0 0 50px rgba(218, 165, 32, 0.2), 0 0 50px rgba(218, 165, 32, 0.5);
+        position: relative;
+      }
+
+      .modal-header {
+        position: sticky;
+        top: 0;
+        background: linear-gradient(135deg, rgba(60, 44, 30, 1), rgba(44, 32, 22, 1));
+        border-bottom: 3px solid var(--gold-rpg);
+        padding: 1.5rem 4rem 1.5rem 1.5rem;
+        z-index: 10;
+      }
+
+      .modal-title {
+        font-family: var(--font-pixel);
+        color: var(--gold-rpg);
+        font-size: 1.25rem;
+        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+        background: rgba(139, 69, 19, 0.6);
+        border: 2px solid var(--gold-rpg);
+        border-radius: 6px;
+        color: var(--gold-rpg);
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all var(--transition-base);
+        font-weight: bold;
+      }
+
+      .modal-close:hover {
+        background: rgba(218, 165, 32, 0.3);
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(218, 165, 32, 0.5);
+      }
+
+      .modal-body {
+        padding: 2rem;
+      }
+
+      /* Responsive Grid */
+      @media (min-width: 768px) {
+        .quest-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .quest-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media (min-width: 1440px) {
+        .quest-grid {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 2.5rem;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .quest-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .stats-bar {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+
+        .quest-card {
+          min-height: 240px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Editor Mode Badge -->
+    <div class="editor-mode-badge">✏️ EDITOR MODE</div>
+
+    <!-- Save Status Indicator -->
+    <div class="save-status" id="saveStatus">
+      <span class="save-icon">💾</span>
+      <span class="save-text">Ready</span>
+    </div>
+
+    <!-- Publish Button -->
+    <button class="publish-button" onclick="publishSite()">🚀 Publish</button>
+
+    <div class="container">
+      <header class="hero">
+        <h1>Game Developer Survival Guide</h1>
+      </header>
+
+      <!-- Stats Bar -->
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-icon">👹</span>
+          <span class="stat-value" id="statMonsters">0</span>
+          <span class="stat-label">Monsters</span>
+        </div>
+
+        <div class="character-status">
+          <div class="status-section">
+            <div class="status-title">
+              ✨ Traits
+              <button class="character-edit-btn" onclick="openCharacterEditor('traits')">✏️</button>
+            </div>
+            <div class="status-list" id="characterTraits">
+              <!-- Character traits will be dynamically rendered -->
+            </div>
+          </div>
+          <div class="status-section">
+            <div class="status-title">
+              💀 Curses
+              <button class="character-edit-btn" onclick="openCharacterEditor('curses')">✏️</button>
+            </div>
+            <div class="status-list" id="characterCurses">
+              <!-- Character curses will be dynamically rendered -->
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <span class="stat-icon">✅</span>
+          <span class="stat-value" id="statQuests">0</span>
+          <span class="stat-label">Quests</span>
+        </div>
+      </div>
+
+      <!-- Quest Grid -->
+      <main class="quest-grid" id="questGrid">
+        <!-- Quest cards will be rendered here by JavaScript -->
+      </main>
+    </div>
+
+    <!-- Quest Modal -->
+    <div class="modal-overlay" id="questModal">
+      <div class="quest-modal">
+        <div class="modal-header">
+          <h2 class="modal-title" id="modalTitle">Quest Title</h2>
+          <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body" id="modalBody">
+          <!-- Content will be inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ==========================================
+      // EDITOR API CLIENT
+      // ==========================================
+
+      class EditorAPI {
+        constructor(baseUrl = 'http://localhost:5001') {
+          this.baseUrl = baseUrl;
+        }
+
+        async getQuests() {
+          const response = await fetch(`${this.baseUrl}/api/quests`);
+          if (!response.ok) throw new Error('Failed to load quests');
+          return response.json();
+        }
+
+        async saveQuests(quests) {
+          const response = await fetch(`${this.baseUrl}/api/quests`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(quests)
+          });
+          if (!response.ok) throw new Error('Failed to save quests');
+          return response.json();
+        }
+
+        async getCharacter() {
+          const response = await fetch(`${this.baseUrl}/api/character`);
+          if (!response.ok) throw new Error('Failed to load character data');
+          return response.json();
+        }
+
+        async saveCharacter(character) {
+          const response = await fetch(`${this.baseUrl}/api/character`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(character)
+          });
+          if (!response.ok) throw new Error('Failed to save character data');
+          return response.json();
+        }
+
+        async publish() {
+          const response = await fetch(`${this.baseUrl}/api/publish`, {
+            method: 'POST'
+          });
+          if (!response.ok) throw new Error('Failed to publish');
+          return response.json();
+        }
+      }
+
+      const api = new EditorAPI();
+
+      // ==========================================
+      // GLOBAL STATE
+      // ==========================================
+
+      let quests = [];
+      let characterData = { traits: [], curses: [] };
+      let saveTimeout = null;
+      const SAVE_DELAY = 1000; // 1 second
+
+      // ==========================================
+      // AUTO-SAVE FUNCTIONALITY
+      // ==========================================
+
+      function updateSaveStatus(status) {
+        const saveEl = document.getElementById('saveStatus');
+        const icon = saveEl.querySelector('.save-icon');
+        const text = saveEl.querySelector('.save-text');
+
+        switch(status) {
+          case 'saving':
+            icon.className = 'save-icon spinning';
+            icon.textContent = '💾';
+            text.textContent = 'Saving...';
+            break;
+          case 'saved':
+            icon.className = 'save-icon';
+            icon.textContent = '✅';
+            text.textContent = 'Saved';
+            break;
+          case 'error':
+            icon.className = 'save-icon';
+            icon.textContent = '❌';
+            text.textContent = 'Error';
+            break;
+          case 'ready':
+            icon.className = 'save-icon';
+            icon.textContent = '💾';
+            text.textContent = 'Ready';
+            break;
+        }
+      }
+
+      function scheduleAutoSave(type = 'quests') {
+        clearTimeout(saveTimeout);
+        updateSaveStatus('saving');
+
+        saveTimeout = setTimeout(async () => {
+          try {
+            if (type === 'quests') {
+              await api.saveQuests(quests);
+            } else if (type === 'character') {
+              await api.saveCharacter(characterData);
+            }
+            updateSaveStatus('saved');
+            setTimeout(() => updateSaveStatus('ready'), 2000);
+          } catch (error) {
+            console.error('Auto-save failed:', error);
+            updateSaveStatus('error');
+          }
+        }, SAVE_DELAY);
+      }
+
+      // ==========================================
+      // INITIALIZATION
+      // ==========================================
+
+      async function init() {
+        try {
+          // Load data from API
+          quests = await api.getQuests();
+          characterData = await api.getCharacter();
+
+          // Render everything
+          renderCharacterData();
+          calculateAndRenderStats();
+          renderQuestGrid();
+          setupEventListeners();
+          initDragAndDrop();
+
+          console.log('✅ Editor initialized successfully');
+        } catch (error) {
+          console.error('❌ Failed to initialize editor:', error);
+          alert('Failed to load editor data. Make sure the backend server is running.');
+        }
+      }
+
+      // ==========================================
+      // CHARACTER DATA RENDERING
+      // ==========================================
+
+      function renderCharacterData() {
+        const traitsContainer = document.getElementById('characterTraits');
+        const cursesContainer = document.getElementById('characterCurses');
+
+        traitsContainer.innerHTML = characterData.traits
+          .map(t => `<span class="status-badge status-badge-trait">${t.text}</span>`)
+          .join('');
+
+        cursesContainer.innerHTML = characterData.curses
+          .map(c => `<span class="status-badge status-badge-curse">${c.text}</span>`)
+          .join('');
+      }
+
+      // ==========================================
+      // CHARACTER EDITOR
+      // ==========================================
+
+      function openCharacterEditor(type) {
+        const modal = document.getElementById('questModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+
+        const title = type === 'traits' ? '✨ Edit Traits' : '💀 Edit Curses';
+        const items = characterData[type];
+
+        modalTitle.textContent = title;
+        modalBody.innerHTML = `
+          <div class="list-editor" id="characterEditorList">
+            ${items.map((item, index) => `
+              <div class="list-item-editor">
+                <input type="text" value="${item.text}" data-index="${index}"
+                       style="background: rgba(139, 69, 19, 0.3); border: 2px solid var(--border-rpg);
+                              border-radius: 6px; padding: 0.75rem; color: var(--text-primary);
+                              font-family: var(--font-primary); width: 100%;" />
+                <button class="remove-item-btn" onclick="removeCharacterItem('${type}', ${index})">✕</button>
+              </div>
+            `).join('')}
+          </div>
+          <button class="btn-add" onclick="addCharacterItem('${type}')" style="margin-top: 1rem;">
+            + Add ${type === 'traits' ? 'Trait' : 'Curse'}
+          </button>
+          <div class="form-actions">
+            <button class="btn-primary" onclick="saveCharacterEditor('${type}')">💾 Save</button>
+            <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+          </div>
+        `;
+
+        modal.classList.add('active');
+      }
+
+      function addCharacterItem(type) {
+        const nextId = Math.max(...characterData[type].map(i => i.id), 0) + 1;
+        characterData[type].push({ id: nextId, text: '' });
+        openCharacterEditor(type);
+      }
+
+      function removeCharacterItem(type, index) {
+        characterData[type].splice(index, 1);
+        openCharacterEditor(type);
+      }
+
+      function saveCharacterEditor(type) {
+        const inputs = document.querySelectorAll('#characterEditorList input');
+        const newItems = [];
+
+        inputs.forEach((input, index) => {
+          const text = input.value.trim();
+          if (text) {
+            newItems.push({ id: index + 1, text });
+          }
+        });
+
+        characterData[type] = newItems;
+        renderCharacterData();
+        scheduleAutoSave('character');
+        closeModal();
+      }
+
+      // ==========================================
+      // QUEST RENDERING
+      // ==========================================
+
+      function calculateAndRenderStats() {
+        const totalMonsters = quests.reduce((sum, q) => sum + q.monstersDefeated.length, 0);
+        const totalQuests = quests.length;
+
+        document.getElementById('statMonsters').textContent = totalMonsters;
+        document.getElementById('statQuests').textContent = totalQuests;
+      }
+
+      function renderQuestGrid() {
+        const gridContainer = document.getElementById('questGrid');
+        gridContainer.innerHTML = '';
+
+        quests.forEach(quest => {
+          const card = createQuestCard(quest);
+          gridContainer.appendChild(card);
+        });
+
+        // Add "Add Quest" card
+        const addCard = document.createElement('div');
+        addCard.className = 'quest-card quest-card-add';
+        addCard.onclick = () => openQuestEditModal(null);
+        addCard.innerHTML = `
+          <div class="add-quest-content">
+            <span class="add-icon">➕</span>
+            <span class="add-text">Add New Quest</span>
+          </div>
+        `;
+        gridContainer.appendChild(addCard);
+      }
+
+      function createQuestCard(quest) {
+        const card = document.createElement('div');
+        card.className = 'quest-card';
+        card.setAttribute('data-quest-id', quest.id);
+
+        const badgeText = quest.questType === 'main' ? '⚔️ Main' : '🗡️ Side';
+        const badgeClass = `quest-badge-${quest.questType}`;
+
+        card.innerHTML = `
+          <div class="quest-card-controls">
+            <button class="editor-btn editor-btn-drag" title="Drag to reorder">⋮⋮</button>
+            <button class="editor-btn editor-btn-edit" onclick="event.stopPropagation(); openQuestEditModal(${quest.id})" title="Edit">✏️</button>
+            <button class="editor-btn editor-btn-delete" onclick="event.stopPropagation(); deleteQuest(${quest.id})" title="Delete">🗑️</button>
+          </div>
+          <div class="quest-card-header">
+            <div class="quest-level-badge">LVL ${quest.level}</div>
+            <div class="quest-badge ${badgeClass}">${badgeText}</div>
+          </div>
+          ${quest.image ? `
+            <img class="quest-card-image" src="${quest.image}" alt="${quest.title}" />
+          ` : ''}
+          <div class="quest-card-body">
+            <h3 class="quest-card-title">${quest.title}</h3>
+          </div>
+          <div class="quest-card-footer">
+            <span class="quest-stat">⭐ ${quest.xpGained}</span>
+            <span class="quest-stat">👹 ${quest.monstersDefeated.length}</span>
+            <span class="quest-stat">💎 ${quest.lootDropped.length}</span>
+          </div>
+        `;
+
+        return card;
+      }
+
+      // ==========================================
+      // QUEST EDITOR
+      // ==========================================
+
+      function openQuestEditModal(questId) {
+        const modal = document.getElementById('questModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+
+        let quest;
+        if (questId === null) {
+          // Create new quest
+          const nextId = Math.max(...quests.map(q => q.id), 0) + 1;
+          quest = {
+            id: nextId,
+            title: '',
+            image: null,
+            questType: 'main',
+            level: 1,
+            description: '',
+            tools: [],
+            xpGained: 0,
+            monstersDefeated: [],
+            lootDropped: []
+          };
+        } else {
+          quest = quests.find(q => q.id === questId);
+        }
+
+        if (!quest) return;
+
+        modalTitle.textContent = questId === null ? '➕ Add New Quest' : '✏️ Edit Quest';
+        modalBody.innerHTML = `
+          <form id="questEditForm" class="quest-edit-form" onsubmit="event.preventDefault(); saveQuest(${questId});">
+            <div class="form-section">
+              <label>Title *</label>
+              <input type="text" name="title" value="${quest.title}" required />
+            </div>
+
+            <div class="form-row">
+              <div class="form-section">
+                <label>Quest Type *</label>
+                <select name="questType" required>
+                  <option value="main" ${quest.questType === 'main' ? 'selected' : ''}>⚔️ Main</option>
+                  <option value="side" ${quest.questType === 'side' ? 'selected' : ''}>🗡️ Side</option>
+                </select>
+              </div>
+
+              <div class="form-section">
+                <label>Level *</label>
+                <input type="number" name="level" value="${quest.level}" min="1" max="99" required />
+              </div>
+
+              <div class="form-section">
+                <label>XP Gained *</label>
+                <input type="number" name="xpGained" value="${quest.xpGained}" min="0" required />
+              </div>
+            </div>
+
+            <div class="form-section">
+              <label>Image URL</label>
+              <input type="url" name="image" value="${quest.image || ''}" placeholder="https://..." />
+              <small>Leave empty for no image</small>
+            </div>
+
+            <div class="form-section">
+              <label>Description *</label>
+              <textarea name="description" rows="4" required>${quest.description}</textarea>
+            </div>
+
+            <div class="form-section">
+              <label>Tools (comma-separated)</label>
+              <input type="text" name="tools" value="${quest.tools.join(', ')}" />
+            </div>
+
+            <div class="form-section">
+              <label>Monsters Defeated</label>
+              <div class="list-editor" id="monstersEditor">
+                ${quest.monstersDefeated.map((monster, index) => `
+                  <div class="list-item-editor">
+                    <input type="text" placeholder="Monster name" value="${monster.name}" data-index="${index}" data-field="name" />
+                    <textarea placeholder="Monster description" rows="2" data-index="${index}" data-field="description">${monster.description}</textarea>
+                    <button type="button" class="remove-item-btn" onclick="removeMonster(${index})">✕</button>
+                  </div>
+                `).join('')}
+              </div>
+              <button type="button" class="btn-add" onclick="addMonster()">+ Add Monster</button>
+            </div>
+
+            <div class="form-section">
+              <label>Loot Dropped</label>
+              <div class="list-editor" id="lootEditor">
+                ${quest.lootDropped.map((loot, index) => `
+                  <div class="list-item-editor">
+                    <input type="text" placeholder="Loot name" value="${loot.name}" data-index="${index}" data-field="name" />
+                    <textarea placeholder="Loot description" rows="2" data-index="${index}" data-field="description">${loot.description}</textarea>
+                    <button type="button" class="remove-item-btn" onclick="removeLoot(${index})">✕</button>
+                  </div>
+                `).join('')}
+              </div>
+              <button type="button" class="btn-add" onclick="addLoot()">+ Add Loot</button>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">💾 Save Quest</button>
+              <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
+            </div>
+          </form>
+        `;
+
+        modal.classList.add('active');
+      }
+
+      function addMonster() {
+        const editor = document.getElementById('monstersEditor');
+        const index = editor.children.length;
+        const newItem = document.createElement('div');
+        newItem.className = 'list-item-editor';
+        newItem.innerHTML = `
+          <input type="text" placeholder="Monster name" value="" data-index="${index}" data-field="name"
+                 style="background: rgba(139, 69, 19, 0.3); border: 2px solid var(--border-rpg); border-radius: 6px;
+                        padding: 0.75rem; color: var(--text-primary); font-family: var(--font-primary); width: 100%; margin-bottom: 0.5rem;" />
+          <textarea placeholder="Monster description" rows="2" data-index="${index}" data-field="description"
+                    style="background: rgba(139, 69, 19, 0.3); border: 2px solid var(--border-rpg); border-radius: 6px;
+                           padding: 0.75rem; color: var(--text-primary); font-family: var(--font-primary); width: 100%;"></textarea>
+          <button type="button" class="remove-item-btn" onclick="this.parentElement.remove()">✕</button>
+        `;
+        editor.appendChild(newItem);
+      }
+
+      function removeMonster(index) {
+        const editor = document.getElementById('monstersEditor');
+        editor.children[index].remove();
+      }
+
+      function addLoot() {
+        const editor = document.getElementById('lootEditor');
+        const index = editor.children.length;
+        const newItem = document.createElement('div');
+        newItem.className = 'list-item-editor';
+        newItem.innerHTML = `
+          <input type="text" placeholder="Loot name" value="" data-index="${index}" data-field="name"
+                 style="background: rgba(139, 69, 19, 0.3); border: 2px solid var(--border-rpg); border-radius: 6px;
+                        padding: 0.75rem; color: var(--text-primary); font-family: var(--font-primary); width: 100%; margin-bottom: 0.5rem;" />
+          <textarea placeholder="Loot description" rows="2" data-index="${index}" data-field="description"
+                    style="background: rgba(139, 69, 19, 0.3); border: 2px solid var(--border-rpg); border-radius: 6px;
+                           padding: 0.75rem; color: var(--text-primary); font-family: var(--font-primary); width: 100%;"></textarea>
+          <button type="button" class="remove-item-btn" onclick="this.parentElement.remove()">✕</button>
+        `;
+        editor.appendChild(newItem);
+      }
+
+      function removeLoot(index) {
+        const editor = document.getElementById('lootEditor');
+        editor.children[index].remove();
+      }
+
+      function saveQuest(questId) {
+        const form = document.getElementById('questEditForm');
+        const formData = new FormData(form);
+
+        // Collect monsters
+        const monstersEditor = document.getElementById('monstersEditor');
+        const monsters = [];
+        for (let item of monstersEditor.children) {
+          const name = item.querySelector('[data-field="name"]').value.trim();
+          const description = item.querySelector('[data-field="description"]').value.trim();
+          if (name) {
+            monsters.push({ name, description });
+          }
+        }
+
+        // Collect loot
+        const lootEditor = document.getElementById('lootEditor');
+        const loot = [];
+        for (let item of lootEditor.children) {
+          const name = item.querySelector('[data-field="name"]').value.trim();
+          const description = item.querySelector('[data-field="description"]').value.trim();
+          if (name) {
+            loot.push({ name, description });
+          }
+        }
+
+        // Build quest object
+        const tools = formData.get('tools').split(',').map(t => t.trim()).filter(t => t);
+        const imageValue = formData.get('image').trim();
+
+        const questData = {
+          id: questId || (Math.max(...quests.map(q => q.id), 0) + 1),
+          title: formData.get('title'),
+          image: imageValue || null,
+          questType: formData.get('questType'),
+          level: parseInt(formData.get('level')),
+          description: formData.get('description'),
+          tools: tools,
+          xpGained: parseInt(formData.get('xpGained')),
+          monstersDefeated: monsters,
+          lootDropped: loot
+        };
+
+        // Save to quests array
+        if (questId === null) {
+          quests.push(questData);
+        } else {
+          const index = quests.findIndex(q => q.id === questId);
+          if (index !== -1) {
+            quests[index] = questData;
+          }
+        }
+
+        // Re-render and save
+        calculateAndRenderStats();
+        renderQuestGrid();
+        initDragAndDrop();
+        scheduleAutoSave('quests');
+        closeModal();
+      }
+
+      function deleteQuest(questId) {
+        const quest = quests.find(q => q.id === questId);
+        if (!quest) return;
+
+        if (confirm(`Delete quest "${quest.title}"?\n\nThis action cannot be undone.`)) {
+          quests = quests.filter(q => q.id !== questId);
+          calculateAndRenderStats();
+          renderQuestGrid();
+          initDragAndDrop();
+          scheduleAutoSave('quests');
+        }
+      }
+
+      // ==========================================
+      // DRAG AND DROP
+      // ==========================================
+
+      let sortable;
+
+      function initDragAndDrop() {
+        const questGrid = document.getElementById('questGrid');
+
+        if (sortable) {
+          sortable.destroy();
+        }
+
+        sortable = Sortable.create(questGrid, {
+          animation: 150,
+          handle: '.editor-btn-drag',
+          ghostClass: 'quest-card-ghost',
+          dragClass: 'quest-card-dragging',
+          filter: '.quest-card-add',
+          onEnd: function(evt) {
+            // Ignore if it's the add card
+            if (evt.item.classList.contains('quest-card-add')) return;
+
+            // Reorder quests array
+            const movedQuest = quests.splice(evt.oldIndex, 1)[0];
+            quests.splice(evt.newIndex, 0, movedQuest);
+
+            // Save
+            scheduleAutoSave('quests');
+          }
+        });
+      }
+
+      // ==========================================
+      // PUBLISHING
+      // ==========================================
+
+      async function publishSite() {
+        const confirmed = confirm(
+          '🚀 Publish Site\n\n' +
+          'This will generate a new index.html with all quest and character data embedded.\n' +
+          'The published file will be standalone and can be deployed anywhere.\n\n' +
+          'Continue?'
+        );
+
+        if (!confirmed) return;
+
+        try {
+          updateSaveStatus('saving');
+          const result = await api.publish();
+
+          alert(
+            '✅ Published Successfully!\n\n' +
+            `File: ${result.file}\n\n` +
+            'You can now deploy index.html to any static hosting service.'
+          );
+
+          updateSaveStatus('saved');
+          setTimeout(() => updateSaveStatus('ready'), 2000);
+        } catch (error) {
+          console.error('Publish failed:', error);
+          alert('❌ Publish failed: ' + error.message);
+          updateSaveStatus('error');
+        }
+      }
+
+      // ==========================================
+      // MODAL MANAGEMENT
+      // ==========================================
+
+      function closeModal() {
+        document.getElementById('questModal').classList.remove('active');
+      }
+
+      function setupEventListeners() {
+        // Close modal on escape
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            closeModal();
+          }
+        });
+
+        // Close modal on overlay click
+        document.getElementById('questModal').addEventListener('click', (e) => {
+          if (e.target.id === 'questModal') {
+            closeModal();
+          }
+        });
+      }
+
+      // ==========================================
+      // INITIALIZE ON LOAD
+      // ==========================================
+
+      document.addEventListener('DOMContentLoaded', init);
+
+      // Make functions globally available
+      window.openCharacterEditor = openCharacterEditor;
+      window.addCharacterItem = addCharacterItem;
+      window.removeCharacterItem = removeCharacterItem;
+      window.saveCharacterEditor = saveCharacterEditor;
+      window.openQuestEditModal = openQuestEditModal;
+      window.addMonster = addMonster;
+      window.removeMonster = removeMonster;
+      window.addLoot = addLoot;
+      window.removeLoot = removeLoot;
+      window.saveQuest = saveQuest;
+      window.deleteQuest = deleteQuest;
+      window.publishSite = publishSite;
+      window.closeModal = closeModal;
+    </script>
+  </body>
+</html>

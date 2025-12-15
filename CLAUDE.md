@@ -8,21 +8,38 @@ This is the GameDev Survival Guide - a documentation project providing practical
 
 ## Project Structure
 
-- `index.html`: Interactive matrix tool for mapping software engineering expectations by level and topic (layout only)
-- `data/quests.json`: Quest content data (separate from layout)
-- `scripts/serve.sh`: Local development server
+### Core Application Files
+- `index.html`: Published output (standalone, generated from editor, deployed to static hosting)
+- `index.template.html`: Template for publishing with `{{QUESTS_DATA}}` and `{{CHARACTER_DATA}}` placeholders
+- `editor.html`: Visual quest editor with drag-and-drop support
+
+### Data Files
+- `data/quests.json`: Quest content data (16 quests with full metadata)
+- `data/character.json`: Character traits and curses (editable via editor)
+
+### Backend
+- `scripts/editor_server.py`: Flask API server providing quest/character CRUD and publishing
+- `scripts/editor.sh`: Launcher script for editor server
+- `scripts/serve.sh`: Simple static file server for published site
+
+### Documentation
 - `AGENTS.md`: Repository guidelines and conventions for contributors
-- `docs/` (planned): Markdown chapters and guides with numbered prefixes for ordering
-- `assets/` (planned): Images and media referenced by documentation
-- `examples/` (planned): Minimal, runnable samples referenced by chapters
-- `tests/` (planned): Content validation checks
+- `CLAUDE.md`: This file - AI assistant guidance
+
+### Planned Structure
+- `docs/`: Markdown chapters and guides with numbered prefixes for ordering
+- `assets/`: Images and media referenced by documentation
+- `examples/`: Minimal, runnable samples referenced by chapters
+- `tests/`: Content validation checks
 
 ## Development Commands
 
-To run the project locally (required for data loading):
+### Viewing the Published Site
+
+To view the published site locally:
 
 ```bash
-# Start local development server
+# Start static file server
 ./scripts/serve.sh
 
 # Or use Python directly
@@ -31,12 +48,41 @@ python3 -m http.server 8000
 
 Then open: http://localhost:8000
 
-**Note:** The project uses `fetch()` to load quest data from `data/quests.json`, which requires a web server (file:// protocol will not work).
+### Using the Quest Editor
+
+To edit quests, character traits, and publish:
+
+```bash
+# Start editor server (Flask with auto-save API)
+./scripts/editor.sh
+
+# Or manually
+python3 scripts/editor_server.py
+```
+
+Then open: http://localhost:5001/editor.html
+
+**Editor Features:**
+- Visual quest editor with forms for all fields
+- Drag-and-drop quest reordering
+- Character traits/curses editor
+- Auto-save (1-second debounce)
+- Publish button generates standalone `index.html`
+
+**Publishing Workflow:**
+1. Make changes in editor at http://localhost:5001/editor.html
+2. Click **🚀 Publish** button
+3. `index.html` is generated with embedded data
+4. Deploy `index.html` to static hosting (works without backend)
+
+**Architecture:**
+- `editor.html` loads data from Flask API (`/api/quests`, `/api/character`)
+- Changes auto-save back to `data/*.json` files
+- Publishing injects data into `index.template.html` → `index.html`
+- Published `index.html` is standalone (no fetch, no backend needed)
 
 ### Planned Commands
 
-When implemented, the following commands are planned:
-- `make build` or `scripts/build.sh`: Generate static site or exportable bundle
 - `make check` or `scripts/check.sh`: Run all content checks (lint, links, spelling)
 
 ## Content Guidelines
