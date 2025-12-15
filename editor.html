@@ -170,7 +170,8 @@
       .quest-card-controls {
         position: absolute;
         top: 0.5rem;
-        right: 0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
         display: flex;
         gap: 0.25rem;
         z-index: 10;
@@ -788,6 +789,15 @@
     <!-- Editor Mode Badge -->
     <div class="editor-mode-badge">✏️ EDITOR MODE</div>
 
+    <!-- Quest File Selector -->
+    <div class="quest-file-selector" style="position: fixed; top: 60px; left: 10px; background: rgba(60, 44, 30, 0.95); border: 2px solid var(--border-rpg); border-radius: 6px; padding: 0.5rem 1rem; font-size: 0.75rem; z-index: 9999; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);">
+      <label style="color: var(--gold-rpg); font-family: var(--font-pixel); font-size: 0.7rem;">Quest File:</label>
+      <select id="questFileSelector" onchange="loadQuestFile()" style="background: rgba(139, 69, 19, 0.5); border: 1px solid var(--border-rpg); border-radius: 4px; padding: 0.25rem 0.5rem; color: var(--text-primary); font-size: 0.75rem; cursor: pointer;">
+        <option value="quests.json">quests.json (default)</option>
+      </select>
+      <button onclick="refreshQuestFileList()" style="background: transparent; border: 1px solid var(--border-rpg); color: var(--gold-rpg); border-radius: 4px; padding: 0.25rem 0.5rem; font-size: 0.75rem; cursor: pointer;" title="Refresh file list">🔄</button>
+    </div>
+
     <!-- Save Status Indicator -->
     <div class="save-status" id="saveStatus">
       <span class="save-icon">💾</span>
@@ -865,16 +875,25 @@
       class EditorAPI {
         constructor(baseUrl = 'http://localhost:5001') {
           this.baseUrl = baseUrl;
+          this.currentQuestFile = 'quests.json';
         }
 
-        async getQuests() {
-          const response = await fetch(`${this.baseUrl}/api/quests`);
+        async getQuestFiles() {
+          const response = await fetch(`${this.baseUrl}/api/quest-files`);
+          if (!response.ok) throw new Error('Failed to load quest files');
+          return response.json();
+        }
+
+        async getQuests(questFile = null) {
+          const file = questFile || this.currentQuestFile;
+          const response = await fetch(`${this.baseUrl}/api/quests?file=${encodeURIComponent(file)}`);
           if (!response.ok) throw new Error('Failed to load quests');
           return response.json();
         }
 
-        async saveQuests(quests) {
-          const response = await fetch(`${this.baseUrl}/api/quests`, {
+        async saveQuests(quests, questFile = null) {
+          const file = questFile || this.currentQuestFile;
+          const response = await fetch(`${this.baseUrl}/api/quests?file=${encodeURIComponent(file)}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(quests)
@@ -973,11 +992,64 @@
       }
 
       // ==========================================
+      // QUEST FILE MANAGEMENT
+      // ==========================================
+
+      async function refreshQuestFileList() {
+        try {
+          const files = await api.getQuestFiles();
+          const selector = document.getElementById('questFileSelector');
+          const currentValue = selector.value;
+
+          // Populate selector
+          selector.innerHTML = files.map(file =>
+            `<option value="${file}" ${file === currentValue ? 'selected' : ''}>${file}${file === 'quests.json' ? ' (default)' : ''}</option>`
+          ).join('');
+
+          console.log('✅ Quest file list refreshed');
+        } catch (error) {
+          console.error('Failed to refresh quest file list:', error);
+        }
+      }
+
+      async function loadQuestFile() {
+        const selector = document.getElementById('questFileSelector');
+        const selectedFile = selector.value;
+
+        if (!selectedFile) return;
+
+        try {
+          updateSaveStatus('saving');
+          api.currentQuestFile = selectedFile;
+
+          // Load quests from selected file
+          quests = await api.getQuests(selectedFile);
+
+          // Re-render everything
+          calculateAndRenderStats();
+          renderQuestGrid();
+          initDragAndDrop();
+
+          updateSaveStatus('saved');
+          setTimeout(() => updateSaveStatus('ready'), 1000);
+
+          console.log(`✅ Loaded quest file: ${selectedFile}`);
+        } catch (error) {
+          console.error('Failed to load quest file:', error);
+          alert(`Failed to load quest file: ${selectedFile}\n\n${error.message}`);
+          updateSaveStatus('error');
+        }
+      }
+
+      // ==========================================
       // INITIALIZATION
       // ==========================================
 
       async function init() {
         try {
+          // Load quest file list
+          await refreshQuestFileList();
+
           // Load data from API
           quests = await api.getQuests();
           characterData = await api.getCharacter();
@@ -1474,6 +1546,8 @@
       document.addEventListener('DOMContentLoaded', init);
 
       // Make functions globally available
+      window.refreshQuestFileList = refreshQuestFileList;
+      window.loadQuestFile = loadQuestFile;
       window.openCharacterEditor = openCharacterEditor;
       window.addCharacterItem = addCharacterItem;
       window.removeCharacterItem = removeCharacterItem;
