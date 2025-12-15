@@ -1188,6 +1188,7 @@
         const card = document.createElement('div');
         card.className = 'quest-card';
         card.setAttribute('data-quest-id', quest.id);
+        card.onclick = () => openQuestEditModal(quest.id);
 
         const badgeText = quest.questType === 'main' ? '⚔️ Main' : '🗡️ Side';
         const badgeClass = `quest-badge-${quest.questType}`;
@@ -1195,7 +1196,6 @@
         card.innerHTML = `
           <div class="quest-card-controls">
             <button class="editor-btn editor-btn-drag" title="Drag to reorder">⋮⋮</button>
-            <button class="editor-btn editor-btn-edit" onclick="event.stopPropagation(); openQuestEditModal(${quest.id})" title="Edit">✏️</button>
             <button class="editor-btn editor-btn-delete" onclick="event.stopPropagation(); deleteQuest(${quest.id})" title="Delete">🗑️</button>
           </div>
           <div class="quest-card-header">
